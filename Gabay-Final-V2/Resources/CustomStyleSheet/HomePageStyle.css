@@ -1,0 +1,138 @@
+﻿/*This is for the top header*/
+header {
+    position: fixed !important;
+    height: 80px !important;
+    width: 100vw;
+}
+.logoUC {
+    width: 80px;
+    height: auto;
+}
+.gBrand {
+    font-size: 25px !important;
+    justify-content: space-between !important;
+}
+.gBrand p {
+        margin-left: 8px;
+        letter-spacing: 1px;
+}
+.logout-profileBtn {
+    background-color: #003366 !important;
+    color: white !important;
+    width: 90px;
+    border-radius:10px !important;
+}
+.logout-profileBtn:hover{
+    background-color: white !important;
+    color: #003366 !important;
+    border-style: solid !important;
+    border-color:#003366 !important;
+}
+/*This is for the top nav items*/
+.topnav-item {
+    padding: 5px;
+    display: flex;
+    color: #003366;
+    text-decoration: none;
+}
+.topnav-item:hover, .topnav-item span:hover {
+    background: #003366;
+    color: white;
+}
+.topnav-item i {
+    font-size: 25px;
+    text-align: right;
+}
+.topnav-item span {
+    width: 100%; /*<--Adjust icons in sidebar*/
+    font-size: 15px;
+    font-weight:bold;
+    text-align: left;
+    margin-left: 15px;
+    letter-spacing: 0.5px;
+}
+/*This is for the content*/
+/*.wrapper {
+    height: calc(100% - 80px);
+}*/
+.content-container {
+    background-color: #ffffff;
+    margin-left: 80px !important;
+    min-height: 550px;
+    overflow-x: hidden;
+    margin-top: 80px;
+    width: calc(100% - 80px);
+    height: calc(100% - 80px);
+}
+@media screen and (max-width: 995px) {
+    .content-container {
+        margin-left: 0 !important;
+        width:100%;
+    }
+}
+/*This is for the side nav */
+.sideBar {
+    height:100vh;
+    min-height: 650px !important;
+    position: fixed;
+    width: 80px !important;
+    top: 80px;
+    left: 0;
+    overflow: hidden;
+    transition: 0.3s;
+    z-index: 2;
+}
+.sideBar:hover {
+    width: 280px !important;
+    overflow: visible;
+}
+/*This is for side nav links*/
+.navLinks {
+    width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: none;
+    color: #003366;
+}
+.navLinks:hover {
+    background: #003366;
+    color: white;
+}
+.navLinks i {
+    font-size: 25px;
+    text-align: center;
+}
+.navLinks p {
+    width: 160px; /*<--Adjust icons in sidebar*/
+    font-size: 14px;
+    font-weight:bold;
+    text-align: left;
+    letter-spacing: 0.5px;
+}
+/*This is for the profile*/
+.profile {
+    width: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-decoration: none;
+    color: #003366;
+}
+.profile:hover {
+    background: #003366;
+    color: white;
+}
+.profile-Icon {
+    font-size: 50px;
+    text-align: right;
+}
+.profile p {
+    width: 165px; /*<--Adjust icons in sidebar*/
+    font-size: 15px;
+    font-weight:bolder;
+    text-align: left;
+    letter-spacing: 0.5px;
+}
+
+

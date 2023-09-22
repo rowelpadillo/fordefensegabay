@@ -1,0 +1,119 @@
+﻿* {
+    box-sizing: border-box;
+}
+/*This is for the custom side background*/
+body {
+    height: 100vh;
+    min-height: 600px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+
+    background-image: url('../images/ucbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.custom-bg {
+    background-image: url('../images/model.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.custom-bg1 {
+    background-image: url('../images/uc-student-model.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.custom-bg2 {
+    background-image: url('../images/2022-01-30.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.custom-bg3 {
+    background-image: url('../images/uc-student-model-1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.custom-bg4 {
+    background-image: url('../images/man1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+/*This is for the top part of the login form*/
+.logo-size {
+    width: 180px;
+    height: auto;
+    justify-content: center;
+}
+
+.logo-size1 {
+    width: 100px;
+    height: auto;
+    justify-content: center;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.left-line,
+.right-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: grey;
+}
+
+.divider-text {
+    margin: 0 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.custom-color {
+    background-color: #003366 !important;
+    color: white !important;
+}
+.lgn_btn {
+    background-color: #003366 !important;
+    color: white !important;
+}
+.lgn_btn:hover{
+    background-color: white !important;
+    color: #003366 !important;
+    border: 1px solid !important;
+}
+.custom-text {
+    color: #003366 !important;
+}
+
+.backButton {
+    color: #003366;
+}
+.backButton:hover {
+    color:grey;
+}
+
+.container {
+    width: 750px !important;
+}
+
+@media (max-width:2560px) {
+    .container {
+        width: 850px !important;
+    }
+}

@@ -1,0 +1,172 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin_Master.master.cs" Inherits="Gabay_Final_V2.Views.DashBoard.Admin_Homepage.Admin_Master" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link href="../../../Resources/CustomStyleSheet/DefaultStyle.css" rel="stylesheet" />
+    <link href="../../../Resources/CustomStyleSheet/HomePageStyle.css" rel="stylesheet" />
+    <script src="../../../Bootstrap/Scripts/bootstrap.bundle.js"></script>
+    <link href="../../../Bootstrap/Content/bootstrap.css" rel="stylesheet" />
+    <script src="../../../FontAwesome/js/all.js"></script>
+    <link href="../../../FontAwesome/css/all.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="adminMaster" class="adminMaster" runat="server">
+         <%--TOP NAV--%>
+        <header class="shadow sticky-top">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary z-1">
+                <div class="container-fluid bg-white">
+                    <asp:HyperLink ID="GabayLogo" runat="server" CssClass="navbar-brand gBrand d-flex">
+                    <img src="../../../../Resources/Images/UC-LOGO.png" class="logoUC"/>
+                    <p class="mt-2">GABAY</p>
+                    </asp:HyperLink>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse mt-4" id="navbarNav">
+                        <ul class="navbar-nav d-lg-none">
+                            <li class="nav-item p-1">
+                                <asp:HyperLink ID="dashboard" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/DashBoard/Admin_Homepage/Admin_DashBoard.aspx">
+                              <i class="bi bi-speedometer"></i>
+                              <span class="mt-2">Dashboard</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:HyperLink ID="manageDep" runat="server" CssClass="topnav-item text-center custom-text-color">
+                              <i class="bi bi-building-fill-add"></i>
+                              <span class="mt-2">Manage Department</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:HyperLink ID="manageUser" runat="server" CssClass="topnav-item text-center custom-text-color">
+                              <i class="bi bi-building-fill-add"></i>
+                              <span class="mt-2">Manage Users</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:HyperLink ID="wayFinding" runat="server" CssClass="topnav-item text-cente custom-text-color">
+                              <i class="bi bi-map-fill me-2"></i>
+                              <span class="mt-2">Way Finding</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:HyperLink ID="chatbot" runat="server" CssClass="topnav-item text-cente custom-text-color" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_Chatbot.aspx">
+                              <i class="bi bi-chat-left-dots-fill me-2"></i>
+                              <span class="mt-2">Mange Chatbot</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:HyperLink ID="campusInfo" runat="server" CssClass="topnav-item text-cente custom-text-color">
+                              <i class="bi bi-info-square-fill me-2"></i>
+                              <span class="mt-2">Campus Information</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:HyperLink ID="campCalendar" runat="server" CssClass="topnav-item text-cente custom-text-color" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_AcadCalen.aspx">
+                              <i class="bi bi-calendar-check-fill me-2"></i>
+                              <span class="mt-2">Manage Academic Calendar</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:HyperLink ID="faq" runat="server" CssClass="topnav-item text-cente custom-text-color">
+                              <i class="bi bi-question-square-fill me-2"></i>
+                              <span class="mt-2">FAQ</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:LinkButton ID="profLink" runat="server" CssClass="topnav-item text-cente custom-text-color">
+                                <i class="bi bi-person-circle"></i>
+                                <span class="mt-2">Profile</span>
+                                </asp:LinkButton>
+                            </li>
+                            <li class="nav-item p-1">
+                                <asp:LinkButton ID="logoutLink" runat="server" CssClass="topnav-item text-center custom-text-color" OnClick="logoutLink_Click">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span class="mt-2">Log out</span>
+                                </asp:LinkButton>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="d-none d-lg-block" id="lgout-prfl_btn">
+                        <asp:Button ID="profileBtn" runat="server" CssClass="btn logout-profileBtn" Text="Profile" UseSubmitBehavior="false" />
+                        <asp:Button ID="logoutBtn" runat="server" CssClass="btn logout-profileBtn" Text="Logout" UseSubmitBehavior="false" OnClick="logoutBtn_Click" />
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="wrapper d-flex vh-100">
+             <%--SIDE NAV--%>
+            <div class="sideBar bg-body-tertiary d-none d-lg-block">
+                <ul class="nav flex-column mt-3">
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavProf" runat="server" CssClass="profile">
+                            <i class="bi bi-person-circle profile-Icon"></i>
+                            <p>
+                                <asp:Label ID="lblDept_name" runat="server" Text="Label" CssClas="profileLabel text-center"></asp:Label>
+                            </p>
+                        </asp:HyperLink>
+                    </li>
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavDB" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/DashBoard/Admin_Homepage/Admin_DashBoard.aspx">
+                            <i class="bi bi-speedometer"></i>
+                            <p class="mt-4">Dashboard</p>
+                        </asp:HyperLink>
+                    </li>
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavDept" runat="server" CssClass="navLinks text-center">
+                            <i class="bi bi-building-fill-add"></i>
+                            <p class="mt-4">Manage Department</p>
+                        </asp:HyperLink>
+                    </li>
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavPend" runat="server" CssClass="navLinks text-center">
+                            <i class="bi bi-people-fill fs-4 me-3"></i>
+                            <p class="mt-4">Manage Users</p>
+                        </asp:HyperLink>
+                    </li>
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavWF" runat="server" CssClass="navLinks text-center">
+                            <i class="bi bi-map-fill fs-4 me-3"></i>
+                            <p class="mt-4">Manage Way Finding</p>
+                        </asp:HyperLink>
+                    </li>
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavCB" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_Chatbot.aspx">
+                            <i class="bi bi-kanban-fill"></i>
+                            <p class="mt-4">Manage Chatbot</p>
+                        </asp:HyperLink>
+                    </li>
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavCI" runat="server" CssClass="navLinks text-center">
+                            <i class="bi bi-info-square-fill fs-4 me-3"></i>
+                            <p class="mt-4">Campus Information</p>
+                        </asp:HyperLink>
+                    </li>
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavCC" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_AcadCalen.aspx">
+                            <i class="bi bi-calendar-check-fill fs-4 me-3"></i>
+                            <p class="mt-4">Manage Academic Calendar</p>
+                        </asp:HyperLink>
+                    </li>
+                    <li class="nav-item ">
+                        <asp:HyperLink ID="sideNavFAQ" runat="server" CssClass="navLinks text-center">
+                            <i class="bi bi-question-square-fill fs-4 me-3"></i>
+                            <p class="mt-4">FAQ</p>
+                        </asp:HyperLink>
+                    </li>
+                </ul>
+            </div>
+            <%-- CONTENT PAGE--%>
+            <div class="content-container p-3">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
