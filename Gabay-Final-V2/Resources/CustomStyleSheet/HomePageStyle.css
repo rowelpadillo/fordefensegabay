@@ -73,7 +73,7 @@ header {
 /*This is for the side nav */
 .sideBar {
     height:100vh;
-    min-height: 650px !important;
+    min-height: 700px !important;
     position: fixed;
     width: 80px !important;
     top: 80px;

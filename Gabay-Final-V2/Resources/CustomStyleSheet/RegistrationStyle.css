@@ -1,0 +1,64 @@
+﻿body {
+    background-image: url('../images/ucbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+select {
+    height: 10px;
+    overflow-y: scroll;
+}
+.custom-bg3 {
+    background-image: url('../images/ucbg.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.box {
+    align-items: center;
+    background-color: #ffff;
+    padding: 1.5rem;
+    border-radius: 5px;
+    width: 450px;
+    min-width: 320px;
+    display: block;
+}
+.header {
+    font-size: 20px;
+    font-weight: 600;
+    color: #8e8e8e;
+}
+.logo-size1 {
+    width: 100px;
+    height: auto;
+    justify-content: center;
+}
+.logo {
+    width: 150px;
+    height: auto;
+}
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+.left-line,
+.right-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: grey;
+}
+.divider-text {
+    margin: 0 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.regBtn {
+    background-color: #003366 !important;
+    color: white !important;
+}
+.regBtn:hover {
+    background-color: #0059b2 !important;
+}

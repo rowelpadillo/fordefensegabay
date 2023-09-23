@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace Gabay_Final_V2.Models
 {
@@ -316,7 +318,9 @@ namespace Gabay_Final_V2.Models
                 string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email
                                             FROM student s
                                             INNER JOIN department d ON s.department_ID = d.ID_dept
-                                            WHERE d.user_ID = @userID";
+                                            INNER JOIN users_table u ON s.user_ID = u.user_ID
+                                            WHERE d.user_ID = @userID 
+                                            AND u.status = 'pending'";
                 using (SqlCommand cmd = new SqlCommand(queryFetchStudent, conn))
                 {
                     cmd.Parameters.AddWithValue("@userID", userID);
@@ -328,6 +332,76 @@ namespace Gabay_Final_V2.Models
                 }
             }
             return studentTable;
+        }
+        ///-------------------------------Emai and Update process for students-------------------------------//
+        public void updateStudentStatus(string studentID)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+
+                string updateQuery = "UPDATE users_table SET status = 'activated' WHERE login_ID = @studentID";
+
+                using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@studentID", studentID);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public Tuple<string, string> getStudEmailInfo(string studentID)
+        {
+            string studEmail = "";
+            string studeName = "";
+
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+                string queryStudEmail = "SELECT email, name FROM student WHERE studentID = @student_ID";
+
+                using (SqlCommand cmd = new SqlCommand(queryStudEmail, conn))
+                {
+                    cmd.Parameters.AddWithValue("@student_ID", studentID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        studEmail = reader["email"].ToString();
+                        studeName = reader["name"].ToString();
+                    }
+                }
+            }
+            Tuple<string, string> result = new Tuple<string, string>(studEmail, studeName);
+            return result;
+        }
+        public void emailApprovedAccount(string studentEmail, string studentName)
+        {
+            string emailSubject = "Account Verified";
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("UC Gabay", "noreply@gmail.com"));
+            message.To.Add(new MailboxAddress(studentName, studentEmail));
+            message.Subject = emailSubject;
+
+            var builder = new BodyBuilder();
+            builder.HtmlBody = @"<p>Dear "+studentName+"," +
+                "Your account has been verified and activated.</p> <p>Follo the link here <a href='https://localhost:44341/Views/LoginPages/Student_login.aspx'>Gabay Login</a> to login your account";
+
+            message.Body = builder.ToMessageBody();
+
+            try
+            {
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate(ConfigurationManager.AppSettings["SystemEmail"], ConfigurationManager.AppSettings["SystemEmailPass"]);
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending error: " + ex.Message);
+            }
+
         }
 
     }

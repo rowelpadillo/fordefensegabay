@@ -24,6 +24,15 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
 
         /// <summary>
+        /// departmentMaster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm departmentMaster;
+
+        /// <summary>
         /// GabayLogo control.
         /// </summary>
         /// <remarks>
@@ -42,13 +51,13 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
         protected global::System.Web.UI.WebControls.HyperLink dashboard;
 
         /// <summary>
-        /// manageDep control.
+        /// pndngStds control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink manageDep;
+        protected global::System.Web.UI.WebControls.HyperLink pndngStds;
 
         /// <summary>
         /// wayFinding control.
@@ -96,22 +105,22 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
         protected global::System.Web.UI.WebControls.HyperLink faq;
 
         /// <summary>
-        /// HyperLink4 control.
+        /// prflBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink4;
+        protected global::System.Web.UI.WebControls.LinkButton prflBtn;
 
         /// <summary>
-        /// HyperLink5 control.
+        /// LinkButton1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink5;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
         /// profileBtn control.
@@ -120,7 +129,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink profileBtn;
+        protected global::System.Web.UI.WebControls.Button profileBtn;
 
         /// <summary>
         /// logoutBtn control.
@@ -129,7 +138,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink logoutBtn;
+        protected global::System.Web.UI.WebControls.Button logoutBtn;
 
         /// <summary>
         /// sideNavProf control.
@@ -157,15 +166,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink sideNavDB;
-
-        /// <summary>
-        /// sideNavDept control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavDept;
 
         /// <summary>
         /// sideNavPend control.
@@ -220,15 +220,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink sideNavFAQ;
-
-        /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
         /// ContentPlaceHolder1 control.

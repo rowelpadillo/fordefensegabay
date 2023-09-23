@@ -1,0 +1,29 @@
+﻿body {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Ensure body covers the entire viewport height */
+    margin: 0;
+    background-image: url('../images/ucbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.content-container {
+    margin: auto;
+    text-align: center;
+    padding: 20px;
+}
+.gBck-Btn {
+    background-color: #003366;
+    color: white;
+}
+.gBck-Btn:hover {
+    background-color: #0059b2;
+    color:white;
+}
+.imgID {
+    height: 350px;
+    width: auto;
+    filter: brightness(0);
+}

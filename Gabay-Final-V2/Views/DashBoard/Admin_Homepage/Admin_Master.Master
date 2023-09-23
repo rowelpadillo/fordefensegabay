@@ -137,7 +137,7 @@
                     </li>
                     <li class="nav-item ">
                         <asp:HyperLink ID="sideNavCB" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_Chatbot.aspx">
-                            <i class="bi bi-kanban-fill"></i>
+                            <i class="bi bi-kanban-fill fs-4 me-3""></i>
                             <p class="mt-4">Manage Chatbot</p>
                         </asp:HyperLink>
                     </li>

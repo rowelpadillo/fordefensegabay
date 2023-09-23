@@ -67,7 +67,7 @@
                     </div>
                 </form>
                 <p class="d-flex justify-content-between">
-                    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="text-decoration-none custom-text">Don't have an Account?</asp:HyperLink>
+                    <asp:HyperLink ID="HyperLink1" runat="server" CssClass="text-decoration-none custom-text" NavigateUrl="~/Views/RegistrationPages/Student_Reg.aspx">Don't have an Account?</asp:HyperLink>
                     <a class="text-decoration-none custom-text">Forgot Password?</a>
                 </p>
             </div>
