@@ -113,6 +113,7 @@
     <Content Include="Bootstrap\Content\bootstrap.min.css" />
     <Content Include="Bootstrap\Content\bootstrap.rtl.css" />
     <Content Include="Bootstrap\Content\bootstrap.rtl.min.css" />
+    <Content Include="Landing_Page\LandingPage.aspx" />
     <Content Include="Prototype\WebForm1.aspx" />
     <Content Include="Resources\CustomJS\Chatbot\AppointmentJS.js" />
     <Content Include="Resources\CustomJS\Chatbot\ChatbotJS.js" />
@@ -2190,6 +2191,7 @@
     <Content Include="Resources\CustomStyleSheet\Appointment\AppointmentStyle.css" />
     <Content Include="Resources\CustomStyleSheet\Chatbot\ChatbotStyle.css" />
     <Content Include="Resources\CustomStyleSheet\Chatbot\ManageChatbotStyle.css" />
+    <Content Include="Resources\CustomStyleSheet\Landing_Page\LandingPageStyle.css" />
     <Content Include="Resources\CustomStyleSheet\PendingPageStyle.css" />
     <Content Include="Resources\CustomStyleSheet\RegistrationStyle.css" />
     <Content Include="Resources\CustomStyleSheet\Test.css" />
@@ -2233,6 +2235,8 @@
     <Content Include="Resources\Images\identification-card.png" />
     <Content Include="Resources\Images\main figure.png" />
     <Content Include="Resources\Images\man1.jpg" />
+    <Content Include="Resources\Images\model-flip.png" />
+    <Content Include="Resources\Images\model-flip1.png" />
     <Content Include="Resources\Images\model.png" />
     <Content Include="Resources\Images\networking.png" />
     <Content Include="Resources\Images\pexels-startup-stock-photos-7096.jpg" />
@@ -2269,6 +2273,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Landing_Page\LandingPage.aspx.cs">
+      <DependentUpon>LandingPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Landing_Page\LandingPage.aspx.designer.cs">
+      <DependentUpon>LandingPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Models\AcadCalen_model.cs" />
     <Compile Include="Models\Appointment_model.cs" />
     <Compile Include="Models\Chatbot_model.cs" />
