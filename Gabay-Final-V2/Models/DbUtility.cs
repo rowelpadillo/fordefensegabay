@@ -403,6 +403,32 @@ namespace Gabay_Final_V2.Models
             }
 
         }
+        public void BindStudentData(int userdID, string searchQuery)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                string querySearchStudents = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email
+                                       FROM student s
+                                       INNER JOIN department d ON s.department_ID = d.ID_dept
+                                       INNER JOIN users_table u ON s.user_ID = u.user_ID
+                                       WHERE d.user_ID = @userID 
+                                       AND u.status = 'pending'
+                                       AND (s.studentID LIKE @searchQuery OR s.name LIKE @searchCriteria)";
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(querySearchStudents, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userID", userdID);
+                    cmd.Parameters.AddWithValue("@searchQuery", "%" + searchQuery + "%");
 
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    {
+                        DataTable studentTable = new DataTable();
+                        adapter.Fill(studentTable);
+                    }
+                }
+
+
+            }
+        }
     }
 }

@@ -16,7 +16,8 @@
     <script src="../FontAwesome/js/all.js"></script>
 </head>
 <body>
-    <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary">
+    <%-- Top Header --%>
+    <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="nav">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Gabay</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +34,7 @@
             
         </div>
     </nav>
+    <%-- Modal for login options --%>
     <div class="modal fade" id="loginSelection" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -85,6 +87,7 @@
             </div>
         </div>
     </div>
+    <%-- Home Section --%>
     <section id="homeSection"> 
         <div class="container-fluid homeSection">
             <div class="row h-100" >
@@ -100,19 +103,94 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-7">
+                <div class="col-7 d-none d-md-block">
                 </div>
             </div>
         </div>
     </section>
-    <section  id="featureSection">
+    <%-- Feature Section --%>
+    <section  id="featureSection" class="featureSection">
         <div class="container-fluid featSection"">
             <div class="row">
-                <div class="col-12 featHeader">
-                    <span>FEATURES</span>
+                <div class="col-12 mt-3 featHeader">
+                    <span class="fw-semibold">Features</span>
                 </div>
-                
             </div>
+            <div class="row align-items-center g-2">
+                <div class="col-md-8 col-sm-12">
+                    <div class="card d-md-flex">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-around">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <%--<img src="../Resources/Images/model.png" class="customImg rounded float-start d-none d-lg-block m-0" />--%>
+                                    <img src="../Resources/Images/tempIcons/cutomModel.jpg" class="customImg rounded float-start d-none d-lg-block m-0"/>
+                                </div>
+                                <div class="mainFeat text-md-center">
+                                    <span class="fs-1 fw-semibold">Disseminate Information</span>
+                                    <p class="mt-3">
+                                        Enhancing the communication infrastructure to facilitate faster and more 
+                                    efficient information dissemination is crucial for the benefit of all 
+                                    stakeholders involved in campus activities. One pivotal component of 
+                                    this upgraded system is the inclusion of an information section that
+                                    serves as a central hub for all essential news and events occurring 
+                                    on the campus.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card d-md-flex">
+                        <div class="card-body d-block">
+                           <div class="header">
+                               <h5 class="card-title fs-3 fw-semibold text-center">Appointment Booking</h5>
+                           </div>
+                            <div class="iconsTemp">
+                                <img src="../Resources/Images/tempIcons/schedule.png" class="tempIcons"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+           <%-- <div class="row align-items-center p-3 g-4">
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title fs-3 fw-semibold text-center">Appointment Booking</h5>
+                            <div class="d-flex justify-content-center">
+                                <img src="../Resources/Images/tempIcons/schedule.png" class="tempIcons"/>
+                            </div>
+                            <p class="card-text mt-4">Allowing appointment scheduling for concerned departments and colleges.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title fs-3 fw-semibold text-center">Chatbot</h5>
+                            <div class="d-flex justify-content-center">
+                                <img src="../Resources/Images/tempIcons/chat.png" class="tempIcons"/>
+                            </div>
+                            <p class="card-text mt-4">A simple chatbot for 24/7 university related queries.</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title fs-3 fw-semibold text-center">Wayfinding</h5>
+                            <div class="d-flex justify-content-center">
+                                <img src="../Resources/Images/tempIcons/route.png" class="tempIcons"/>
+                            </div>
+                            <p class="card-text mt-4">An easy-to-read maps and clear directions using a wayfinding system.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>--%>
+
         </div>
     </section>
 </body>

@@ -36,3 +36,11 @@
 .dwnldLnk i {
     font-size: 25px;
 }
+.uploaded_container{
+    max-height: 400px;
+    overflow: auto;
+}
+.fileTable {
+    text-align: center;
+    vertical-align: middle;
+}

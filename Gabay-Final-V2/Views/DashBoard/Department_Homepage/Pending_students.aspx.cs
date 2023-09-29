@@ -13,20 +13,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-                int userID = Convert.ToInt32(Session["user_ID"]);
-
-                DbUtility conn = new DbUtility();
-                DataTable dt = conn.displayPendingStudents(userID);
-
-                pending_table.DataSource = dt;
-                pending_table.DataBind();
-
-            if (Session["UpdateSuccess"] != null && (bool)Session["UpdateSuccess"])
-            {
-                // Display the success modal
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "successModalScript", "$('#successModal').modal('show');", true);
-            }
+            reBindPendingTable();
         }
 
         private void reBindPendingTable()
@@ -59,13 +46,13 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
                 conn.updateStudentStatus(studentID);
                 reBindPendingTable();
                
-                Session["UpdateSuccess"] = true;
+                //Session["UpdateSuccess"] = true;
 
 
-                if (!string.IsNullOrEmpty(studentEmail))
-                {
-                    conn.emailApprovedAccount(studentEmail, studentName);
-                }
+                //if (!string.IsNullOrEmpty(studentEmail))
+                //{
+                //    conn.emailApprovedAccount(studentEmail, studentName);
+                //}
             }
             catch (Exception ex)
             { 
@@ -74,5 +61,13 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
 
             }
         }
+
+        protected void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            string SearchText = txtSearch.Text;
+            int userID = Convert.ToInt32(Session["user_ID"]);
+        }
+
+       
     }
 }

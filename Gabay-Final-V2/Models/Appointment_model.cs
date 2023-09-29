@@ -11,6 +11,11 @@ namespace Gabay_Final_V2.Models
         //connection string
         private string connStr = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
 
+        internal void uploadFile(string filename, byte[] fileData)
+        {
+            throw new NotImplementedException();
+        }
+
         //ari i butang ang mga mo handle sa database
     }
 }

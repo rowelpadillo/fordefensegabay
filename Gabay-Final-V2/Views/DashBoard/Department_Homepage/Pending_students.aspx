@@ -3,15 +3,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>Pending Student</h1>
+    <h1>Pending Student Registration</h1>
     <asp:Label ID="displayEmailLabel" runat="server" Text=""></asp:Label>
+    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control float-end mb-3" placeholder="Search student..." OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
     <asp:GridView ID="pending_table" runat="server" AutoGenerateColumns="False" CssClass="table" DataKeyNames="studentID">
         <Columns>
+            <asp:BoundField DataField="studentID" HeaderText="Student ID" />
             <asp:BoundField DataField="name" HeaderText="Name" />
             <asp:BoundField DataField="address" HeaderText="Address" />
             <asp:BoundField DataField="contactNumber" HeaderText="ContactNumber" />
             <asp:BoundField DataField="course_year" HeaderText="Course Year" />
-            <asp:BoundField DataField="studentID" HeaderText="Student ID" />
             <asp:BoundField DataField="email" HeaderText="Email" />
             <asp:TemplateField>
                 <ItemTemplate>

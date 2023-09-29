@@ -13,5 +13,10 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         {
 
         }
+
+        protected void SubmitButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
