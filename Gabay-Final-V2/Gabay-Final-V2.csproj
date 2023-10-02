@@ -118,6 +118,8 @@
     <Content Include="Prototype\WebForm1.aspx" />
     <Content Include="Prototype\WebForm2.aspx" />
     <Content Include="Prototype\ManageStudent.aspx" />
+    <Content Include="Prototype\WebForm4.aspx" />
+    <Content Include="Prototype\WebForm5.aspx" />
     <Content Include="Resources\CustomJS\AcadCalendar\AcadCalendarJS.js" />
     <Content Include="Resources\CustomJS\Chatbot\AppointmentJS.js" />
     <Content Include="Resources\CustomJS\Chatbot\ChatbotJS.js" />
@@ -2328,6 +2330,20 @@
     <Compile Include="Prototype\ManageStudent.aspx.designer.cs">
       <DependentUpon>ManageStudent.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Prototype\WebForm4.aspx.cs">
+      <DependentUpon>WebForm4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm4.aspx.designer.cs">
+      <DependentUpon>WebForm4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm5.aspx.cs">
+      <DependentUpon>WebForm5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm5.aspx.designer.cs">
+      <DependentUpon>WebForm5.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\DashBoard\Admin_Homepage\Admin_Master.Master.cs">
       <DependentUpon>Admin_Master.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2599,7 +2615,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Handlers\" />
     <Folder Include="Resources\CustomStyleSheet\NewFolder1\" />
     <Folder Include="Views\DashBoard\Guest_Homepage\" />
   </ItemGroup>

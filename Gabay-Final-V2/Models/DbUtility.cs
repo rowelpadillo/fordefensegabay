@@ -42,7 +42,6 @@ namespace Gabay_Final_V2.Models
                 conn.Close();
             }
         }
-
         //-------------------------------Login Logic for all users with login credentials-------------------------------//
         public bool loginLogic(string loginID, string loginPass, out int userID, out int roleID, out string loginStatus)
         {
@@ -79,7 +78,6 @@ namespace Gabay_Final_V2.Models
                 }
             }
         }
-
         //--------------------------------Fetch Session String for Department-------------------------------//
         public string FetchSessionStringDept(int userID)
         {
@@ -95,7 +93,6 @@ namespace Gabay_Final_V2.Models
                 }
             }
         }
-
         //-------------------------------Fetch Session String for Student-------------------------------//
         public string FetchSessionStringStud(int userID)
         {
@@ -111,7 +108,6 @@ namespace Gabay_Final_V2.Models
                 }
             }
         }
-
         //-------------------------------Fetch Session String for Admin-------------------------------//
         public string FetchSessionStringAdmin(int userID)
         {
@@ -127,7 +123,6 @@ namespace Gabay_Final_V2.Models
                 }
             }
         }
-
         //-------------------------------Insert Student in Database-------------------------------//
         public void addStudent(int deptID, string studName, string studAddress, string studCN, string studBOD, string studCY, string studID, string studPass, string studEmail)
         {
@@ -383,7 +378,7 @@ namespace Gabay_Final_V2.Models
 
             var builder = new BodyBuilder();
             builder.HtmlBody = @"<p>Dear "+studentName+"," +
-                "Your account has been verified and activated.</p> <p>Follo the link here <a href='https://localhost:44341/Views/LoginPages/Student_login.aspx'>Gabay Login</a> to login your account";
+                "Your account has been verified and activated.</p> <p>Follow the link here <a href='https://localhost:44341/Views/LoginPages/Student_login.aspx'>Gabay Login</a> to login your account";
 
             message.Body = builder.ToMessageBody();
 
@@ -403,32 +398,35 @@ namespace Gabay_Final_V2.Models
             }
 
         }
-        public void BindStudentData(int userdID, string searchQuery)
+        public DataTable searchStudents(int userID, string searchCriteria)
         {
+            DataTable studentTable = new DataTable();
+
             using (SqlConnection conn = new SqlConnection(connection))
             {
+                conn.Open();
+
                 string querySearchStudents = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email
                                        FROM student s
                                        INNER JOIN department d ON s.department_ID = d.ID_dept
                                        INNER JOIN users_table u ON s.user_ID = u.user_ID
                                        WHERE d.user_ID = @userID 
                                        AND u.status = 'pending'
-                                       AND (s.studentID LIKE @searchQuery OR s.name LIKE @searchCriteria)";
-                conn.Open();
+                                       AND (s.name LIKE @searchCriteria OR s.studentID LIKE @searchCriteria)";
+
                 using (SqlCommand cmd = new SqlCommand(querySearchStudents, conn))
                 {
-                    cmd.Parameters.AddWithValue("@userID", userdID);
-                    cmd.Parameters.AddWithValue("@searchQuery", "%" + searchQuery + "%");
+                    cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.Parameters.AddWithValue("@searchCriteria", "%" + searchCriteria + "%");
 
-                    using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        DataTable studentTable = new DataTable();
-                        adapter.Fill(studentTable);
+                        studentTable.Load(reader);
                     }
                 }
-
-
             }
+            return studentTable;
         }
+
     }
 }
