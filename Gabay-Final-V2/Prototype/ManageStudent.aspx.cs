@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -77,6 +77,26 @@ namespace Gabay_Final_V2.Prototype
             string SearchText = txtSearch.Text.Trim();
             BindStudentData(SearchText);
         }
+
+
+        // ApproveRecord
+
+        public void ApproveRecord(int personID)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                string query = "UPDATE example_data SET Status = 'Approved' WHERE ex_ID = @personID";
+
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@personID", personID);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
+
 
         public void BindStudentData(string searchQuery)
         {
