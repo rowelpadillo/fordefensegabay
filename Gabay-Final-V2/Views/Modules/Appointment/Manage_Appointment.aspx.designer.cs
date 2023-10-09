@@ -11,106 +11,106 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 {
 
 
-    public partial class Student_Appointment
+    public partial class Manage_Appointment
     {
 
         /// <summary>
-        /// FullName control.
+        /// ddlStatusFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox FullName;
+        protected global::System.Web.UI.WebControls.DropDownList ddlStatusFilter;
 
         /// <summary>
-        /// Email control.
+        /// yourTablePlaceholder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Email;
+        protected global::System.Web.UI.WebControls.PlaceHolder yourTablePlaceholder;
 
         /// <summary>
-        /// ContactN control.
+        /// toEmailTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ContactN;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText toEmailTextBox;
 
         /// <summary>
-        /// IdNumber control.
+        /// messagedate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox IdNumber;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl messagedate;
 
         /// <summary>
-        /// Year control.
+        /// messagetime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Year;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl messagetime;
 
         /// <summary>
-        /// time control.
+        /// messageTextArea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox time;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea messageTextArea;
 
         /// <summary>
-        /// selectedDateHidden control.
+        /// ReplyButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl selectedDateHidden;
+        protected global::System.Web.UI.WebControls.Button ReplyButton;
 
         /// <summary>
-        /// DepartmentDropDown control.
+        /// appointmentIdHiddenField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DepartmentDropDown;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden appointmentIdHiddenField;
 
         /// <summary>
-        /// Message control.
+        /// updateDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Message;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl updateDate;
 
         /// <summary>
-        /// SubmitButton control.
+        /// updateTime control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SubmitButton;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl updateTime;
 
         /// <summary>
-        /// FormSubmittedHiddenField control.
+        /// updateModalButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField FormSubmittedHiddenField;
+        protected global::System.Web.UI.WebControls.Button updateModalButton;
     }
 }

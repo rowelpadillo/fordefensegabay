@@ -64,6 +64,12 @@
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item p-1">
+                                <asp:HyperLink ID="manageAppnt" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/Modules/Appointment/Manage_Appointment.aspx">
+                                  <i class="bi bi-book me-2"></i>
+                                  <span class="mt-2">Manage Appointment</span>
+                                </asp:HyperLink>
+                            </li>
+                            <li class="nav-item p-1">
                                 <asp:HyperLink ID="campCalendar" runat="server" CssClass="topnav-item text-center custom-text-color">
                                   <i class="bi bi-calendar-check-fill me-2"></i>
                                   <span class="mt-2">Academic Calendar</span>
@@ -136,6 +142,12 @@
                         <asp:HyperLink ID="sideNavCI" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Campus_Info/Department_CampusInfo.aspx">
                             <i class="bi bi-info-square-fill fs-4 me-3"></i>
                             <p class="mt-4">Campus Information</p>
+                        </asp:HyperLink>
+                    </li>
+                     <li class="nav-item ">
+                        <asp:HyperLink ID="sideManageAppnt" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Appointment/Manage_Appointment.aspx">
+                            <i class="bi bi-book fs-4 me-3"></i>
+                            <p class="mt-4">Manage Appointment</p>
                         </asp:HyperLink>
                     </li>
                     <li class="nav-item ">
