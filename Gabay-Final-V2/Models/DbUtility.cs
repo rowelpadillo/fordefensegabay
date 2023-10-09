@@ -42,6 +42,34 @@ namespace Gabay_Final_V2.Models
                 conn.Close();
             }
         }
+        public void ddlCourse(DropDownList courseDDL, string selectedDeptID)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                string query = "SELECT courses FROM department WHERE ID_dept = @selectedDept";
+
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query,conn))
+                {
+                    cmd.Parameters.AddWithValue("@selectedDept", selectedDeptID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        string data = reader["courses"].ToString();
+                        string[] dataArray = data.Split(',');
+
+                        foreach (string item in dataArray)
+                        {
+                            courseDDL.Items.Add(new ListItem(item));
+                        }
+
+                        reader.Close();
+                    }
+                }
+                conn.Close();
+            }
+        }
         //-------------------------------Login Logic for all users with login credentials-------------------------------//
         public bool loginLogic(string loginID, string loginPass, out int userID, out int roleID, out string loginStatus)
         {
@@ -124,7 +152,7 @@ namespace Gabay_Final_V2.Models
             }
         }
         //-------------------------------Insert Student in Database-------------------------------//
-        public void addStudent(int deptID, string studName, string studAddress, string studCN, string studBOD, string studCY, string studID, string studPass, string studEmail)
+        public void addStudent(int deptID, string studName, string studAddress, string studCN, string studBOD,string course, string studCY, string studID, string studPass, string studEmail)
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
@@ -133,8 +161,8 @@ namespace Gabay_Final_V2.Models
                 string roleType = "student";
                 int roleID;
 
-                string query = @"INSERT INTO student (department_ID, name, address, contactNumber, DOB, course_year, studentID, stud_pass, email) " +
-                               "VALUES (@deptID, @studName, @studAddress, @studCN, @studBOD, @studCY, @studID, @studPass, @studEmail)";
+                string query = @"INSERT INTO student (department_ID, name, address, contactNumber, DOB, course, course_year, studentID, stud_pass, email) " +
+                               "VALUES (@deptID, @studName, @studAddress, @studCN, @studBOD, @course, @studCY, @studID, @studPass, @studEmail)";
 
                 string roleQuery = @"SELECT role_id FROM user_role WHERE role = @roleType";
 
@@ -193,6 +221,7 @@ namespace Gabay_Final_V2.Models
                     studCmd.Parameters.AddWithValue("@studAddress", studAddress);
                     studCmd.Parameters.AddWithValue("@studCN", studCN);
                     studCmd.Parameters.AddWithValue("@studBOD", studBOD);
+                    studCmd.Parameters.AddWithValue("@course", course);
                     studCmd.Parameters.AddWithValue("@studCY", studCY);
                     studCmd.Parameters.AddWithValue("@studID", studID);
                     studCmd.Parameters.AddWithValue("@studPass", studPass);
@@ -300,7 +329,6 @@ namespace Gabay_Final_V2.Models
                 conn.Close();
             }
         }
-
         //-------------------------------Display/Fetch Students with Pending Status in Department homepage-------------------------------//
         public DataTable displayPendingStudents(int userID)
         {

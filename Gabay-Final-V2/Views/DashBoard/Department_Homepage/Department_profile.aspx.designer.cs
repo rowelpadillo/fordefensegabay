@@ -11,223 +11,277 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
 {
 
 
-    public partial class Department_Master
+    public partial class Department_profile
     {
 
         /// <summary>
-        /// head control.
+        /// ScriptManager1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
-        /// departmentMaster control.
+        /// deptName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm departmentMaster;
+        protected global::System.Web.UI.WebControls.Label deptName;
 
         /// <summary>
-        /// GabayLogo control.
+        /// deptDesc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink GabayLogo;
+        protected global::System.Web.UI.WebControls.Label deptDesc;
 
         /// <summary>
-        /// dashboard control.
+        /// deptHead control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink dashboard;
+        protected global::System.Web.UI.WebControls.Label deptHead;
 
         /// <summary>
-        /// pndngStds control.
+        /// courses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink pndngStds;
+        protected global::System.Web.UI.WebControls.Label courses;
 
         /// <summary>
-        /// wayFinding control.
+        /// offHrs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink wayFinding;
+        protected global::System.Web.UI.WebControls.Label offHrs;
 
         /// <summary>
-        /// chatbot control.
+        /// conNum control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink chatbot;
+        protected global::System.Web.UI.WebControls.Label conNum;
 
         /// <summary>
-        /// campusInfo control.
+        /// emailbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink campusInfo;
+        protected global::System.Web.UI.WebControls.Label emailbx;
 
         /// <summary>
-        /// campCalendar control.
+        /// m_deptName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink campCalendar;
+        protected global::System.Web.UI.WebControls.Label m_deptName;
 
         /// <summary>
-        /// faq control.
+        /// UpdatePanel3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink faq;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
 
         /// <summary>
-        /// prflBtn control.
+        /// lgnIDBx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton prflBtn;
+        protected global::System.Web.UI.WebControls.TextBox lgnIDBx;
 
         /// <summary>
-        /// LinkButton1 control.
+        /// pssBx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
+        protected global::System.Web.UI.WebControls.TextBox pssBx;
 
         /// <summary>
-        /// profileBtn control.
+        /// updtBtnLgn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink profileBtn;
+        protected global::System.Web.UI.WebControls.Button updtBtnLgn;
 
         /// <summary>
-        /// logoutBtn control.
+        /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button logoutBtn;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
 
         /// <summary>
-        /// sideNavProf control.
+        /// deptDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavProf;
+        protected global::System.Web.UI.WebControls.TextBox deptDescription;
 
         /// <summary>
-        /// lblDept_name control.
+        /// deptNameBx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDept_name;
+        protected global::System.Web.UI.WebControls.TextBox deptNameBx;
 
         /// <summary>
-        /// sideNavDB control.
+        /// deptHeadBx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavDB;
+        protected global::System.Web.UI.WebControls.TextBox deptHeadBx;
 
         /// <summary>
-        /// sideNavPend control.
+        /// officeHour control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavPend;
+        protected global::System.Web.UI.WebControls.TextBox officeHour;
 
         /// <summary>
-        /// sideNavWF control.
+        /// updBtnDeptInfo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavWF;
+        protected global::System.Web.UI.WebControls.Button updBtnDeptInfo;
 
         /// <summary>
-        /// sideNavCB control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavCB;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
 
         /// <summary>
-        /// sideNavCI control.
+        /// CoursesAppended control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavCI;
+        protected global::System.Web.UI.WebControls.TextBox CoursesAppended;
 
         /// <summary>
-        /// sideNavCC control.
+        /// coursesInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavCC;
+        protected global::System.Web.UI.WebControls.TextBox coursesInput;
 
         /// <summary>
-        /// sideNavFAQ control.
+        /// noInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavFAQ;
+        protected global::System.Web.UI.WebControls.Label noInput;
 
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// AddBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.LinkButton AddBtn;
+
+        /// <summary>
+        /// RstBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton RstBtn;
+
+        /// <summary>
+        /// updBtnCoursesModal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button updBtnCoursesModal;
+
+        /// <summary>
+        /// UpdatePanel4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel4;
+
+        /// <summary>
+        /// contactNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox contactNumber;
+
+        /// <summary>
+        /// emailTxtBx control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox emailTxtBx;
+
+        /// <summary>
+        /// updtBtnContactInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button updtBtnContactInfo;
     }
 }

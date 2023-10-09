@@ -57,7 +57,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
             conn.emailApprovedAccount(StudEmail, StudName);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccessModal", "$('#successModal').modal('show');", true);
             reBindPendingTable();
-            Response.Redirect(Request.Url.AbsoluteUri);
+            
         }
     }
 }

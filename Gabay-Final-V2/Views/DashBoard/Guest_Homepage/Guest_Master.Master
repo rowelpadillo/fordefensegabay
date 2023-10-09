@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Department_Master.master.cs" Inherits="Gabay_Final_V2.Views.DashBoard.Department_Homepage.Department_Master" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Guest_Master.master.cs" Inherits="Gabay_Final_V2.Views.DashBoard.Guest_Homepage.Guest_Master" %>
 
 <!DOCTYPE html>
 
@@ -8,18 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="../../../Resources/CustomStyleSheet/DefaultStyle.css" rel="stylesheet" />
     <link href="../../../Resources/CustomStyleSheet/HomePageStyle.css" rel="stylesheet" />
-    <script src="../../../Bootstrap/Scripts/bootstrap.bundle.js"></script>
     <link href="../../../Bootstrap/Content/bootstrap.css" rel="stylesheet" />
-    <script src="../../../FontAwesome/js/all.js"></script>
-    <link href="../../../FontAwesome/css/all.css" rel="stylesheet" />
+    <script src="../../../Bootstrap/Scripts/bootstrap.bundle.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-    <script src="../../../Resources/CustomJS/OpenModal.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="departmentMaster" class="departmentMaster" runat="server">
+    <form id="guestMaster" class="guestMaster" runat="server">
          <%--TOP NAV--%>
         <header class="shadow sticky-top">
             <nav class="navbar navbar-expand-lg bg-body-tertiary z-1">

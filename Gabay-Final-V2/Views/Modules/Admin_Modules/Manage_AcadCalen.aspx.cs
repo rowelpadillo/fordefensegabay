@@ -36,7 +36,7 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "SuccessMessage", script);
 
                     string openModalScript = @"<script>$('#myModal').modal('show');</script>";
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenModal", openModalScript);
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "openModal", openModalScript);
                     clearInputs();
                     BindDt();
                 }
@@ -48,7 +48,7 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "SuccessMessage", script);
 
                 string openModalScript = @"<script>$('#myModal').modal('show');</script>";
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenModal", openModalScript);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "openModal", openModalScript);
                 clearInputs();
             }
             

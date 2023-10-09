@@ -30,6 +30,7 @@ namespace Gabay_Final_V2.Prototype
                 Label1.Text = "";
                 TextBox2.Text += textAppend + Environment.NewLine;
                 TextBox1.Text = string.Empty;
+                PopulateDropDownList();
             }
             
         }

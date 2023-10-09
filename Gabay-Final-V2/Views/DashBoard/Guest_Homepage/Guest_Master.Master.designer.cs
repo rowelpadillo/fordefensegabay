@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
+namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
 {
 
 
-    public partial class Department_Master
+    public partial class Guest_Master
     {
 
         /// <summary>
@@ -24,13 +24,13 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
 
         /// <summary>
-        /// departmentMaster control.
+        /// guestMaster control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm departmentMaster;
+        protected global::System.Web.UI.HtmlControls.HtmlForm guestMaster;
 
         /// <summary>
         /// GabayLogo control.
