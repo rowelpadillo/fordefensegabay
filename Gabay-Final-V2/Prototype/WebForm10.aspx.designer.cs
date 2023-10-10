@@ -7,30 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gabay_Final_V2.Views.LoginPages
+namespace Gabay_Final_V2.Prototype
 {
 
 
-    public partial class Guest_login
+    public partial class WebForm10
     {
-
-        /// <summary>
-        /// goBack control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink goBack;
-
-        /// <summary>
-        /// goBack1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink goBack1;
 
         /// <summary>
         /// form1 control.
@@ -42,30 +24,30 @@ namespace Gabay_Final_V2.Views.LoginPages
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// errorDiv control.
+        /// chatContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl errorDiv;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl chatContainer;
 
         /// <summary>
-        /// guestNameBx control.
+        /// txtUserInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox guestNameBx;
+        protected global::System.Web.UI.WebControls.TextBox txtUserInput;
 
         /// <summary>
-        /// gst_lgnBtn control.
+        /// btnSend control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button gst_lgnBtn;
+        protected global::System.Web.UI.WebControls.Button btnSend;
     }
 }

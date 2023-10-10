@@ -1,15 +1,78 @@
-﻿using System;
+﻿using Gabay_Final_V2.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
-namespace Gabay_Final_V2.Models
+namespace Gabay_Final_V2.Prototype
 {
-    public class Chatbot_model
+    public partial class WebForm10 : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            string greetingMessage = "Hi! How can I assist you today? " + "<br />" +
+                "<div class='button-container text-center'>" +
+                "<button class='btn predefined-button' onclick='buttonClick(\"enrollment\")'>Enrollment</button>" +
+                "<button class='btn predefined-button' onclick='buttonClick(\"tuition payment\")'>Tuition Payment</button>" +
+                "</div>";
+            AddBotMessage(greetingMessage);
+        }
+
+        private void AddBotMessage(string message)
+        {
+            string botMessageHtml = $"<div class=\"message-container bot-message\">{message}</div>";
+            chatContainer.InnerHtml += botMessageHtml;
+        }
+
+        private void AddUserMessage(string message)
+        {
+            string userMessageHtml = $"<div class=\"message-container user-message\">{message}</div>";
+            chatContainer.InnerHtml += userMessageHtml;
+        }
+
+        protected void btnSend_Click(object sender, EventArgs e)
+        {
+            string userInput = txtUserInput.Text;
+            AddUserMessage(userInput);
+            string lowerInput = userInput.ToLower();
+
+            if (userInput != "" || userInput == null)
+            {
+                // Handle predefined buttons/links
+                if (lowerInput == "enrollment")
+                {
+                    // User clicked the "Enroll" button
+                    AddBotMessage("To enroll in computer studies, please follow these steps: ...");
+                }
+                else if (lowerInput == "tuition payment")
+                {
+                    // User clicked the "Other Option" button
+                    AddBotMessage("To pay tuition fee just approach the guard to get payment form and after that fill up the form then you can proceed in the cashier.");
+                }
+                // Add more predefined button/link checks as needed
+
+                // If not a predefined button/link, use your chatbot logic
+                else if (lowerInput == "hi")
+                {
+                    AddBotMessage("Hello! what can I assist to you today?");
+                }
+                else if (lowerInput == "where")
+                {
+                    AddBotMessage("");
+                }
+                else
+                {
+                    string scriptColumn = Chatbot_model.FindMatchingScript(userInput);
+                    AddBotMessage(scriptColumn);
+                }
+                txtUserInput.Text = string.Empty;
+            }
+        }
         private static string conn = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
 
         public DataTable dt()
@@ -18,7 +81,7 @@ namespace Gabay_Final_V2.Models
 
             using (SqlConnection connection = new SqlConnection(conn))
             {
-                string query = "SELECT * FROM Chat_Response";
+                string query = "SELECT * FROM response";
 
                 SqlCommand cmd = new SqlCommand(query, connection);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -33,7 +96,7 @@ namespace Gabay_Final_V2.Models
         {
             using (SqlConnection connection = new SqlConnection(conn))
             {
-                string query = "INSERT INTO Chat_Response (response, keywords) VALUES (@response, @keywords)";
+                string query = "INSERT INTO response (response, keywords) VALUES (@response, @keywords)";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@response", scripts);
@@ -47,7 +110,7 @@ namespace Gabay_Final_V2.Models
         {
             using (SqlConnection connection = new SqlConnection(conn))
             {
-                string query = "UPDATE Chat_Response SET response = @Script, keywords = @Keywords WHERE res_ID = @ScriptId";
+                string query = "UPDATE response SET response = @Script, keywords = @Keywords WHERE res_ID = @ScriptId";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Script", updatedScript);
@@ -62,7 +125,7 @@ namespace Gabay_Final_V2.Models
         {
             using (SqlConnection connection = new SqlConnection(conn))
             {
-                string query = "DELETE FROM Chat_Response WHERE res_ID = @ScriptId";
+                string query = "DELETE FROM response WHERE res_ID = @ScriptId";
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@ScriptId", scriptID);

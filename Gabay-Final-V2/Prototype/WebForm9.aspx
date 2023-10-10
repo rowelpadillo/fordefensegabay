@@ -56,7 +56,7 @@
                                             <ul>
                                                 <li>
                                                     <div class="d-flex justify-content-center align-items-center">
-                                                        <span class="fs-5">
+                                                        <span>
                                                             <%# Eval("DepartmentDescription") %>
                                                         </span>
                                                     </div>

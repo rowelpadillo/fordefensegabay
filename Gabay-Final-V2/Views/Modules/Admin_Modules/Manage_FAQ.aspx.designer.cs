@@ -7,65 +7,83 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gabay_Final_V2.Views.LoginPages
+namespace Gabay_Final_V2.Views.Modules.Admin_Modules
 {
 
 
-    public partial class Guest_login
+    public partial class Manage_FAQ
     {
 
         /// <summary>
-        /// goBack control.
+        /// txtNewQuestion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink goBack;
+        protected global::System.Web.UI.WebControls.TextBox txtNewQuestion;
 
         /// <summary>
-        /// goBack1 control.
+        /// txtNewAnswer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink goBack1;
+        protected global::System.Web.UI.WebControls.TextBox txtNewAnswer;
 
         /// <summary>
-        /// form1 control.
+        /// btnInsertFAQ control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Button btnInsertFAQ;
 
         /// <summary>
-        /// errorDiv control.
+        /// FAQRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl errorDiv;
+        protected global::System.Web.UI.WebControls.Repeater FAQRepeater;
 
         /// <summary>
-        /// guestNameBx control.
+        /// hdEditFAQID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox guestNameBx;
+        protected global::System.Web.UI.WebControls.HiddenField hdEditFAQID;
 
         /// <summary>
-        /// gst_lgnBtn control.
+        /// txtEditQuestion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button gst_lgnBtn;
+        protected global::System.Web.UI.WebControls.TextBox txtEditQuestion;
+
+        /// <summary>
+        /// txtEditAnswer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEditAnswer;
+
+        /// <summary>
+        /// btnUpdateFAQ control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpdateFAQ;
     }
 }

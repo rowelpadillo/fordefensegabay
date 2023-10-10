@@ -70,9 +70,9 @@
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item p-1">
-                                <asp:HyperLink ID="faq" runat="server" CssClass="topnav-item text-cente custom-text-color">
+                                <asp:HyperLink ID="faq" runat="server" CssClass="topnav-item text-cente custom-text-color" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_FAQ.aspx">
                               <i class="bi bi-question-square-fill me-2"></i>
-                              <span class="mt-2">FAQ</span>
+                              <span class="mt-2">Manage FAQ</span>
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item p-1">
@@ -145,9 +145,9 @@
                         </asp:HyperLink>
                     </li>
                     <li class="nav-item ">
-                        <asp:HyperLink ID="sideNavFAQ" runat="server" CssClass="navLinks text-center">
+                        <asp:HyperLink ID="sideNavFAQ" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_FAQ.aspx">
                             <i class="bi bi-question-square-fill fs-4 me-3"></i>
-                            <p class="mt-4">FAQ</p>
+                            <p class="mt-4">Manage FAQ</p>
                         </asp:HyperLink>
                     </li>
                 </ul>

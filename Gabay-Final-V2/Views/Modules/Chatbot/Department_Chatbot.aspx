@@ -14,4 +14,12 @@
             <asp:Button ID="btnSend" runat="server" CssClass="btn sndBtn" Text="Send" OnClick="btnSend_Click" UseSubmitBehavior="false"/>
         </div>
     </div>
+    <script>
+    function buttonClick(buttonText) {
+        // Send the clicked button's text as user input to the server
+        document.getElementById('<%= txtUserInput.ClientID %>').value = buttonText;
+        document.getElementById('<%= btnSend.ClientID %>').click();
+    }
+    </script>
+
 </asp:Content>
