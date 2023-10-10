@@ -12,10 +12,11 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string greetingMessage = "Hi! How can I assist you today? " + "<br />"+
-                "<button class='predefined-button' onclick='buttonClick(\"enroll\")'>Enroll</button>" +
-                "<button class='predefined-button' onclick='buttonClick(\"otherOption\")'>Other Option</button>";
-            AddBotMessage(greetingMessage);
+            if (!IsPostBack)
+            {
+                string greetingMessage = "Hi! How can I assist you today?";
+                AddBotMessage(greetingMessage);
+            }
         }
 
         private void AddBotMessage(string message)
@@ -39,22 +40,31 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
             if (userInput != "" || userInput == null)
             {
                 // Handle predefined buttons/links
-                if (lowerInput == "enroll")
+                if (lowerInput == "enrollment")
                 {
                     // User clicked the "Enroll" button
                     AddBotMessage("To enroll in computer studies, please follow these steps: ...");
                 }
-                else if (lowerInput == "otheroption")
+                else if (lowerInput == "tuition payment")
                 {
                     // User clicked the "Other Option" button
-                    AddBotMessage("Here's information about the other option: ...");
+                    AddBotMessage("To pay tuition fee just approach the guard to get payment form and after that fill up the form then you can proceed in the cashier.");
                 }
                 // Add more predefined button/link checks as needed
 
                 // If not a predefined button/link, use your chatbot logic
+                else if (lowerInput == "hi")
+                {
+                    AddBotMessage("Hello! what can I assist to you today?");
+                }
+                else if (lowerInput == "where")
+                {
+                    AddBotMessage("");
+                }
                 else
                 {
                     string scriptColumn = Chatbot_model.FindMatchingScript(userInput);
+                    scriptColumn = scriptColumn.Replace("\n", "<br>");
                     AddBotMessage(scriptColumn);
                 }
                 txtUserInput.Text = string.Empty;

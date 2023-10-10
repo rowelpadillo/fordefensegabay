@@ -28,12 +28,14 @@ namespace Gabay_Final_V2.Models
             }
             return datable;
         }
-
         public void AddResponse(string scripts, string keywords)
         {
             using (SqlConnection connection = new SqlConnection(conn))
             {
                 string query = "INSERT INTO Chat_Response (response, keywords) VALUES (@response, @keywords)";
+
+                // Replace "<br>" tags with newline characters "\n" before storing in the database
+                scripts = scripts.Replace("<br>", "\n");
 
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@response", scripts);
@@ -132,7 +134,7 @@ namespace Gabay_Final_V2.Models
             {
                 bestScript = "I'm sorry, I didn't understand your question. Could you please rephrase it?";
             }
-
+            bestScript = bestScript.Replace("\n", "<br>");
             return bestScript;
         }
 

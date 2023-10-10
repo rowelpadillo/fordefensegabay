@@ -41,7 +41,7 @@
                             </li>
                             <li class="nav-item p-1">
                                 <asp:HyperLink ID="pndngStds" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/DashBoard/Department_Homepage/Pending_students.aspx">
-                                   <i class="bi bi-people-fil me-2"></i>
+                                   <i class="bi bi-people-fill me-2"></i>
                                   <span class="mt-2">Pending Students</span>
                                 </asp:HyperLink>
                             </li>
@@ -57,21 +57,21 @@
                                   <span class="mt-2">Chatbot</span>
                                 </asp:HyperLink>
                             </li>
-                            <li class="nav-item p-1">
+                            <%--<li class="nav-item p-1">
                                 <asp:HyperLink ID="campusInfo" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/Modules/Campus_Info/Department_CampusInfo.aspx">
                                   <i class="bi bi-info-square-fill me-2"></i>
                                   <span class="mt-2">Manage Department Information</span>
                                 </asp:HyperLink>
-                            </li>
+                            </li>--%>
                             <li class="nav-item p-1">
                                 <asp:HyperLink ID="manageAppnt" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/Modules/Appointment/Manage_Appointment.aspx">
-                                  <i class="bi bi-book me-2"></i>
+                                  <i class="bi bi-calendar3-event-fill me-2"></i>
                                   <span class="mt-2">Manage Appointment</span>
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item p-1">
                                 <asp:HyperLink ID="campCalendar" runat="server" CssClass="topnav-item text-center custom-text-color">
-                                  <i class="bi bi-calendar-check-fill me-2"></i>
+                                  <i class="bi bi-calendar2-month-fill me-2"></i>
                                   <span class="mt-2">Academic Calendar</span>
                                 </asp:HyperLink>
                             </li>
@@ -107,7 +107,7 @@
             <div class="sideBar bg-body-tertiary d-none d-lg-block">
                 <ul class="nav flex-column mt-3">
                     <li class="nav-item ">
-                        <asp:HyperLink ID="sideNavProf" runat="server" CssClass="profile">
+                        <asp:HyperLink ID="sideNavProf" runat="server" CssClass="profile" NavigateUrl="~/Views/DashBoard/Department_Homepage/Department_profile.aspx">
                             <i class="bi bi-person-circle profile-Icon"></i>
                             <p>
                                 <asp:Label ID="lblDept_name" runat="server" Text="Label" CssClas="profileLabel text-center"></asp:Label>
@@ -138,21 +138,21 @@
                             <p class="mt-4">Chatbot</p>
                         </asp:HyperLink>
                     </li>
-                    <li class="nav-item ">
+                    <%--<li class="nav-item ">
                         <asp:HyperLink ID="sideNavCI" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Campus_Info/Department_CampusInfo.aspx">
                             <i class="bi bi-info-square-fill fs-4 me-3"></i>
                             <p class="mt-4">Campus Information</p>
                         </asp:HyperLink>
-                    </li>
+                    </li>--%>
                      <li class="nav-item ">
                         <asp:HyperLink ID="sideManageAppnt" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Appointment/Manage_Appointment.aspx">
-                            <i class="bi bi-book fs-4 me-3"></i>
+                            <i class="bi bi-calendar3-event-fill fs-4 me-3"></i>
                             <p class="mt-4">Manage Appointment</p>
                         </asp:HyperLink>
                     </li>
                     <li class="nav-item ">
                         <asp:HyperLink ID="sideNavCC" runat="server" CssClass="navLinks text-center">
-                            <i class="bi bi-calendar-check-fill fs-4 me-3"></i>
+                            <i class="bi bi-calendar2-month-fill fs-4 me-3"></i>
                             <p class="mt-4">Academic Calendar</p>
                         </asp:HyperLink>
                     </li>
