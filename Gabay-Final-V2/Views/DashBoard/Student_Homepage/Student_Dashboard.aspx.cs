@@ -1,7 +1,9 @@
 ﻿using Gabay_Final_V2.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,6 +13,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
+        private string connStr = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -18,44 +21,42 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
                 LoadAnnouncements();
             }
         }
+        public DataTable GetAnnouncements()
+        {
+            if (Session["user_ID"] != null)
+            {
+                int user_ID = Convert.ToInt32(Session["user_ID"]);
+                string query = @"SELECT A.*
+                     FROM Announcement A
+                     INNER JOIN department D ON A.User_ID = D.user_ID
+                     INNER JOIN student S ON D.ID_dept = S.department_ID
+                     WHERE S.user_ID = @user_ID";
 
+                using (SqlConnection connection = new SqlConnection(connStr))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@user_ID", user_ID);
+
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    adapter.Fill(dt);
+
+                    return dt;
+                }
+            }
+            else
+            {
+                return null;
+            }
+               
+        }
         protected void LoadAnnouncements()
         {
-            Announcement_model announcementModel = new Announcement_model();
-            DataTable dt = announcementModel.GetAnnouncements();
+
+            DataTable dt = GetAnnouncements();
 
             rptAnnouncements.DataSource = dt;
             rptAnnouncements.DataBind();
-        }
-
-        // Event handler for the "Learn More" button click
-        protected void ShowAnnouncementDetails(object sender, EventArgs e)
-        {
-            Button btnLearnMore = (Button)sender;
-            int announcementID = Convert.ToInt32(btnLearnMore.CommandArgument);
-
-            Announcement_model announcementModel = new Announcement_model();
-            DataTable dt = announcementModel.GetAnnouncementDetails(announcementID);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                // Find modal controls
-                Label modalTitle = (Label)FindControl("modalTitle" + announcementID);
-                Image modalImage = (Image)FindControl("modalImage" + announcementID);
-                Label modalDate = (Label)FindControl("modalDate" + announcementID);
-                Label modalShortDescription = (Label)FindControl("modalShortDescription" + announcementID);
-                Label modalDetailedDescription = (Label)FindControl("modalDetailedDescription" + announcementID);
-
-                // Populate the modal with announcement details
-                modalTitle.Text = dt.Rows[0]["Title"].ToString();
-                modalImage.ImageUrl = dt.Rows[0]["ImagePath"].ToString();
-                modalDate.Text = "Date: " + dt.Rows[0]["Date"].ToString();
-                modalShortDescription.Text = "Short Description: " + dt.Rows[0]["ShortDescription"].ToString();
-                modalDetailedDescription.Text = "Detailed Description: " + dt.Rows[0]["DetailedDescription"].ToString();
-
-                // Show the modal using JavaScript
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "Pop", "openModal(" + announcementID + ");", true);
-            }
         }
     }
 }

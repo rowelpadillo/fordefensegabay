@@ -24,13 +24,13 @@ namespace Gabay_Final_V2.Views.Modules.Academic_Calendar
         protected global::System.Web.UI.WebControls.DropDownList ddlFiles;
 
         /// <summary>
-        /// dwnldLnk control.
+        /// LinkButton1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton dwnldLnk;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
         /// <summary>
         /// DownloadErrorLabel control.

@@ -24,15 +24,23 @@
             </div>
             <div class="row d-flex text-center">
                 <div class="col mt-4 ddl-Container">
-                    <asp:DropDownList ID="ddlFiles" CssClass="ddlFiles text-center" AutoPostBack="true" runat="server" OnSelectedIndexChanged="ddlFiles_SelectedIndexChanged">
-                        <asp:ListItem Text="Select School Year..." Value="" Selected="True" />
+                    <asp:DropDownList ID="ddlFiles" runat="server" CssClass="ddlFiles text-center" AutoPostBack="true" OnSelectedIndexChanged="ddlFiles_SelectedIndexChanged">
+                        <asp:ListItem Text="Select School Year" Value="" />
                     </asp:DropDownList>
-                    <asp:LinkButton ID="dwnldLnk" CssClass="dwnldLnk btn" runat="server" OnClick="dwnldLnk_Click">
-                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                    <asp:LinkButton ID="LinkButton1" CssClass="dwnldLnk btn" runat="server" Text="View/Download" OnClick="lnkDownload_Click" OnClientClick="openInNewTab();">
+                        <i class="bi bi-file-earmark-arrow-down-fill"></i>
                     </asp:LinkButton>
                 </div>
                 <asp:Label ID="DownloadErrorLabel" runat="server" ForeColor="Red" />
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function openInNewTab() {
+            // Get the URL of the clicked button's page
+            var url = '<%= ResolveUrl("Student_AcadCalen.aspx") %>';
+            window.open(url, '_blank');
+            return false; // To prevent the default postback action
+        }
+    </script>
 </asp:Content>

@@ -127,6 +127,10 @@
     <Content Include="Prototype\UC-LOGO.png" />
     <Content Include="Prototype\WebForm1.aspx" />
     <Content Include="Prototype\WebForm10.aspx" />
+    <Content Include="Prototype\WebForm11.aspx" />
+    <Content Include="Prototype\WebForm12.aspx" />
+    <Content Include="Prototype\WebForm13.aspx" />
+    <Content Include="Prototype\WebForm14.aspx" />
     <Content Include="Prototype\WebForm2.aspx" />
     <Content Include="Prototype\ManageStudent.aspx" />
     <Content Include="Prototype\WebForm4.aspx" />
@@ -2287,6 +2291,11 @@
     <Content Include="Resources\Images\ucbg.png" />
     <Content Include="Resources\Images\uclm-565.png" />
     <Content Include="Resources\Images\walk.gif" />
+    <None Include="Scripts\jquery-3.7.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.7.1.js" />
+    <Content Include="Scripts\jquery-3.7.1.min.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.js" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.js" />
     <Content Include="Views\DashBoard\Admin_Homepage\Admin_DashBoard.aspx" />
     <Content Include="Views\DashBoard\Department_Homepage\Department_Dashboard.aspx" />
     <Content Include="Views\DashBoard\Department_Homepage\Department_profile.aspx" />
@@ -2347,6 +2356,34 @@
     </Compile>
     <Compile Include="Prototype\WebForm10.aspx.designer.cs">
       <DependentUpon>WebForm10.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm11.aspx.cs">
+      <DependentUpon>WebForm11.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm11.aspx.designer.cs">
+      <DependentUpon>WebForm11.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm12.aspx.cs">
+      <DependentUpon>WebForm12.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm12.aspx.designer.cs">
+      <DependentUpon>WebForm12.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm13.aspx.cs">
+      <DependentUpon>WebForm13.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm13.aspx.designer.cs">
+      <DependentUpon>WebForm13.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm14.aspx.cs">
+      <DependentUpon>WebForm14.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm14.aspx.designer.cs">
+      <DependentUpon>WebForm14.aspx</DependentUpon>
     </Compile>
     <Compile Include="Prototype\WebForm2.aspx.cs">
       <DependentUpon>WebForm2.aspx</DependentUpon>
@@ -2717,6 +2754,8 @@
     <Content Include="Views\DashBoard\Department_Homepage\Department_Master.Master" />
     <Content Include="Views\DashBoard\Student_Homepage\Student_Master.Master" />
     <Content Include="Views\DashBoard\Guest_Homepage\Guest_Master.Master" />
+    <Content Include="Scripts\jquery-3.7.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.7.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

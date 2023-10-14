@@ -15,138 +15,156 @@ namespace Gabay_Final_V2.Views.Modules.Announcement
     {
 
         /// <summary>
-        /// rptAnnouncements control.
+        /// txtSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptAnnouncements;
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
-        /// txtEditTitle control.
+        /// AnnouncementList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditTitle;
+        protected global::System.Web.UI.WebControls.GridView AnnouncementList;
 
         /// <summary>
-        /// txtEditDate control.
+        /// HidAnnouncementID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditDate;
+        protected global::System.Web.UI.WebControls.HiddenField HidAnnouncementID;
 
         /// <summary>
-        /// txtEditShortDescription control.
+        /// closeEditModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditShortDescription;
+        protected global::System.Web.UI.WebControls.Button closeEditModal;
 
         /// <summary>
-        /// txtEditDetailedDescription control.
+        /// Titlebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditDetailedDescription;
+        protected global::System.Web.UI.WebControls.TextBox Titlebx;
 
         /// <summary>
-        /// ImageFileEdit control.
+        /// Datebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload ImageFileEdit;
+        protected global::System.Web.UI.WebControls.TextBox Datebx;
 
         /// <summary>
-        /// hdnEditAnnouncementID control.
+        /// ShortDescbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnEditAnnouncementID;
+        protected global::System.Web.UI.WebControls.TextBox ShortDescbx;
 
         /// <summary>
-        /// hdnEditImagePath control.
+        /// DtlDescBx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdnEditImagePath;
+        protected global::System.Web.UI.WebControls.TextBox DtlDescBx;
 
         /// <summary>
-        /// btnSaveEditedAnnouncement control.
+        /// Imgbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSaveEditedAnnouncement;
+        protected global::System.Web.UI.WebControls.FileUpload Imgbx;
 
         /// <summary>
-        /// txtTitle control.
+        /// updtAnnouncement control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTitle;
+        protected global::System.Web.UI.WebControls.Button updtAnnouncement;
 
         /// <summary>
-        /// txtDate control.
+        /// addTitlebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDate;
+        protected global::System.Web.UI.WebControls.TextBox addTitlebx;
 
         /// <summary>
-        /// txtShortDescription control.
+        /// addDatebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtShortDescription;
+        protected global::System.Web.UI.WebControls.TextBox addDatebx;
 
         /// <summary>
-        /// txtDetailedDescription control.
+        /// addFilebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDetailedDescription;
+        protected global::System.Web.UI.WebControls.FileUpload addFilebx;
 
         /// <summary>
-        /// ImageFileUploadModal control.
+        /// addShrtbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload ImageFileUploadModal;
+        protected global::System.Web.UI.WebControls.TextBox addShrtbx;
 
         /// <summary>
-        /// btnSave control.
+        /// addDtldbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnSave;
+        protected global::System.Web.UI.WebControls.TextBox addDtldbx;
+
+        /// <summary>
+        /// SaveAnnouncement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SaveAnnouncement;
+
+        /// <summary>
+        /// dltAnnouceBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button dltAnnouceBtn;
     }
 }

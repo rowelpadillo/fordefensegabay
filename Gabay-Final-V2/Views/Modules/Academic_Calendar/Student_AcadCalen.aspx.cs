@@ -1,6 +1,8 @@
 ﻿using Gabay_Final_V2.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,10 +13,88 @@ namespace Gabay_Final_V2.Views.Modules.Academic_Calendar
 {
     public partial class Student_AcadCalen : System.Web.UI.Page
     {
+        string connectionString = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             BindFilesToDropDownList();
         }
+
+        protected void lnkDownload_Click(object sender, EventArgs e)
+        {
+            if (ViewState["SelectedFileId"] != null)
+            {
+                int fileId = (int)ViewState["SelectedFileId"];
+
+                byte[] fileData = FetchFileDataFromDatabase(fileId);
+                string fileName = FetchFileNameFromDatabase(fileId);
+
+                if (fileData != null)
+                {
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("Content-Disposition", $"inline; filename={fileName}");
+                    Response.BinaryWrite(fileData);
+                    Response.End();
+                }
+                else
+                {
+                    DownloadErrorLabel.Text = "File not found.";
+                }
+
+                string script = "window.open('" + Request.Url.AbsoluteUri + "', '_blank');";
+                ClientScript.RegisterStartupScript(this.GetType(), "openNewTab", script, true);
+            }
+            else
+            {
+                DownloadErrorLabel.Text = "Please select a file to preview.";
+            }
+        }
+
+        private byte[] FetchFileDataFromDatabase(int fileId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT FileData FROM UploadedFiles WHERE FileId = @FileId";
+
+                using (SqlCommand command = new SqlCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@FileId", fileId);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return (byte[])result;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private string FetchFileNameFromDatabase(int fileId)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT FileName FROM UploadedFiles WHERE Fileid = @Fileid";
+
+                using (SqlCommand command = new SqlCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Fileid", fileId);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return result.ToString();
+                    }
+                }
+            }
+
+            return null;
+        }
+
 
         private void BindFilesToDropDownList()
         {
@@ -55,41 +135,6 @@ namespace Gabay_Final_V2.Views.Modules.Academic_Calendar
             else
             {
                 DownloadErrorLabel.Text = "Selected file data not found.";
-            }
-        }
-
-        protected void dwnldLnk_Click(object sender, EventArgs e)
-        {
-            AcadCalen_model conn = new AcadCalen_model();
-
-            if (ViewState["SelectedFileId"] != null)
-            {
-                int fileId = (int)ViewState["SelectedFileId"];
-
-                byte[] fileData = conn.FetchFileDataFromDatabase(fileId);
-                string fileName = conn.FetchFileNameFromDatabase(fileId);
-
-                if (fileData != null)
-                {
-                    // Set the response content type to PDF
-                    Response.ContentType = "application/pdf";
-
-                    // Set the content disposition to "inline" to open in the browser
-                    Response.AddHeader("Content-Disposition", $"inline; filename={fileName}");
-
-                    // Write the file data to the response output stream
-                    Response.BinaryWrite(fileData);
-                    Response.End();
-                }
-                else
-                {
-                    // Handle the case where file data is not available
-                    DownloadErrorLabel.Text = "File not found.";
-                }
-            }
-            else
-            {
-                DownloadErrorLabel.Text = "Please select a file to preview.";
             }
         }
     }

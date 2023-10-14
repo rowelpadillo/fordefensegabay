@@ -210,7 +210,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
                                 currentDeptNm != reader["dept_name"].ToString() ||
                                 currentDeptDn != reader["dept_head"].ToString() ||
                                 currentOffHrs != reader["office_hour"].ToString())
-
                             {
                                 reader.Close();
                                 string deptUpdateQuery = @"UPDATE department 

@@ -14,261 +14,339 @@ namespace Gabay_Final_V2.Views.Modules.Announcement
 {
     public partial class Department_Announcement : System.Web.UI.Page
     {
-        private Announcement_model announcementModel = new Announcement_model();
-
+        //private Announcement_model announcementModel = new Announcement_model();
+        string connection = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-
                 // Load announcements when the page is first loaded
                 LoadAnnouncements();
             }
         }
 
         // Function to load announcements into the Bootstrap table
-        protected void LoadAnnouncements()
+        //to load announcement data
+        public void LoadAnnouncements()
         {
-            DataTable dtAnnouncements = announcementModel.GetAnnouncements(); // Use the AnnouncementModel to fetch announcements
+            DataTable dataTable = GetAnnouncements();
 
-            // Bind the DataTable to the Bootstrap table
-            rptAnnouncements.DataSource = dtAnnouncements;
-            rptAnnouncements.DataBind();
+            AnnouncementList.DataSource = dataTable;
+            AnnouncementList.DataBind();
         }
+        public DataTable GetAnnouncements()
+        {
+            if (Session["user_ID"] != null)
+            {
+                int user_ID = Convert.ToInt32(Session["user_ID"]);
+                // Modify the SQL query to include a WHERE clause
+                string query = "SELECT * FROM Announcement WHERE User_ID = @user_ID";
 
+                using (SqlConnection conn = new SqlConnection(connection))
+                {
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@user_ID", user_ID);
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+
+                    return dt;
+                }
+            }
+            else
+            {
+                return new DataTable();
+            }
+        }
 
         // Function to handle the Save button click event (Create/Update)
-        protected void SaveAnnouncement(object sender, EventArgs e)
+        //to save announcement data
+        protected void SaveAnnouncement_Click(object sender, EventArgs e)
         {
-            // Retrieve form values
-            string title = txtTitle.Text;
-            string date = txtDate.Text;
-            string shortDescription = txtShortDescription.Text;
-            string detailedDescription = txtDetailedDescription.Text;
+            string title = addTitlebx.Text;
+            string date = addDatebx.Text;
+            string shortDescript = addShrtbx.Text;
+            string detailedDescript = addDtldbx.Text;
 
-            // Define the folder path for uploads
-            string uploadFolderPath = Server.MapPath("~/Uploads/");
-
-            // Check if a file is uploaded in the modal
-            if (ImageFileUploadModal.HasFile)
-            {
-                // Get the file extension
-                string fileExtension = Path.GetExtension(ImageFileUploadModal.FileName);
-                fileExtension = fileExtension.ToLower();
-
-                // Check if the file extension is allowed (jpg, jpeg, or png)
-                if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png")
-                {
-                    // Create the directory if it doesn't exist
-                    if (!Directory.Exists(uploadFolderPath))
-                    {
-                        Directory.CreateDirectory(uploadFolderPath);
-                    }
-
-                    string fileName = Guid.NewGuid().ToString() + fileExtension;
-                    string filePath = Path.Combine(uploadFolderPath, fileName);
-                    ImageFileUploadModal.SaveAs(filePath);
-
-                    // Define the database connection string
-                    string connectionString = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
-                    // Insert announcement into the database along with the file path
-                    using (SqlConnection connection = new SqlConnection(connectionString))
-                    {
-                        connection.Open();
-                        string query = "INSERT INTO Announcement (Title, Date, ImagePath, ShortDescription, DetailedDescription) " +
-                                       "VALUES (@Title, @Date, @ImagePath, @ShortDescription, @DetailedDescription)";
-                        using (SqlCommand command = new SqlCommand(query, connection))
-                        {
-                            command.Parameters.AddWithValue("@Title", title);
-                            command.Parameters.AddWithValue("@Date", date);
-                            command.Parameters.AddWithValue("@ImagePath", "~/Uploads/" + fileName);
-                            command.Parameters.AddWithValue("@ShortDescription", shortDescription);
-                            command.Parameters.AddWithValue("@DetailedDescription", detailedDescription);
-                            command.ExecuteNonQuery();
-                        }
-                    }
-
-                    // Clear input fields after adding announcement in the modal
-                    txtTitle.Text = "";
-                    txtDate.Text = "";
-                    txtShortDescription.Text = "";
-                    txtDetailedDescription.Text = "";
-
-                    LoadAnnouncements();
-                }
-                else
-                {
-                    // Handle the case where the file extension is not allowed (e.g., show an error message)
-                    // You can display an error message here
-                }
-            }
-            else
-            {
-                // Handle the case where no file is uploaded (e.g., show an error message)
-                // You can display an error message here
-            }
-        }
-
-
-        protected void EditAnnouncement_Click(object sender, EventArgs e)
-        {
-            Button editButton = (Button)sender;
-            int announcementID = Convert.ToInt32(editButton.CommandArgument);
-            // Define the database connection string
-            string connectionString = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Announcement WHERE AnnouncementID = @AnnouncementID", conn);
-                cmd.Parameters.AddWithValue("@AnnouncementID", announcementID);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    txtEditTitle.Text = reader["Title"].ToString();
-                    txtEditDate.Text = reader["Date"].ToString();
-                    txtEditShortDescription.Text = reader["ShortDescription"].ToString();
-                    txtEditDetailedDescription.Text = reader["DetailedDescription"].ToString();
-                    hdnEditAnnouncementID.Value = announcementID.ToString();
-                    hdnEditImagePath.Value = reader["ImagePath"].ToString();
-
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "editAnnouncementModal", "$('#editAnnouncementModal').modal('show');", true);
-                }
-
-                reader.Close();
-            }
-        }
-
-        protected void SaveEditedAnnouncement(object sender, EventArgs e)
-        {
-            int announcementID;
-            if (int.TryParse(hdnEditAnnouncementID.Value, out announcementID))
-            {
-                string title = txtEditTitle.Text;
-                string date = txtEditDate.Text;
-                string shortDescription = txtEditShortDescription.Text;
-                string detailedDescription = txtEditDetailedDescription.Text;
-                string imagePath = hdnEditImagePath.Value;
-
-                if (ImageFileEdit.HasFile)
-                {
-                    string uploadFolderPath = Server.MapPath("~/Uploads/");
-                    string fileExtension = Path.GetExtension(ImageFileEdit.FileName).ToLower();
-
-                    if (fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png")
-                    {
-                        string fileName = Guid.NewGuid().ToString() + fileExtension;
-                        string newFilePath = Path.Combine(uploadFolderPath, fileName);
-                        ImageFileEdit.SaveAs(newFilePath);
-                        imagePath = "~/Uploads/" + fileName;
-                    }
-                    else
-                    {
-                        string errorMessage = "Invalid file extension. Please upload a PNG, JPEG, or JPG file.";
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "editAnnouncementModal", $"showErrorToast('{errorMessage}');", true);
-                        return;
-                    }
-                }
-
-                bool updated = announcementModel.UpdateAnnouncement(announcementID, title, date, imagePath, shortDescription, detailedDescription);
-
-                if (updated)
-                {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "editAnnouncementModal", "$('#editAnnouncementModal').modal('hide');", true);
-                    LoadAnnouncements();
-                }
-                else
-                {
-                    string errorMessage = "Update failed. Please try again.";
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "editAnnouncementModal", $"showErrorToast('{errorMessage}');", true);
-                }
-            }
-            else
-            {
-                string errorMessage = "Invalid Announcement ID. Please try again.";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "editAnnouncementModal", $"showErrorToast('{errorMessage}');", true);
-            }
-        }
-        protected void DeleteButton_Click(object sender, EventArgs e)
-        {
-            Button deleteButton = (Button)sender;
-            int announcementID = Convert.ToInt32(deleteButton.CommandArgument);
-
-            // Call the DeleteAnnouncement method from AnnouncementModel
-            bool deleted = announcementModel.DeleteAnnouncement(announcementID);
-
-            if (deleted)
-            {
-                // Announcement deleted successfully, perform necessary actions
-                LoadAnnouncements();
-            }
-            else
-            {
-                // Handle the case where deleting the announcement failed
-                // You can display an error message here
-            }
-        }
-
-        // Function to save an uploaded image and return the image path
-        private string SaveImage(FileUpload fileUpload, string uploadFolderPath)
-        {
-            string imagePath = string.Empty;
-
-            if (fileUpload.HasFile)
+            if (addFilebx.HasFile)
             {
                 try
                 {
-                    // Get the file extension
-                    string fileExtension = Path.GetExtension(fileUpload.FileName).ToLower();
-
-                    // Check if the file extension is allowed
-                    if (fileExtension == ".png" || fileExtension == ".jpeg" || fileExtension == ".jpg")
+                    HttpPostedFile postedFile = addFilebx.PostedFile;
+                    Stream stream = postedFile.InputStream;
+                    BinaryReader binaryReader = new BinaryReader(stream);
+                    byte[] bytes = binaryReader.ReadBytes((int)stream.Length);
+                    if (Session["user_ID"] != null)
                     {
-                        // Create the folder if it doesn't exist
-                        if (!Directory.Exists(uploadFolderPath))
-                        {
-                            Directory.CreateDirectory(uploadFolderPath);
-                        }
-
-                        // Generate a unique file name for the image
-                        string fileName = Guid.NewGuid().ToString() + fileExtension;
-
-                        // Combine the folder path and file name to get the full image path
-                        imagePath = Path.Combine(uploadFolderPath, fileName);
-
-                        // Save the uploaded image
-                        fileUpload.SaveAs(imagePath);
+                        int user_ID = Convert.ToInt32(Session["user_ID"]);
+                        AddData(user_ID, title, date, bytes, shortDescript, detailedDescript);
                     }
-                    else
-                    {
-                        throw new Exception("Invalid file extension. Please upload a PNG, JPEG, or JPG file.");
-                    }
+                    string successMessage = "Announcement Added successfully.";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                        $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+
+                    LoadAnnouncements();
+                    clearAddModalInputs();
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
-                    // Handle any exceptions that may occur during file upload
-                    // You can log the error or display an error message
-                    imagePath = string.Empty; // Set imagePath to empty if there was an error
+                    string errorMessage = "An error occurred while deleting the announcement: " + ex.Message;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                        $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+                }
+
+            }
+        }
+        public void AddData(int user_ID,string Title, string Date, byte[] imgFile, string shortDescription, string DetailedDescription)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+                string query = @"INSERT INTO Announcement (User_ID, Title, Date, ImagePath, ShortDescription, DetailedDescription)
+                                 VALUES (@user_ID, @Title, @Date, @imgFile, @shortDescript, @DetailedDescript)";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@user_ID", user_ID);
+                    cmd.Parameters.AddWithValue("@Title", Title);
+                    cmd.Parameters.AddWithValue("@Date", Date);
+                    SqlParameter imgParam = new SqlParameter("@imgFile", SqlDbType.VarBinary);
+                    imgParam.Value = imgFile;
+                    cmd.Parameters.Add(imgParam);
+                    cmd.Parameters.AddWithValue("@shortDescript", shortDescription);
+                    cmd.Parameters.AddWithValue("@DetailedDescript", DetailedDescription);
+                    cmd.ExecuteNonQuery();
                 }
             }
-
-            return imagePath;
         }
-
-        // Method to get the full image path
-        protected string GetImagePath(string imagePath)
+        //clear out textbox after adding
+        public void clearAddModalInputs()
         {
-            return imagePath;
+            addTitlebx.Text = "";
+            addDatebx.Text = "";
+            addShrtbx.Text = "";
+            addDtldbx.Text = "";
         }
 
-        // Function to clear form fields after saving an announcement
-        private void ClearFormFields()
+        //Function to handle the Delete button click event (Delete)
+        //to delete announcement data
+        protected void dltAnnouceBtn_Click(object sender, EventArgs e)
         {
-            txtTitle.Text = string.Empty;
-            txtDate.Text = string.Empty;
-            txtShortDescription.Text = string.Empty;
-            txtDetailedDescription.Text = string.Empty;
+            int hiddenID = Convert.ToInt32(HidAnnouncementID.Value);
+            try
+            {
+                DeleteAnnouncement(hiddenID);
+                string successMessage = "Announcement deleted successfully.";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                    $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+
+                LoadAnnouncements();
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = "An error occurred while deleting the announcement: " + ex.Message;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+
+            }
         }
+        public void DeleteAnnouncement(int AnnouncementID)
+        {
+            // First, retrieve the User_ID from the session
+            if (Session["user_ID"] != null)
+            {
+                int user_ID = Convert.ToInt32(Session["user_ID"]);
+                using (SqlConnection conn = new SqlConnection(connection))
+                {
+                    // Modify the query to include a WHERE clause to ensure the user can only delete their own announcements
+                    string query = @"DELETE FROM Announcement WHERE AnnouncementID = @AnnouncementID AND User_ID = @user_ID";
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@AnnouncementID", AnnouncementID);
+                        cmd.Parameters.AddWithValue("@user_ID", user_ID);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            else
+            {
+                // Handle the case when user_ID is not available in the session
+                // You can throw an exception, show an error message, or take appropriate action.
+                throw new Exception("User_ID not available in the session.");
+            }
+        }
+
+        //Function to handle the retrieve Data in the gridview
+        //to retrieve announcement data from gridview and put it in the edit modal
+        public void LoadAnnouncementInfo(int AnnouncementID)
+        {
+            // Retrieve the User_ID from the session
+            if (Session["user_ID"] != null)
+            {
+                int user_ID = Convert.ToInt32(Session["user_ID"]);
+
+                using (SqlConnection conn = new SqlConnection(connection))
+                {
+                    string query = @"SELECT * FROM Announcement WHERE AnnouncementID = @AnnouncementID AND User_ID = @user_ID";
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@AnnouncementID", AnnouncementID);
+                        cmd.Parameters.AddWithValue("@user_ID", user_ID);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                Titlebx.Text = reader["Title"].ToString();
+                                DateTime date = (DateTime)reader["Date"];
+                                Datebx.Text = date.ToString("yyyy-MM-dd");
+                                ShortDescbx.Text = reader["ShortDescription"].ToString();
+                                DtlDescBx.Text = reader["DetailedDescription"].ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Handle the case when user_ID is not available in the session
+                // You can throw an exception, show an error message, or take appropriate action.
+                throw new Exception("User_ID not available in the session.");
+            }
+        }
+        protected void gridviewEdit_Click(object sender, EventArgs e)
+        {
+            int hiddenID = Convert.ToInt32(HidAnnouncementID.Value);
+            LoadAnnouncementInfo(hiddenID);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditModal", "$('#toEditModal').modal('show');", true);
+        }
+        protected void closeEditModal_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditModal", "$('#toEditModal').modal('hide');", true);
+        }
+
+        //Function to handle the Edit button click event (Edit/Update)
+        //to update the announcement data
+        public void updtAnnoucementList(int AnnouncementID)
+        {
+            // Retrieve the User_ID from the session
+            if (Session["user_ID"] != null)
+            {
+                int user_ID = Convert.ToInt32(Session["user_ID"]);
+
+                using (SqlConnection conn = new SqlConnection(connection))
+                {
+                    conn.Open();
+                    string query = "SELECT * FROM Announcement WHERE AnnouncementID = @AnnouncementID AND User_ID = @user_ID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@AnnouncementID", AnnouncementID);
+                        cmd.Parameters.AddWithValue("@user_ID", user_ID);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                string currentTitle = Titlebx.Text;
+                                string currentDate = Datebx.Text;
+                                string currentShortDesc = ShortDescbx.Text;
+                                string currentDetailedDesc = DtlDescBx.Text;
+
+                                // Fetch the existing ImagePath from the database record
+                                byte[] existingImage = (byte[])reader["ImagePath"];
+
+                                reader.Close();
+
+                                // Check if a new image is uploaded
+                                if (Imgbx.HasFile)
+                                {
+                                    // Handle the uploaded image and convert it to a byte array
+                                    byte[] newImage = GetByteArrayFromImage(Imgbx.FileBytes);
+
+                                    // Update the record with the new image data
+                                    string updateQuery = @"UPDATE Announcement
+                                               SET Title = @newTitle,
+                                                   Date = @newDate,
+                                                   ShortDescription = @newShortDesc,
+                                                   DetailedDescription = @newDetailedDesc,
+                                                   ImagePath = @newImage
+                                               WHERE AnnouncementID = @AnnouncementID AND User_ID = @user_ID";
+
+                                    using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn))
+                                    {
+                                        updateCmd.Parameters.AddWithValue("@newTitle", currentTitle);
+                                        updateCmd.Parameters.AddWithValue("@newDate", currentDate);
+                                        updateCmd.Parameters.AddWithValue("@newShortDesc", currentShortDesc);
+                                        updateCmd.Parameters.AddWithValue("@newDetailedDesc", currentDetailedDesc);
+                                        updateCmd.Parameters.AddWithValue("@newImage", newImage); // Set the ImagePath to the new image data
+                                        updateCmd.Parameters.AddWithValue("@AnnouncementID", AnnouncementID);
+                                        updateCmd.Parameters.AddWithValue("@user_ID", user_ID);
+
+                                        updateCmd.ExecuteNonQuery();
+                                    }
+                                }
+                                else
+                                {
+                                    // No new image uploaded, so update other fields only
+                                    string updateQuery = @"UPDATE Announcement
+                                               SET Title = @newTitle,
+                                                   Date = @newDate,
+                                                   ShortDescription = @newShortDesc,
+                                                   DetailedDescription = @newDetailedDesc
+                                               WHERE AnnouncementID = @AnnouncementID AND User_ID = @user_ID";
+
+                                    using (SqlCommand updateCmd = new SqlCommand(updateQuery, conn))
+                                    {
+                                        updateCmd.Parameters.AddWithValue("@newTitle", currentTitle);
+                                        updateCmd.Parameters.AddWithValue("@newDate", currentDate);
+                                        updateCmd.Parameters.AddWithValue("@newShortDesc", currentShortDesc);
+                                        updateCmd.Parameters.AddWithValue("@newDetailedDesc", currentDetailedDesc);
+                                        updateCmd.Parameters.AddWithValue("@AnnouncementID", AnnouncementID);
+                                        updateCmd.Parameters.AddWithValue("@user_ID", user_ID);
+
+                                        updateCmd.ExecuteNonQuery();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Handle the case when user_ID is not available in the session
+                // You can throw an exception, show an error message, or take appropriate action.
+                throw new Exception("User_ID not available in the session.");
+            }
+        }
+        // Helper function to convert a byte array from an image file
+        private byte[] GetByteArrayFromImage(byte[] imageBytes)
+        {
+            // Add any additional processing if needed (e.g., resizing, compression)
+            return imageBytes;
+        }
+        protected void updtAnnouncement_Click(object sender, EventArgs e)
+        {
+            int hiddenID = Convert.ToInt32(HidAnnouncementID.Value);
+            try
+            {
+                updtAnnoucementList(hiddenID);
+                string successMessage = "Announcement updated successfully.";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                    $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+
+                LoadAnnouncements();
+            }
+            catch (Exception ex)
+            {
+                string errorMessage = "An error occurred while deleting the announcement: " + ex.Message;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+            }
+
+        }
+
+
     }
 }

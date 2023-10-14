@@ -62,8 +62,6 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
         protected void upldTbl_RowEditing(object sender, GridViewEditEventArgs e)
         {
             int rowIndex = e.NewEditIndex;
-
-
         }
 
         protected void upldTbl_RowDeleting(object sender, GridViewDeleteEventArgs e)

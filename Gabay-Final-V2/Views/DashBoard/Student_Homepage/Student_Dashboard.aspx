@@ -2,58 +2,111 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <div class="container">
+     <style>
+        .card-container{
+            height:500px;
+            display: flex;
+            justify-content: space-evenly;
+
+        }
+        .card{
+            margin:13px;
+            width:25rem;
+            height:100%;
+            border: 2px solid #425ab7;
+            border-radius: 20px;
+            box-shadow: 10px 10px 8px #888888;
+        }
+        .image-container{
+            max-width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-radius: 18px 18px 0 0;
+        }
+        .imagePlaceholder{
+            width: 100%;
+            height: 100%;
+        }
+        .learnMoreBtn{
+            height: 45px;
+            width: 130px;
+            color:white;
+            font-size:18px;
+        }
+        .carousel .card {
+            display: none;
+            transition: transform 0.5s ease-in-out;
+            transform: translateX(100%);
+        }
+
+        .carousel .card.active {
+            display: block;
+            transform: translateX(0);
+        }
+    </style>
+     <script src="../Scripts/jquery-3.7.1.js"></script>
+    <div class="container">
         <h1 class="text-center mt-4">Announcements</h1>
         <!-- Manual controls for sliding (moved to the right) -->
         <div class="d-flex justify-content-end mt-3">
-                <button class="btn btn-light mr-2" id="prevButton">&lt;</button>
-                <button class="btn btn-light" id="nextButton">&gt;</button>
-         </div>
+            <button type="button" class="btn btn-light mr-2" id="prevButton">&lt;</button>
+            <button type="button" class="btn btn-light" id="nextButton">&gt;</button>
+        </div>
         <!-- Announcement Container -->
-        <div class="announcement-container">
-           <asp:Repeater ID="rptAnnouncements" runat="server">
-            <ItemTemplate>
-                <!-- Inside the Repeater ItemTemplate -->
-                <div class="announcement-card">
-                    <div class="image-container">
-                        <img src='<%# ResolveUrl(Eval("ImagePath").ToString()) %>' alt="Announcement Image" />
-                        <div class="announcement-details">
-                            <div class="announcement-date">
-                                <p><%# Eval("Date") %></p>
-                            </div>
-                            <div class="announcement-title">
-                                <h2><%# Eval("Title") %></h2>
-                            </div>
-                            <p>Short Description</p>
-                            <div class="announcement-description">
-                                <p><%# Eval("ShortDescription") %></p>
-                            </div>
-                            <div class="button-container">
-                                <button class="learn-more-btn" data-toggle="modal" data-target='<%# "#announcementModal" + Eval("AnnouncementID") %>' data-id='<%# Eval("AnnouncementID") %>'>Learn More</button>
+        <div class="card-container">
+            <asp:Repeater runat="server" ID="rptAnnouncements">
+                <ItemTemplate>
+                    <div class=" carousel">
+                        <div class=" carousel-inner">
+                            <div class="card">
+                                <div class="image-container">
+                                    <asp:Image ID="imgPlaceholder" runat="server" class="img-fluid imagePlaceholder" alt="..."
+                                        ImageUrl='<%#"data:Image/png;base64," + Convert.ToBase64String((byte[])Eval("ImagePath")) %>' />
+                                </div>
+                                <div class="p-2 d-flex justify-content-center align-items-center flex-column">
+                                    <p><%# Eval("Date", "{0:MMMM-dd-yyyy}") %></p>
+                                    <span class="card-title fs-2 fw-medium"><%# Eval("Title") %></span>
+                                    <p class="card-text text-center"><%# Eval("ShortDescription") %></p>
+                                    <asp:LinkButton ID="learnMoreBtn" CssClass="btn bg-primary learnMoreBtn text-center"
+                                        runat="server" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            Learn More
+                                    </asp:LinkButton>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-            </ItemTemplate>
-        </asp:Repeater>
+                </ItemTemplate>
+            </asp:Repeater>
         </div>
-           </div>
+    </div>
+    <asp:HiddenField ID="HiddenField1" runat="server" />
+    <%-- Detailed Modal --%>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title fs-5" id="detailedHeader">
+                        <asp:Label ID="Label1" runat="server" Text="Title"></asp:Label>
+                    </span>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="image-container">
+                        <asp:Image ID="imgPlaceholder" runat="server" class="img-fluid imagePlaceholder" alt="..." />
+                    </div>
+                    <div class="d-flex justify-content-center flex-column">
+                        <asp:Label ID="Label2" runat="server" Text="Date"></asp:Label>
+                        <asp:Label ID="Label3" runat="server" Text="Detailed Description"></asp:Label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <script>
-        // JavaScript to handle modal functionality
-        $(document).ready(function () {
-            $('.learn-more-btn').click(function () {
-                var announcementID = $(this).data('id');
-                var modal = $('.modal[data-announcementid="' + announcementID + '"]');
-                // Rest of your code to show the modal...
-            });
-        })
-    </script>
-    <!-- Para Slide2x -->
     <script>
         var currentSlide = 0;
         var totalSlides = 0;
@@ -61,146 +114,58 @@
 
         $(document).ready(function () {
             // Initialize the total number of slides
-            totalSlides = $(".announcement-card").length;
+            totalSlides = $(".card").length;
 
-            // Show only the first three slides initially
-            showSlides(currentSlide, currentSlide + 2);
+            // Show the initial set of slides
+            showSlides(currentSlide);
 
             // Add event handlers for "Previous" and "Next" buttons
             $("#prevButton").click(prevSlide);
             $("#nextButton").click(nextSlide);
 
+            // Add event handlers for card hover
+            $(".card").hover(stopSliding, startSliding);
+
             // Start automatic sliding
-            slidingInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+            startSliding();
         });
 
-        // Function to display slides within a range
-        function showSlides(startIndex, endIndex) {
-            $(".announcement-card").hide();
-            $(".announcement-card").slice(startIndex, endIndex + 1).show();
+        function showSlides(currentSlide) {
+            // Remove the "active" class from all cards
+            $(".card").removeClass("active");
+
+            // Calculate the next three slides in a looped manner
+            var firstIndex = currentSlide % totalSlides;
+            var secondIndex = (currentSlide + 1) % totalSlides;
+            var thirdIndex = (currentSlide + 2) % totalSlides;
+
+            // Add the "active" class to the selected cards for animation
+            $(".card").eq(firstIndex).addClass("active");
+            $(".card").eq(secondIndex).addClass("active");
+            $(".card").eq(thirdIndex).addClass("active");
         }
 
         // Function to show the next set of slides
         function nextSlide() {
-            currentSlide = (currentSlide + 3) % totalSlides;
-            var endIndex = currentSlide + 2;
-            showSlides(currentSlide, endIndex);
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlides(currentSlide);
         }
 
         // Function to show the previous set of slides
         function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide = (currentSlide - 3 + totalSlides) % totalSlides;
-                var endIndex = currentSlide + 2;
-                showSlides(currentSlide, endIndex);
-            }
-            // Stop automatic sliding when clicking "Previous"
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlides(currentSlide);
+        }
+
+        // Function to stop automatic sliding
+        function stopSliding() {
             clearInterval(slidingInterval);
         }
-    </script>
 
-
-
-
-
-    <style>
-        /* Container for Announcements */
-        .announcement-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 20px;
+        // Function to start automatic sliding
+        function startSliding() {
+            slidingInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
         }
 
-        .announcement-card {
-            width: calc(33.33% - 20px); /* 33.33% with a gap of 20px between cards */
-            display: flex;
-            flex-direction: column;
-            border: 2px solid #3498db;
-            border-radius: 15px;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-            height: 700px; /* Adjust this value as needed */
-            overflow: hidden;
-        }
-
-
-        .image-container {
-            flex-grow: 1;
-            text-align: center;
-        }
-
-        .image-container img {
-            max-width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-       .announcement-details {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end; /* Align elements to the bottom */
-            padding: 10px 0;
-        }
-
-        .announcement-date,
-        .announcement-title,
-        .announcement-description {
-            margin-bottom: 10px; /* Add some space between elements */
-        }
-
-        .announcement-date {
-            font-size: 14px;
-            color: #777;
-        }
-
-        .announcement-title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .announcement-description {
-            font-size: 16px;
-            color: #555;
-            max-height: 200px;
-            max-width: auto;
-            overflow-y: auto;
-            max-height: auto;
-            text-align: justify-all;
-        }
-
-
-       .button-container {
-            display: flex;
-            justify-content: flex-end; 
-            align-items: center; /* Center the button vertically */
-            flex-direction: column; /* Stack the button below other content */
-            margin-top: auto;
-        }
-
-        .learn-more-btn {
-            background-color: #3498db;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        .learn-more-btn:hover {
-            background-color: #2980b9;
-        }
-    </style>
-    <script>
-        function openModal(announcementID) {
-            $('#announcementModal' + announcementID).modal('show');
-        }
     </script>
 </asp:Content>
