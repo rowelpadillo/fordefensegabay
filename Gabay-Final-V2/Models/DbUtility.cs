@@ -338,7 +338,7 @@ namespace Gabay_Final_V2.Models
             {
                 conn.Open();
 
-                string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email
+                string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
                                             FROM student s
                                             INNER JOIN department d ON s.department_ID = d.ID_dept
                                             INNER JOIN users_table u ON s.user_ID = u.user_ID

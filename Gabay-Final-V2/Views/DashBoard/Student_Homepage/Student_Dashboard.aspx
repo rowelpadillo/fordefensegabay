@@ -7,7 +7,6 @@
             height:500px;
             display: flex;
             justify-content: space-evenly;
-
         }
         .card{
             margin:13px;
@@ -68,7 +67,8 @@
                                     <span class="card-title fs-2 fw-medium"><%# Eval("Title") %></span>
                                     <p class="card-text text-center"><%# Eval("ShortDescription") %></p>
                                     <asp:LinkButton ID="learnMoreBtn" CssClass="btn bg-primary learnMoreBtn text-center"
-                                        runat="server" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        runat="server" OnClientClick='<%# "setAnnouncementID(" + Eval("AnnouncementID") + ");" %>'
+                                        OnClick="learnMoreBtn_Click">
                                             Learn More
                                     </asp:LinkButton>
                                 </div>
@@ -81,22 +81,23 @@
     </div>
     <asp:HiddenField ID="HiddenField1" runat="server" />
     <%-- Detailed Modal --%>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="dtldModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <span class="modal-title fs-5" id="detailedHeader">
-                        <asp:Label ID="Label1" runat="server" Text="Title"></asp:Label>
+                        <asp:Label ID="dtldTitle" runat="server" Text="Title"></asp:Label>
                     </span>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="image-container">
-                        <asp:Image ID="imgPlaceholder" runat="server" class="img-fluid imagePlaceholder" alt="..." />
+                        <asp:Image ID="dtldimgPlaceholder" runat="server" class="img-fluid imagePlaceholder" alt="..." 
+                            ImageUrl='<%#"data:Image/png;base64," + Convert.ToBase64String((byte[])Eval("ImagePath")) %>'/>
                     </div>
                     <div class="d-flex justify-content-center flex-column">
-                        <asp:Label ID="Label2" runat="server" Text="Date"></asp:Label>
-                        <asp:Label ID="Label3" runat="server" Text="Detailed Description"></asp:Label>
+                        <asp:Label ID="dtldDate" runat="server" Text="Date"></asp:Label>
+                        <asp:Label ID="dtldDescrp" runat="server" Text="Detailed Description"></asp:Label>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -166,6 +167,8 @@
         function startSliding() {
             slidingInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
         }
-
+        function setAnnouncementID(announcementID) {
+            document.getElementById('<%= HiddenField1.ClientID %>').value = announcementID;
+        }
     </script>
 </asp:Content>

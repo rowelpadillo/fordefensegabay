@@ -58,5 +58,43 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
             rptAnnouncements.DataSource = dt;
             rptAnnouncements.DataBind();
         }
+
+        protected void learnMoreBtn_Click(object sender, EventArgs e)
+        {
+            int announcementID = Convert.ToInt32(HiddenField1.Value);
+
+            fetchAnnouncementDetails(announcementID);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showDetailedModal", "$('#dtldModal').modal('show');", true);
+
+        }
+        public void fetchAnnouncementDetails(int announcementID)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                string query = @"SELECT * FROM Announcement WHERE AnnouncementID = @AnnouncementID";
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AnnouncementID", announcementID);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            dtldTitle.Text = reader["Title"].ToString();
+                            DateTime date = (DateTime)reader["Date"];
+                            dtldDate.Text = date.ToString("yyyy-MM-dd");
+                            dtldDescrp.Text = reader["DetailedDescription"].ToString();
+
+                            byte[] imageBytes = reader["ImagePath"] as byte[];
+                            if (imageBytes != null)
+                            {
+                                string base64Image = Convert.ToBase64String(imageBytes);
+                                dtldimgPlaceholder.ImageUrl = "data:Image/png;base64," + base64Image;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

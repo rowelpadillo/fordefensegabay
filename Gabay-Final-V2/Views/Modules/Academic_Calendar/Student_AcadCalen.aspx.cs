@@ -1,22 +1,24 @@
 ﻿using Gabay_Final_V2.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
+using System.Data.SqlClient;
 using static Gabay_Final_V2.Models.AcadCalen_model;
 
 namespace Gabay_Final_V2.Views.Modules.Academic_Calendar
 {
     public partial class Student_AcadCalen : System.Web.UI.Page
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindFilesToDropDownList();
+            if (!IsPostBack)
+            {
+                BindFilesToDropDownList();
+            }
         }
 
         protected void lnkDownload_Click(object sender, EventArgs e)
@@ -95,20 +97,19 @@ namespace Gabay_Final_V2.Views.Modules.Academic_Calendar
             return null;
         }
 
-
         private void BindFilesToDropDownList()
         {
-            AcadCalen_model conn = new AcadCalen_model();
-            List<AcadCalen_model.AcademicFile> filesList = conn.FetchFilesDataFromDatabase();
-            ddlFiles.Items.Clear(); // Clear existing items
+            AcadCalen_model acadCalenModel = new AcadCalen_model(); // Create an instance of AcadCalen_model
+            List<AcadCalen_model.FileData> filesList = acadCalenModel.FetchFilesDataFromDatabase();
 
-            foreach (AcadCalen_model.AcademicFile file in filesList)
+            ddlFiles.Items.Clear();
+
+            foreach (AcadCalen_model.FileData file in filesList)
             {
                 ListItem item = new ListItem(file.FileName, file.FileId.ToString());
                 ddlFiles.Items.Add(item);
             }
 
-            // Set the selected item based on ViewState
             if (ViewState["SelectedFileId"] != null)
             {
                 int selectedFileId = (int)ViewState["SelectedFileId"];
@@ -116,20 +117,18 @@ namespace Gabay_Final_V2.Views.Modules.Academic_Calendar
             }
         }
 
+
+
         protected void ddlFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AcadCalen_model conn = new AcadCalen_model();
             int selectedFileId = int.Parse(ddlFiles.SelectedValue);
             ViewState["SelectedFileId"] = selectedFileId;
 
-            // Debugging statement to display selectedFileId
             DownloadErrorLabel.Text = "Selected File ID: " + selectedFileId;
 
-            // Fetch the selected file's data and update labels or perform other actions
-            byte[] selectedFileData = conn.FetchFileDataFromDatabase(selectedFileId);
+            byte[] selectedFileData = FetchFileDataFromDatabase(selectedFileId);
             if (selectedFileData != null)
             {
-                // Update labels or perform other actions
                 DownloadErrorLabel.Text = "";
             }
             else

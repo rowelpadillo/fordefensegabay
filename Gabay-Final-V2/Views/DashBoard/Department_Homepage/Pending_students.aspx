@@ -16,6 +16,7 @@
             <asp:BoundField DataField="contactNumber" HeaderText="ContactNumber" />
             <asp:BoundField DataField="course_year" HeaderText="Course Year" />
             <asp:BoundField DataField="email" HeaderText="Email" />
+            <asp:BoundField DataField="status" HeaderText="Status" />
             <asp:TemplateField>
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1" runat="server" OnClientClick='<%# "return showConfirmationModal(" + Eval("studentID") + ");" %>'>Approve</asp:LinkButton>

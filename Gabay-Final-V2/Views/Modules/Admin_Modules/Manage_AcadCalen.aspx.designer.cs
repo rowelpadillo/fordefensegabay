@@ -15,6 +15,15 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
     {
 
         /// <summary>
+        /// RptFiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RptFiles;
+
+        /// <summary>
         /// fileUpload control.
         /// </summary>
         /// <remarks>
@@ -24,30 +33,21 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
         protected global::System.Web.UI.WebControls.FileUpload fileUpload;
 
         /// <summary>
-        /// fileName control.
+        /// txtFileName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fileName;
+        protected global::System.Web.UI.WebControls.TextBox txtFileName;
 
         /// <summary>
-        /// upldBtn control.
+        /// btnUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button upldBtn;
-
-        /// <summary>
-        /// upldTbl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView upldTbl;
+        protected global::System.Web.UI.WebControls.Button btnUpload;
     }
 }
