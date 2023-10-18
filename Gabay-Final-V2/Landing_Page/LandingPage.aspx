@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="row align-items-center g-2">
-                <div class="col-md-8 col-sm-12">
+                <div class="col-12">
                     <div class="card d-md-flex">
                         <div class="card-body">
                             <div class="d-flex align-items-center justify-content-around">

@@ -57,7 +57,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Year;
+        protected global::System.Web.UI.WebControls.TextBox Year;
 
         /// <summary>
         /// time control.
@@ -84,7 +84,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DepartmentDropDown;
+        protected global::System.Web.UI.WebControls.TextBox DepartmentDropDown;
 
         /// <summary>
         /// Message control.

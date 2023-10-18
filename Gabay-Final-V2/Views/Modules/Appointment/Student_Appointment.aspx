@@ -36,39 +36,32 @@
 	}
   </style>
 
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-6 mx-auto form-wrapper">
 				<div class="form-container">
 					<h2 class="form-heading">Appointment Form</h2>
 					<div class="mb-3">
 						<label for="FullName" class="form-label">Full Name</label>
-						<asp:TextBox ID="FullName" runat="server" CssClass="form-control" ValidationExpression="^[A-Za-z]+$" oninput="return preventNumbers(event);"></asp:TextBox>
+						<asp:TextBox ID="FullName" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<label for="Email" class="form-label">Email Address</label>
-						<asp:TextBox ID="Email" runat="server" CssClass="form-control"></asp:TextBox>
+						<asp:TextBox ID="Email" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<label for="ContactN" class="form-label">Contact Number</label>
-						<asp:TextBox ID="ContactN" runat="server" CssClass="form-control" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></asp:TextBox>
+						<asp:TextBox ID="ContactN" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<div class="row">
 							<div class="col">
 								<label for="IdNumber" class="form-label">ID Number</label>
-								<asp:TextBox ID="IdNumber" runat="server" CssClass="form-control" type="number" oninput="this.value = this.value.replace(/[^0-9]/g, '');"></asp:TextBox>
+								<asp:TextBox ID="IdNumber" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
 							</div>
 							<div class="col">
 								<label for="Year" class="form-label">Year Level</label>
-								<asp:DropDownList ID="Year" runat="server" CssClass="form-control" required>
-									<asp:ListItem Text="" Value=""></asp:ListItem>
-									<asp:ListItem Text="1st Year" Value="1st Year"></asp:ListItem>
-									<asp:ListItem Text="2nd Year" Value="2nd Year"></asp:ListItem>
-									<asp:ListItem Text="3rd Year" Value="3rd Year"></asp:ListItem>
-									<asp:ListItem Text="4th Year" Value="4th Year"></asp:ListItem>
-									<asp:ListItem Text="5th Year" Value="5th Year"></asp:ListItem>
-								</asp:DropDownList>
+								<asp:TextBox ID="Year" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
 							</div>
 						</div>
 					</div>
@@ -87,19 +80,7 @@
 					</div>
 					<div class="mb-3">
 						<label for="DepartmentDropDown" class="form-label">Department</label>
-						<asp:DropDownList ID="DepartmentDropDown" runat="server" CssClass="form-control" required>
-							<asp:ListItem Text="" Value=""></asp:ListItem>
-							<asp:ListItem Text="College of Business Administration" Value="College_of_Business_Administration"></asp:ListItem>
-							<asp:ListItem Text="College of Accountancy" Value="College_of_Accountancy"></asp:ListItem>
-							<asp:ListItem Text="College of Computer Studies" Value="College_of_Computer_Studies"></asp:ListItem>
-							<asp:ListItem Text="College of Criminology" Value="College_of_Criminology"></asp:ListItem>
-							<asp:ListItem Text="College of Customs ADM" Value="College_of_Customs_ADM"></asp:ListItem>
-							<asp:ListItem Text="College of Hospitality and Tourism" Value="College_of_Hospitality_and_Tourism"></asp:ListItem>
-							<asp:ListItem Text="College of Teachers Education" Value="College_of_Teachers_Education"></asp:ListItem>
-							<asp:ListItem Text="College of Engineer" Value="College_of_Engineer"></asp:ListItem>
-							<asp:ListItem Text="College of Maritime Studies" Value="College_of_Maritime_Studies"></asp:ListItem>
-							<asp:ListItem Text="College of Nursing" Value="College_of_Nursing"></asp:ListItem>
-						</asp:DropDownList>
+						<asp:TextBox ID="DepartmentDropDown" CssClass="form-control" runat="server" disabled="disabled"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<label for="Message" class="form-label">Concern</label>

@@ -8,11 +8,13 @@ using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Configuration;
 
 namespace Gabay_Final_V2.Views.Modules.Appointment
 {
     public partial class Student_Appointment : System.Web.UI.Page
     {
+        public static string connectionString = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
         private string ConvertImageToBase64(string imagePath)
         {
             using (System.Drawing.Image image = System.Drawing.Image.FromFile(imagePath))
@@ -32,36 +34,77 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["FormSubmitted"] != null && (bool)Session["FormSubmitted"])
+            if (!IsPostBack)
             {
-                // Clear the session variable to avoid showing the popup again on page refresh
-                Session["FormSubmitted"] = false;
+                if (Session["user_ID"] != null)
+                {
+                    int userID = Convert.ToInt32(Session["user_ID"]);
 
-                // Register the script to show the success message
-                ClientScript.RegisterStartupScript(this.GetType(), "successMessageScript",
-                    "showSuccessMessage();", true);
+                    retrieveStudentInfo(userID);
+                }
+                //if (Session["FormSubmitted"] != null && (bool)Session["FormSubmitted"])
+                //{
+                //    // Clear the session variable to avoid showing the popup again on page refresh
+                //    Session["FormSubmitted"] = false;
+
+                //    // Register the script to show the success message
+                //    ClientScript.RegisterStartupScript(this.GetType(), "successMessageScript",
+                //        "showSuccessMessage();", true);
+                //}
+
+                //else if (FormSubmittedHiddenField.Value == "true")
+                //{
+                //    // If the form was submitted on the same page load, show the success message
+                //    ClientScript.RegisterStartupScript(this.GetType(), "successMessageScript",
+                //        "showSuccessMessage();", true);
+                //}
             }
+           
+        }
 
-            else if (FormSubmittedHiddenField.Value == "true")
+        public void retrieveStudentInfo(int userID)
+        {
+            using(SqlConnection conn = new SqlConnection(connectionString))
             {
-                // If the form was submitted on the same page load, show the success message
-                ClientScript.RegisterStartupScript(this.GetType(), "successMessageScript",
-                    "showSuccessMessage();", true);
+                string query = @"SELECT s.name, s.email, s.contactNumber, s.studentID, s.course_year, d.dept_name
+                                 FROM student s
+                                 INNER JOIN department d ON s.department_ID = d.ID_dept
+                                 WHERE s.user_ID = @userID ";
+                
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userID", userID); 
+                    conn.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if(reader.Read())
+                        {
+                            FullName.Text = reader["name"].ToString();
+                            Email.Text = reader["email"].ToString();
+                            ContactN.Text = reader["contactNumber"].ToString();
+                            IdNumber.Text = reader["studentID"].ToString();
+                            Year.Text = reader["course_year"].ToString();
+                            DepartmentDropDown.Text = reader["dept_name"].ToString();
+                        }
+                    }
+                }
             }
         }
+
+
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
-                string fullName = FullName.Text.Trim();
-                string idNumber = IdNumber.Text.Trim();
-                string year = Year.SelectedValue;
-                string department = DepartmentDropDown.SelectedValue;
-                string email = Email.Text.Trim();
-                string contactNumber = ContactN.Text.Trim(); // Add this line to get the contact number
-                string userConcern = Message.Text.Trim();
+                string fullName = FullName.Text;
+                string idNumber = IdNumber.Text;
+                string year = Year.Text;
+                string department = DepartmentDropDown.Text;
+                string email = Email.Text;
+                string contactNumber = ContactN.Text; // Add this line to get the contact number
+                string userConcern = Message.Text;
                 string selectedDate = selectedDateHidden.Value;
-                string selectedTime = time.Text.Trim();
+                string selectedTime = time.Text;
 
                 if (!string.IsNullOrEmpty(fullName) && !string.IsNullOrEmpty(idNumber)
                     && !string.IsNullOrEmpty(year) && !string.IsNullOrEmpty(department) && !string.IsNullOrEmpty(email)
@@ -145,8 +188,8 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                     // Clear the form fields
                     FullName.Text = string.Empty;
                     IdNumber.Text = string.Empty;
-                    Year.SelectedValue = string.Empty; // Clear the selected year
-                    DepartmentDropDown.SelectedValue = string.Empty;
+                    Year.Text = string.Empty; // Clear the selected year
+                    DepartmentDropDown.Text = string.Empty;
                     Email.Text = string.Empty;
                     ContactN.Text = string.Empty; // Clear the contact number
                     Message.Text = string.Empty;

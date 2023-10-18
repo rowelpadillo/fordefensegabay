@@ -53,6 +53,7 @@ namespace Gabay_Final_V2.Models
                 {
                     cmd.Parameters.AddWithValue("@selectedDept", selectedDeptID);
                     SqlDataReader reader = cmd.ExecuteReader();
+                    courseDDL.Items.Clear();
 
                     if (reader.Read())
                     {
@@ -329,7 +330,7 @@ namespace Gabay_Final_V2.Models
                 conn.Close();
             }
         }
-        //-------------------------------Display/Fetch Students with Pending Status in Department homepage-------------------------------//
+        //-------------------------------Display/Fetch Students with Pending, Active, Deactivated Status in Department homepage-------------------------------//
         public DataTable displayPendingStudents(int userID)
         {
             DataTable studentTable = new DataTable();
@@ -356,8 +357,60 @@ namespace Gabay_Final_V2.Models
             }
             return studentTable;
         }
-        ///-------------------------------Emai and Update process for students-------------------------------//
-        public void updateStudentStatus(string studentID)
+        public DataTable displayActiveStudents(int userID)
+        {
+            DataTable studentTable = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+
+                string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
+                                            FROM student s
+                                            INNER JOIN department d ON s.department_ID = d.ID_dept
+                                            INNER JOIN users_table u ON s.user_ID = u.user_ID
+                                            WHERE d.user_ID = @userID 
+                                            AND u.status = 'activated'";
+                using (SqlCommand cmd = new SqlCommand(queryFetchStudent, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userID", userID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        studentTable.Load(reader);
+                    }
+                }
+            }
+            return studentTable;
+        }
+        public DataTable displayDeactivedStudents(int userID)
+        {
+            DataTable studentTable = new DataTable();
+
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+
+                string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
+                                            FROM student s
+                                            INNER JOIN department d ON s.department_ID = d.ID_dept
+                                            INNER JOIN users_table u ON s.user_ID = u.user_ID
+                                            WHERE d.user_ID = @userID 
+                                            AND u.status = 'deactivated'";
+                using (SqlCommand cmd = new SqlCommand(queryFetchStudent, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userID", userID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        studentTable.Load(reader);
+                    }
+                }
+            }
+            return studentTable;
+        }
+        //-------------------------------Activate Update process for students-------------------------------//
+        public void updateStudentStatusApproved(string studentID)
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
@@ -371,30 +424,6 @@ namespace Gabay_Final_V2.Models
                     cmd.ExecuteNonQuery();
                 }
             }
-        }
-        public Tuple<string, string> getStudEmailInfo(string studentID)
-        {
-            string studEmail = "";
-            string studeName = "";
-
-            using (SqlConnection conn = new SqlConnection(connection))
-            {
-                conn.Open();
-                string queryStudEmail = "SELECT email, name FROM student WHERE studentID = @student_ID";
-
-                using (SqlCommand cmd = new SqlCommand(queryStudEmail, conn))
-                {
-                    cmd.Parameters.AddWithValue("@student_ID", studentID);
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        studEmail = reader["email"].ToString();
-                        studeName = reader["name"].ToString();
-                    }
-                }
-            }
-            Tuple<string, string> result = new Tuple<string, string>(studEmail, studeName);
-            return result;
         }
         public void emailApprovedAccount(string studentEmail, string studentName)
         {
@@ -426,7 +455,55 @@ namespace Gabay_Final_V2.Models
             }
 
         }
-        public DataTable searchStudents(int userID, string searchCriteria)
+        //-------------------------------Deactivate Update process for students-------------------------------//
+        public void updateStudentStatusDeactivate(string studentID)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+
+                string updateQuery = "UPDATE users_table SET status = 'deactivated' WHERE login_ID = @studentID";
+
+                using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@studentID", studentID);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void emailDeactivateAccount(string studentEmail, string studentName)
+        {
+            string emailSubject = "Account Deactivated";
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("UC Gabay", "noreply@gmail.com"));
+            message.To.Add(new MailboxAddress(studentName, studentEmail));
+            message.Subject = emailSubject;
+
+            var builder = new BodyBuilder();
+            builder.HtmlBody = @"<p>Dear " + studentName + "," +
+                "Your account has been deactivated if you have concern or questions.</p>" +
+                "<p>Kindly Follow the link here <a href='https://localhost:44341/Views/LoginPages/Guest_login.aspx'>Gabay Guest Login</a> and set an appointment";
+
+            message.Body = builder.ToMessageBody();
+
+            try
+            {
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate(ConfigurationManager.AppSettings["SystemEmail"], ConfigurationManager.AppSettings["SystemEmailPass"]);
+                    client.Send(message);
+                    client.Disconnect(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email sending error: " + ex.Message);
+            }
+
+        }
+        //-------------------------------Email and Search Student Process-------------------------------//
+        public DataTable searchStudents(int userID, string searchCriteria, string status)
         {
             DataTable studentTable = new DataTable();
 
@@ -439,12 +516,13 @@ namespace Gabay_Final_V2.Models
                                        INNER JOIN department d ON s.department_ID = d.ID_dept
                                        INNER JOIN users_table u ON s.user_ID = u.user_ID
                                        WHERE d.user_ID = @userID 
-                                       AND u.status = 'pending'
+                                       AND u.status = @status
                                        AND (s.name LIKE @searchCriteria OR s.studentID LIKE @searchCriteria)";
 
                 using (SqlCommand cmd = new SqlCommand(querySearchStudents, conn))
                 {
                     cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.Parameters.AddWithValue("@status", status);
                     cmd.Parameters.AddWithValue("@searchCriteria", "%" + searchCriteria + "%");
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -454,6 +532,30 @@ namespace Gabay_Final_V2.Models
                 }
             }
             return studentTable;
+        }
+        public Tuple<string, string> getStudEmailInfo(string studentID)
+        {
+            string studEmail = "";
+            string studeName = "";
+
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+                string queryStudEmail = "SELECT email, name FROM student WHERE studentID = @student_ID";
+
+                using (SqlCommand cmd = new SqlCommand(queryStudEmail, conn))
+                {
+                    cmd.Parameters.AddWithValue("@student_ID", studentID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        studEmail = reader["email"].ToString();
+                        studeName = reader["name"].ToString();
+                    }
+                }
+            }
+            Tuple<string, string> result = new Tuple<string, string>(studEmail, studeName);
+            return result;
         }
 
     }
