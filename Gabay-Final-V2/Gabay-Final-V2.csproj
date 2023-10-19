@@ -131,6 +131,7 @@
     <Content Include="Prototype\WebForm12.aspx" />
     <Content Include="Prototype\WebForm13.aspx" />
     <Content Include="Prototype\WebForm14.aspx" />
+    <Content Include="Prototype\WebForm15.aspx" />
     <Content Include="Prototype\WebForm2.aspx" />
     <Content Include="Prototype\ManageStudent.aspx" />
     <Content Include="Prototype\WebForm4.aspx" />
@@ -2314,6 +2315,7 @@
     <Content Include="Views\Modules\Admin_Modules\Manage_FAQ.aspx" />
     <Content Include="Views\Modules\Admin_Modules\Manage_Users.aspx" />
     <Content Include="Views\Modules\Announcement\Department_Announcement.aspx" />
+    <Content Include="Views\Modules\Appointment\Appointment_Status.aspx" />
     <Content Include="Views\Modules\Appointment\Manage_Appointment.aspx" />
     <Content Include="Views\Modules\Appointment\Student_Appointment.aspx" />
     <Content Include="Views\Modules\Campus_Info\Department_CampusInfo.aspx" />
@@ -2384,6 +2386,13 @@
     </Compile>
     <Compile Include="Prototype\WebForm14.aspx.designer.cs">
       <DependentUpon>WebForm14.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm15.aspx.cs">
+      <DependentUpon>WebForm15.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm15.aspx.designer.cs">
+      <DependentUpon>WebForm15.aspx</DependentUpon>
     </Compile>
     <Compile Include="Prototype\WebForm2.aspx.cs">
       <DependentUpon>WebForm2.aspx</DependentUpon>
@@ -2594,6 +2603,13 @@
     </Compile>
     <Compile Include="Views\Modules\Announcement\Department_Announcement.aspx.designer.cs">
       <DependentUpon>Department_Announcement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modules\Appointment\Appointment_Status.aspx.cs">
+      <DependentUpon>Appointment_Status.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Modules\Appointment\Appointment_Status.aspx.designer.cs">
+      <DependentUpon>Appointment_Status.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Modules\Appointment\Manage_Appointment.aspx.cs">
       <DependentUpon>Manage_Appointment.aspx</DependentUpon>

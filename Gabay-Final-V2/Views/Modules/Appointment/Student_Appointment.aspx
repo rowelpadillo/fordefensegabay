@@ -43,25 +43,25 @@
 					<h2 class="form-heading">Appointment Form</h2>
 					<div class="mb-3">
 						<label for="FullName" class="form-label">Full Name</label>
-						<asp:TextBox ID="FullName" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
+						<asp:TextBox ID="FullName" runat="server" CssClass="form-control" ReadOnly="True"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<label for="Email" class="form-label">Email Address</label>
-						<asp:TextBox ID="Email" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
+						<asp:TextBox ID="Email" runat="server" CssClass="form-control" ReadOnly="True"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<label for="ContactN" class="form-label">Contact Number</label>
-						<asp:TextBox ID="ContactN" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
+						<asp:TextBox ID="ContactN" runat="server" CssClass="form-control" ReadOnly="True"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<div class="row">
 							<div class="col">
 								<label for="IdNumber" class="form-label">ID Number</label>
-								<asp:TextBox ID="IdNumber" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
+								<asp:TextBox ID="IdNumber" runat="server" CssClass="form-control" ReadOnly="True"></asp:TextBox>
 							</div>
 							<div class="col">
 								<label for="Year" class="form-label">Year Level</label>
-								<asp:TextBox ID="Year" runat="server" CssClass="form-control" disabled="disabled"></asp:TextBox>
+								<asp:TextBox ID="Year" runat="server" CssClass="form-control" ReadOnly="True"></asp:TextBox>
 							</div>
 						</div>
 					</div>
@@ -74,13 +74,14 @@
 							</div>
 							<div class="col">
 								<label for="selectedDateHidden" class="form-label">Date</label>
-								<input type="date" id="selectedDateHidden" runat="server" name="date" class="form-control" />
+								<%--<input type="date" id="selectedDateHidden" runat="server" name="date" class="form-control" />--%>
+								<asp:TextBox ID="selectedDateHidden" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
 							</div>
 						</div>
 					</div>
 					<div class="mb-3">
 						<label for="DepartmentDropDown" class="form-label">Department</label>
-						<asp:TextBox ID="DepartmentDropDown" CssClass="form-control" runat="server" disabled="disabled"></asp:TextBox>
+						<asp:TextBox ID="DepartmentDropDown" CssClass="form-control" runat="server" ReadOnly="True"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<label for="Message" class="form-label">Concern</label>
@@ -91,8 +92,8 @@
 			</div>
 		</div>
 	</div>
-	  <asp:HiddenField ID="FormSubmittedHiddenField" runat="server" Value="false" />
-	<script>
+	<%--<asp:HiddenField ID="FormSubmittedHiddenField" runat="server" Value="false" />--%>
+	<%--<script>
 		function preventNumbers(event) {
 			const input = event.target;
 			const value = input.value;
@@ -206,5 +207,5 @@
 			deptInput.addEventListener('change', checkDepartment);
 			yearInput.addEventListener('change', checkCourseYear);
 		});
-	</script>
+	</script>--%>
 </asp:Content>
