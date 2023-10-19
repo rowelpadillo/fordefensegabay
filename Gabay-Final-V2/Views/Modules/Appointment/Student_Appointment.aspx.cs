@@ -25,10 +25,37 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                 {
                     int userID = Convert.ToInt32(Session["user_ID"]);
 
+                    bool hasAppointment = checkUsersAppointmentStatus(userID);
+                    if (hasAppointment)
+                    {
+                        Response.Redirect("~/Views/Modules/Appointment/Appointment_Status.aspx");
+                    }
                     retrieveStudentInfo(userID);
                 }
             }
-           
+        }
+
+        public bool checkUsersAppointmentStatus(int userID)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"SELECT a.appointment_status
+                         FROM appointment a
+                         INNER JOIN users_table u ON a.student_ID = u.login_ID
+                         WHERE u.user_ID = @userID AND a.appointment_status = 'pending'";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@userID", userID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        return reader.Read(); // Return true if there's a pending appointment, false otherwise
+                    }
+                }
+            }
         }
 
         //Populate textboxes
@@ -75,7 +102,13 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             string SchedTime = time.Text;
             string Concern = Message.Text;
 
-            SaveAppointmentDetails(fullname, email, ConNum, StudIdNum, CourseYear, DepartmentName, SchedDate, SchedTime, Concern);
+            if (Session["user_ID"] != null)
+            {
+                SaveAppointmentDetails(fullname, email, ConNum, StudIdNum, CourseYear, DepartmentName, SchedDate, SchedTime, Concern);
+                Response.Redirect("~/Views/Modules/Appointment/Appointment_Status.aspx");
+            }
+           
+            
         }
 
         public void SaveAppointmentDetails(string fullname, string email, string ConNum, 
@@ -83,6 +116,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             string SchedTime, string Concern)
         {
             string statusSched = "pending";
+            Concern = Concern.Replace("<br>", "\n");
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"INSERT INTO appointment (deptName, full_name, email, student_ID, course_year,

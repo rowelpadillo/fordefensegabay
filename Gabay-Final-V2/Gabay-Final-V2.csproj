@@ -132,6 +132,7 @@
     <Content Include="Prototype\WebForm13.aspx" />
     <Content Include="Prototype\WebForm14.aspx" />
     <Content Include="Prototype\WebForm15.aspx" />
+    <Content Include="Prototype\WebForm16.aspx" />
     <Content Include="Prototype\WebForm2.aspx" />
     <Content Include="Prototype\ManageStudent.aspx" />
     <Content Include="Prototype\WebForm4.aspx" />
@@ -2229,6 +2230,7 @@
     <Content Include="Resources\CustomStyleSheet\RegistrationStyle.css" />
     <Content Include="Resources\CustomStyleSheet\Test.css" />
     <Content Include="Resources\Images\tempIcons\ccs logo.png" />
+    <Content Include="Resources\Images\tempIcons\database.png" />
     <Content Include="Resources\Images\uclm.png" />
     <Content Include="Resources\Images\buildings\1099451.jpg" />
     <Content Include="Resources\Images\buildings\2018447.jpg" />
@@ -2393,6 +2395,13 @@
     </Compile>
     <Compile Include="Prototype\WebForm15.aspx.designer.cs">
       <DependentUpon>WebForm15.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm16.aspx.cs">
+      <DependentUpon>WebForm16.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm16.aspx.designer.cs">
+      <DependentUpon>WebForm16.aspx</DependentUpon>
     </Compile>
     <Compile Include="Prototype\WebForm2.aspx.cs">
       <DependentUpon>WebForm2.aspx</DependentUpon>

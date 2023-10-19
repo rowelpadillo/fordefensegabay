@@ -65,6 +65,7 @@
 							</div>
 						</div>
 					</div>
+					<%--<asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Views/Modules/Appointment/Appointment_Status.aspx">HyperLink</asp:HyperLink>--%>
 					<div class="mb-3">
 						<div class="row">
 							<div class="col">
@@ -87,7 +88,27 @@
 						<label for="Message" class="form-label">Concern</label>
 						<asp:TextBox ID="Message" runat="server" TextMode="MultiLine" Rows="6" Columns="30" CssClass="form-control"></asp:TextBox>
 					</div>
-					<asp:Button ID="SubmitButton" runat="server" Text="SUBMIT" OnClick="SubmitButton_Click" ValidationGroup="FormValidation" CssClass="btn btn-primary btn-submit" />
+					<button type="button" class="btn btn-primary btn-submit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+						Submit Appointment
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Send appointment request?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+					<asp:Button ID="SubmitButton" runat="server" Text="Proceed" OnClick="SubmitButton_Click" ValidationGroup="FormValidation" CssClass="btn btn-primary" />
 				</div>
 			</div>
 		</div>
