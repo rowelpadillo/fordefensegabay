@@ -99,7 +99,7 @@
                             <h3 class="text-secondary">Modern Approach to University Information Sharing</h3>
                         </div>
                         <div class="button-area mt-3">
-                            <a class="btn exploreBtn" href="#aboutUS">Start Exploring</a>
+                            <a class="btn exploreBtn" href="#services">Start Exploring</a>
                         </div>
                     </div>
                 </div>

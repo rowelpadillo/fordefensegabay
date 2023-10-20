@@ -338,16 +338,17 @@ namespace Gabay_Final_V2.Models
             using (SqlConnection conn = new SqlConnection(connection))
             {
                 conn.Open();
-
+                string status = "pending";
                 string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
                                             FROM student s
                                             INNER JOIN department d ON s.department_ID = d.ID_dept
                                             INNER JOIN users_table u ON s.user_ID = u.user_ID
                                             WHERE d.user_ID = @userID 
-                                            AND u.status = 'pending'";
+                                            AND u.status = @status";
                 using (SqlCommand cmd = new SqlCommand(queryFetchStudent, conn))
                 {
                     cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.Parameters.AddWithValue("@status", status);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -364,16 +365,17 @@ namespace Gabay_Final_V2.Models
             using (SqlConnection conn = new SqlConnection(connection))
             {
                 conn.Open();
-
+                string status = "activated";
                 string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
                                             FROM student s
                                             INNER JOIN department d ON s.department_ID = d.ID_dept
                                             INNER JOIN users_table u ON s.user_ID = u.user_ID
                                             WHERE d.user_ID = @userID 
-                                            AND u.status = 'activated'";
+                                            AND u.status = @status";
                 using (SqlCommand cmd = new SqlCommand(queryFetchStudent, conn))
                 {
                     cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.Parameters.AddWithValue("@status", status);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -390,16 +392,17 @@ namespace Gabay_Final_V2.Models
             using (SqlConnection conn = new SqlConnection(connection))
             {
                 conn.Open();
-
+                string status = "deactivated";
                 string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
                                             FROM student s
                                             INNER JOIN department d ON s.department_ID = d.ID_dept
                                             INNER JOIN users_table u ON s.user_ID = u.user_ID
                                             WHERE d.user_ID = @userID 
-                                            AND u.status = 'deactivated'";
+                                            AND u.status = @status";
                 using (SqlCommand cmd = new SqlCommand(queryFetchStudent, conn))
                 {
                     cmd.Parameters.AddWithValue("@userID", userID);
+                    cmd.Parameters.AddWithValue("@status", status);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
