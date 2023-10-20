@@ -72,16 +72,16 @@ namespace Gabay_Final_V2.Prototype
                     conn.Open();
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@ID_appointment", AppointmendID);
+                        cmd.Parameters.AddWithValue("@AppointmendID", AppointmendID);
                         
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader.Read())
                             {
                                 appointmentName.Text = reader["full_name"].ToString();
-                                //DateTime date = (DateTime)reader["appointment_date"];
-                                //AppointmentDate.Text = date.ToString("yyyy-MM-dd");
-                                //appointmentConcern.Text = reader["concern"].ToString();
+                                DateTime date = (DateTime)reader["appointment_date"];
+                                AppointmentDate.Text = date.ToString("yyyy-MM-dd");
+                                appointmentConcern.Text = reader["concern"].ToString();
                             }
                         }
                     }
@@ -93,6 +93,7 @@ namespace Gabay_Final_V2.Prototype
         protected void ViewAppointmentModal_Click(object sender, EventArgs e)
         {
             int hiddenID = Convert.ToInt32(HiddenFieldAppointment.Value);
+
             LoadAppointmentModal(hiddenID);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showExampleModal", "$('#exampleModal').modal('show');", true);
         }

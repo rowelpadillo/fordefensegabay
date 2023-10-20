@@ -7,6 +7,7 @@
     <title></title>
     <link href="../Bootstrap/Content/bootstrap.css" rel="stylesheet" />
     <script src="../Bootstrap/Scripts/bootstrap.bundle.js"></script>
+    <script src="../Scripts/jquery-3.7.1.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -52,7 +53,7 @@
                     </asp:GridView>
                 </div>
                 <asp:HiddenField ID="HiddenFieldAppointment" runat="server" />
-     
+                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
             </div>
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -109,9 +110,7 @@
         </div>
     </form>
         <!-- Bootstrap JS and jQuery -->
-    <script src="../../../Scripts/jquery-3.7.1.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
     <script>
         function showConfirmationModal(id) {
             // Store the ID in a hidden field or JavaScript variable to access it later in btnConfirmDelete_Click
