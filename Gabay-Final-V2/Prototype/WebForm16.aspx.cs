@@ -14,6 +14,7 @@ namespace Gabay_Final_V2.Prototype
     public partial class WebForm16 : System.Web.UI.Page
     {
         string connection = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
+        int departmentUserID = 4053;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -22,7 +23,7 @@ namespace Gabay_Final_V2.Prototype
 
         private void BindingAppointment()
         {
-            int departmentUserID = 4053;
+           
             DataTable dt = fetchAppointBasedOnDepartment(departmentUserID);
 
             GridView1.DataSource = dt;
@@ -59,49 +60,42 @@ namespace Gabay_Final_V2.Prototype
         }
 
         //KJ LUAB
-        //public void LoadAppointmentModal(int AppointmendID)
-        //{
-        //    // Retrieve the User_ID from the session
-        //    if (Session["user_ID"] != null)
-        //    {
-        //        int user_ID = Convert.ToInt32(Session["user_ID"]);
+        public void LoadAppointmentModal(int AppointmendID)
+        {
+            // Retrieve the User_ID from the session
+            
+                
 
-        //        using (SqlConnection conn = new SqlConnection(connection))
-        //        {
-        //            string query = @"SELECT * FROM appointment WHERE ID_appointment = @AppointmendID AND User_ID = @user_ID";
-        //            conn.Open();
-        //            using (SqlCommand cmd = new SqlCommand(query, conn))
-        //            {
-        //                cmd.Parameters.AddWithValue("@ID_appointment", AppointmendID);
-        //                cmd.Parameters.AddWithValue("@user_ID", user_ID);
-        //                using (SqlDataReader reader = cmd.ExecuteReader())
-        //                {
-        //                    if (reader.Read())
-        //                    {
-        //                        Titlebx.Text = reader["Title"].ToString();
-        //                        DateTime date = (DateTime)reader["Date"];
-        //                        Datebx.Text = date.ToString("yyyy-MM-dd");
-        //                        ShortDescbx.Text = reader["ShortDescription"].ToString();
-        //                        DtlDescBx.Text = reader["DetailedDescription"].ToString();
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        // Handle the case when user_ID is not available in the session
-        //        // You can throw an exception, show an error message, or take appropriate action.
-        //        throw new Exception("User_ID not available in the session.");
-        //    }
-        //}
+                using (SqlConnection conn = new SqlConnection(connection))
+                {
+                    string query = @"SELECT * FROM appointment WHERE ID_appointment = @AppointmendID";
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ID_appointment", AppointmendID);
+                        
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                appointmentName.Text = reader["full_name"].ToString();
+                                //DateTime date = (DateTime)reader["appointment_date"];
+                                //AppointmentDate.Text = date.ToString("yyyy-MM-dd");
+                                //appointmentConcern.Text = reader["concern"].ToString();
+                            }
+                        }
+                    }
+                }
+         
+            
+        }
 
-        //protected void gridviewAppointment_Click(object sender, EventArgs e)
-        //{
-        //    int hiddenID = Convert.ToInt32(HiddenFieldAppointment.Value);
-        //    LoadAppointmentModal(hiddenID);
-        //    ScriptManager.RegisterStartupScript(this, this.GetType(), "showEditModal", "$('#toEditModal').modal('show');", true);
-        //}
+        protected void ViewAppointmentModal_Click(object sender, EventArgs e)
+        {
+            int hiddenID = Convert.ToInt32(HiddenFieldAppointment.Value);
+            LoadAppointmentModal(hiddenID);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showExampleModal", "$('#exampleModal').modal('show');", true);
+        }
 
 
     }

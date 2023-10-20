@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm16.aspx.cs" Inherits="Gabay_Final_V2.Prototype.WebForm16" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm16.aspx.cs" Inherits="Gabay_Final_V2.Prototype.WebForm16" EnableEventValidation="False" %>
 
 <!DOCTYPE html>
 
@@ -45,13 +45,14 @@
                             <asp:BoundField DataField="appointment_status" HeaderText="Status" />
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="ViewAppointmentModal" CssClass="btn btn-primary" runat="server" OnClientClick='<%# "return showConfirmationModal(" + Eval("ID_appointment") + ");" %>' OnClick="gridviewAppointment_Click" />
+                                    <asp:Button ID="ViewAppointmentModal" CssClass="btn btn-primary" runat="server" OnClientClick='<%# "return getAppointmentID(" + Eval("ID_appointment") + ");" %>' OnClick="ViewAppointmentModal_Click" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </div>
                 <asp:HiddenField ID="HiddenFieldAppointment" runat="server" />
+     
             </div>
         </div>
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,7 +67,8 @@
                             <div class="row">
                                 <div class="col-12 mb-2">
                                     <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" id="appointmentName" placeholder="name@example.com" />
+                                        <%--<input type="email" class="form-control" id="appointmentName" placeholder="name@example.com" />--%>
+                                        <asp:TextBox ID="appointmentName" runat="server" CssClass="form-control" placeholder="Name"></asp:TextBox>
                                         <label for="appointmentName">Recipient</label>
                                     </div>
                                 </div>
