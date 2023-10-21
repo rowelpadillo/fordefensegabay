@@ -39,17 +39,15 @@ namespace Gabay_Final_V2.Prototype
             using (SqlConnection conn = new SqlConnection(connection))
             {
                 conn.Open();
-                string appointmentStatus = "pending";
+
                 string queryFetchStudent = @"SELECT a.*, ur.role
                                             FROM appointment a
                                             INNER JOIN users_table u ON a.student_ID = u.login_ID
                                             INNER JOIN user_role ur ON u.role_ID = ur.role_id
-                                            WHERE a.deptName = (SELECT dept_name FROM department WHERE user_ID = @departmentUserID)
-                                            AND a.appointment_status = @appointmentStatus";
+                                            WHERE a.deptName = (SELECT dept_name FROM department WHERE user_ID = @departmentUserID)";
                 using (SqlCommand cmd = new SqlCommand(queryFetchStudent, conn))
                 {
                     cmd.Parameters.AddWithValue("@departmentUserID", userID);
-                    cmd.Parameters.AddWithValue("@appointmentStatus", appointmentStatus);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -61,7 +59,7 @@ namespace Gabay_Final_V2.Prototype
         }
 
         //KJ LUAB
-        public void LoadAppointmentModal(int AppointmendID)
+        public void LoadAppointmentModal(int AppointmentID)
         {
             // Retrieve the User_ID from the session
             using (SqlConnection conn = new SqlConnection(connection))
@@ -70,7 +68,7 @@ namespace Gabay_Final_V2.Prototype
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    cmd.Parameters.AddWithValue("@AppointmendID", AppointmendID);
+                    cmd.Parameters.AddWithValue("@AppointmendID", AppointmentID);
                         
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -97,13 +95,7 @@ namespace Gabay_Final_V2.Prototype
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showExampleModal", "$('#exampleModal').modal('show');", true);
         }
         
-
         protected void CloseViewModal_Click(object sender, EventArgs e)
-        {
-            CloseView();
-        }
-
-        public void CloseView()
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "hideExampleModal", "$('#exampleModal').modal('hide');", true);
             HiddenFieldAppointment.Value = "";
@@ -111,7 +103,116 @@ namespace Gabay_Final_V2.Prototype
 
         protected void appointmentReschedule_Click(object sender, EventArgs e)
         {
+            int AppointmentID = Convert.ToInt32(HiddenFieldAppointment.Value);
+            getCurrentSchedule(AppointmentID);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showRescheduleModal", "$('#reschedModal').modal('show');", true);
+        }
+        public void getCurrentSchedule(int AppointmentID)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                string query = @"SELECT appointment_date, appointment_time, appointment_status FROM appointment WHERE ID_appointment = @AppointmentID";
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {   
+                            DateTime date = (DateTime)reader["appointment_date"];
+                            CurrentAppointmentDate.Text = date.ToString("dd MMM, yyyy ddd");
+                            CurrentAppointmentTime.Text = reader["appointment_time"].ToString();
+                            CurrentAppointmentStatus.Text = reader["appointment_status"].ToString();
+                            newtime.SelectedValue = reader["appointment_time"].ToString();
+                            DateTime date1 = (DateTime)reader["appointment_date"];
+                            newdate.Text = date1.ToString("yyyy-MM-dd");
+                        }
+                    }
+                }
+            }
+        }
+        protected void gobackToViewAppointment_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "hideExampleModal", "$('#exampleModal').modal('show');", true);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showRescheduleModal", "$('#reschedModal').modal('hide');", true);
+        }
+
+        protected void closeReschedModal_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "hideReschedModal", "$('#reschedModal').modal('hide');", true);
+            HiddenFieldAppointment.Value = "";
+        }
+
+        protected void updtSchedBtn_Click(object sender, EventArgs e)
+        {
+            int AppointmentID = Convert.ToInt32(HiddenFieldAppointment.Value);
+            string newTime = newtime.SelectedValue.ToString();
+            string newDate = newdate.Text;
+            updateSchedDateTime(AppointmentID, newTime, newDate);
+            BindingAppointment();
+            string successMessage = "Schedule updated successfully.";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+        }
+
+        public void updateSchedDateTime(int AppointmentID, string newTime, string newdate)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                string query = @"SELECT appointment_date, appointment_time, appointment_status
+                 FROM appointment WHERE ID_appointment = @AppointmentID";
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            DateTime date = (DateTime)reader["appointment_date"];
+                            string currentDate = date.ToString("dd MMM, yyyy ddd");
+                            string currentTime = reader["appointment_time"].ToString();
+                            string updateStatus = "reschedule";
+
+                            if (newdate != currentDate || newTime != currentTime)
+                            {
+                                reader.Close();
+
+                                string updateQuery = "UPDATE appointment SET ";
+                                if (newdate != currentDate)
+                                {
+                                    updateQuery += "appointment_date = @newDate, ";
+                                }
+                                if (newTime != currentTime)
+                                {
+                                    updateQuery += "appointment_time = @newTime, ";
+                                }
+                                updateQuery += "appointment_status = @newStatus WHERE ID_appointment = @AppointmentID";
+
+                                using (SqlCommand cmdDateTime = new SqlCommand(updateQuery, conn))
+                                {
+                                    if (newdate != currentDate)
+                                    {
+                                        cmdDateTime.Parameters.AddWithValue("@newDate", newdate);
+                                    }
+                                    if (newTime != currentTime)
+                                    {
+                                        cmdDateTime.Parameters.AddWithValue("@newTime", newTime);
+                                    }
+                                    cmdDateTime.Parameters.AddWithValue("@newStatus", updateStatus);
+                                    cmdDateTime.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+
+                                    cmdDateTime.ExecuteNonQuery();
+                                }
+                            }
+                        }
+                    }
+                }
+                conn.Close();
+            }
         }
     }
 }

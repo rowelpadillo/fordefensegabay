@@ -28,14 +28,25 @@
             height:25px;
             color:#003366;
             padding: 0 8px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
         }
-        .AppointmentActions a{
+        .appointmentActions a{
             text-decoration:none;
+        }
+        .appointmentConcern{
+            border: 1px solid #003366 !important;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .appointmentID{
+            font-size:13px;
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-md-12">
@@ -71,7 +82,7 @@
                             <asp:BoundField DataField="appointment_status" HeaderText="Status" />
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="ViewConcernModal" runat="server" Text="Button" CssClass="btn bg-primary text-light" OnClick="ViewConcernModal_Click" OnClientClick='<%# "return getAppointmentID(" + Eval("ID_appointment") + ");" %>' />
+                                    <asp:Button ID="ViewConcernModal" runat="server" Text="View Content" CssClass="btn bg-primary text-light" OnClick="ViewConcernModal_Click" OnClientClick='<%# "return getAppointmentID(" + Eval("ID_appointment") + ");" %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -80,12 +91,13 @@
                 <asp:HiddenField ID="HiddenFieldAppointment" runat="server" />
             </div>
         </div>
+        <%-- View Content Modal --%>
         <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Appointment Content</h1>
-                        <asp:Button ID="CloseViewModal" runat="server" CssClass="btn-close" OnClick="CloseViewModal_Click" OnClientClick="return true;" />
+                        <asp:Button ID="CloseViewModal" runat="server" CssClass="btn-close" OnClick="CloseViewModal_Click"/>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
@@ -94,14 +106,14 @@
                                     <div class="appointeeName">
                                         <asp:Label ID="appointmentName" runat="server" CssClass="fs-4"></asp:Label>
                                     </div>
-                                    <div>
+                                    <div class="appointmentID">
                                         <label for="Label1" class="text-secondary">Appointment ID: </label>
                                         <asp:Label ID="Label1" runat="server" CssClass="text-secondary"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="col-12 mb-2">
                                     <div class="form-floating">
-                                        <asp:TextBox ID="appointmentConcern" CssClass="form-control" runat="server"  placeholder="Concern"  style="height: 100px" TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
+                                        <asp:TextBox ID="appointmentConcern" CssClass="form-control appointmentConcern" runat="server"  placeholder="Concern"  style="height: 120px" TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
                                         <label for="appointmentConcern">Concern</label>
                                     </div>
                                 </div>
@@ -118,7 +130,7 @@
                                    </div>
                                 </div>
                                 <div class="col-12 mb-2">
-                                    <div class="AppointmentActions">
+                                    <div class="appointmentActions">
                                         <asp:LinkButton ID="appointmentReschedule" runat="server" OnClick="appointmentReschedule_Click">
                                             <i class="bi bi-calendar-minus-fill"></i>
                                             <span>Reschedule Appointment</span>
@@ -127,12 +139,12 @@
                                 </div>
                                 <div class="col-8 mb-2 d-grid">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        Launch static backdrop modal
+                                        Approve Appointment
                                     </button>
                                 </div>
                                  <div class="col-4 mb-2 d-grid">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        Reject
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                         Reject
                                     </button>
                                 </div>
                             </div>
@@ -141,20 +153,87 @@
                 </div>
             </div>
         </div>
-        
+        <%-- Reschedule Modal --%>
         <div class="modal fade" id="reschedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <asp:LinkButton ID="gobackToViewAppointment" runat="server" CssClass="fs-5 text-secondary" OnClick="gobackToViewAppointment_Click">
+                                    <i class="bi bi-chevron-compact-left"></i>
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="closeReschedModal" runat="server" CssClass="btn-close" OnClick="closeReschedModal_Click">
+                        </asp:LinkButton>
                     </div>
                     <div class="modal-body">
-                        ...
-                     ...
+                        <div class="contianer-fluid">
+                            <div class="row g-2">
+                                <div class="col-12 mb-2">
+                                    <span class="fs-4">Reschedule Appointment</span>
+                                    <div class="appointmentSchedule d-flex flex-column">
+                                        <div class="d-flex justify-content-between">
+                                            <span class="fs-5 fw-medium">Current Schedule</span>
+                                            <div class="appointmentStatus">
+                                                <asp:Label ID="CurrentAppointmentStatus" runat="server" Text="Status"></asp:Label>
+                                            </div>
+                                        </div>
+                                        <asp:Label ID="CurrentAppointmentDate" runat="server" Text="Date"></asp:Label>
+                                        <asp:Label ID="CurrentAppointmentTime" runat="server" Text="Time"></asp:Label>
+                                    </div>
+                                </div>
+                                <div class="col-6 mb-2">
+                                    <div class="form-floating">
+                                        <asp:DropDownList ID="newtime" runat="server" CssClass="form-select">
+                                            <asp:ListItem Value="" Selected="True">Selec Available Time</asp:ListItem>
+                                            <asp:ListItem Value="8:00 AM">8:00 AM</asp:ListItem>
+                                            <asp:ListItem Value="9:00 AM">9:00 AM</asp:ListItem>
+                                            <asp:ListItem Value="10:00 AM">10:00 AM</asp:ListItem>
+                                            <asp:ListItem Value="11:00 AM">11:00 AM</asp:ListItem>
+                                            <asp:ListItem Value="1:00 PM">1:00 PM</asp:ListItem>
+                                            <asp:ListItem Value="2:00 PM">2:00 PM</asp:ListItem>
+                                            <asp:ListItem Value="3:00 PM">3:00 PM</asp:ListItem>
+                                            <asp:ListItem Value="4:00 PM">4:00 PM</asp:ListItem>
+                                        </asp:DropDownList>
+                                        <label for="newtime">Available Time</label>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-floating">
+                                        <asp:TextBox ID="newdate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
+                                        <label for="newDate">Available Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-grid">
+                                    <asp:Button ID="updtSchedBtn" runat="server" Text="Update Schedule" CssClass="btn bg-primary text-light" OnClick="updtSchedBtn_Click" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <%-- Confirmation Modal --%>
+
+        <%-- Success modal --%>
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body bg-success text-center text-light">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <p id="successMessage"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%-- Error modal --%>
+        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body bg-danger text-center text-light">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        <p id="errorMessage"></p>
                     </div>
                 </div>
             </div>
