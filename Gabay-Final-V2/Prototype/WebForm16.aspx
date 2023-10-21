@@ -7,7 +7,32 @@
     <title></title>
     <link href="../Bootstrap/Content/bootstrap.css" rel="stylesheet" />
     <script src="../Bootstrap/Scripts/bootstrap.bundle.js"></script>
-    <script src="../Scripts/jquery-3.7.1.js"></script>
+    <script src="../Resources/CustomJS/jquery-3.5.1.slim.min.js"></script>
+    <script src="../Resources/CustomJS/bootstrap.min.js"></script>
+    <link href="../Resources/CustomStyleSheet/DefaultStyle.css" rel="stylesheet" />
+    <style>
+        .appointeeName{
+            color:#003366;
+            font-weight:600;
+        }
+        .appointmentSchedule{
+            color: white;
+            border: 1px solid #dcdcdc;
+            padding:10px;
+            border-radius: 10px;
+            background-color: #003366;
+        }
+        .appointmentStatus{
+            border-radius: 15px;
+            background-color: white;
+            height:25px;
+            color:#003366;
+            padding: 0 8px;
+        }
+        .AppointmentActions a{
+            text-decoration:none;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -41,65 +66,91 @@
                             <asp:BoundField DataField="ID_appointment" HeaderText="Appointment ID" />
                             <asp:BoundField DataField="full_name" HeaderText="Recipient" />
                             <asp:BoundField DataField="role" HeaderText="User Type" />
-                            <asp:BoundField DataField="appointment_date" HeaderText="Date"  DataFormatString="{0:MMMM-dd-yyyy}"/>
+                            <asp:BoundField DataField="appointment_date" HeaderText="Date"  DataFormatString="{0:dd MMM, yyyy}"/>
                             <asp:BoundField DataField="appointment_time" HeaderText="Time" />
                             <asp:BoundField DataField="appointment_status" HeaderText="Status" />
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="ViewAppointmentModal" CssClass="btn btn-primary" runat="server" OnClientClick='<%# "return getAppointmentID(" + Eval("ID_appointment") + ");" %>' OnClick="ViewAppointmentModal_Click" />
+                                    <asp:Button ID="ViewConcernModal" runat="server" Text="Button" CssClass="btn bg-primary text-light" OnClick="ViewConcernModal_Click" OnClientClick='<%# "return getAppointmentID(" + Eval("ID_appointment") + ");" %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </div>
                 <asp:HiddenField ID="HiddenFieldAppointment" runat="server" />
-                <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
             </div>
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Appointment Content</h1>
+                        <asp:Button ID="CloseViewModal" runat="server" CssClass="btn-close" OnClick="CloseViewModal_Click" OnClientClick="return true;" />
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
-                            <div class="row">
+                            <div class="row g-2">
                                 <div class="col-12 mb-2">
-                                    <div class="form-floating mb-3">
-                                        <%--<input type="email" class="form-control" id="appointmentName" placeholder="name@example.com" />--%>
-                                        <asp:TextBox ID="appointmentName" runat="server" CssClass="form-control" placeholder="Name"></asp:TextBox>
-                                        <label for="appointmentName">Recipient</label>
+                                    <div class="appointeeName">
+                                        <asp:Label ID="appointmentName" runat="server" CssClass="fs-4"></asp:Label>
+                                    </div>
+                                    <div>
+                                        <label for="Label1" class="text-secondary">Appointment ID: </label>
+                                        <asp:Label ID="Label1" runat="server" CssClass="text-secondary"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="col-12 mb-2">
                                     <div class="form-floating">
-                                        <asp:TextBox ID="appointmentConcern" CssClass="form-control" runat="server"  placeholder="Concern"  style="height: 100px"></asp:TextBox>
+                                        <asp:TextBox ID="appointmentConcern" CssClass="form-control" runat="server"  placeholder="Concern"  style="height: 100px" TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
                                         <label for="appointmentConcern">Concern</label>
                                     </div>
                                 </div>
-                                <div class="col-6 mb-2">
-                                    <div class="form-floating">
-                                        <asp:DropDownList ID="AppointmentTime" runat="server" CssClass="form-select">
-                                            <asp:ListItem Selected="True" Value="">
-                                                Open this select menu
-                                            </asp:ListItem>
-                                            <asp:ListItem Value="9:00">9:00</asp:ListItem>
-                                            <asp:ListItem Value="10:00">10:00</asp:ListItem>
-                                            <asp:ListItem Value="11:00">11:00</asp:ListItem>
-                                        </asp:DropDownList>
-                                        <label for="AppointmentTime">Works with selects</label>
+                                <div class="col-12 mb-2">
+                                   <div class="appointmentSchedule d-flex flex-column">
+                                       <div class="d-flex justify-content-between">
+                                           <span class="fs-5 fw-medium">Schedule</span>
+                                           <div class="appointmentStatus">
+                                               <asp:Label ID="AppointmentStatus" runat="server" Text="Status"></asp:Label>
+                                           </div>
+                                       </div>
+                                       <asp:Label ID="AppointmentDate" runat="server" Text="Date"></asp:Label>
+                                       <asp:Label ID="AppointmentTime" runat="server" Text="Time"></asp:Label>
+                                   </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="AppointmentActions">
+                                        <asp:LinkButton ID="appointmentReschedule" runat="server" OnClick="appointmentReschedule_Click">
+                                            <i class="bi bi-calendar-minus-fill"></i>
+                                            <span>Reschedule Appointment</span>
+                                        </asp:LinkButton>
                                     </div>
                                 </div>
-                                <div class="col-6 mb-2">
-                                    <div class="form-floating mb-3">
-                                        <asp:TextBox ID="AppointmentDate" runat="server" CssClass="form-control" placeholder="Date" TextMode="Date"></asp:TextBox>
-                                        <label for="AppointmentDate">Date</label>
-                                    </div>
+                                <div class="col-8 mb-2 d-grid">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Launch static backdrop modal
+                                    </button>
+                                </div>
+                                 <div class="col-4 mb-2 d-grid">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        Reject
+                                    </button>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="reschedModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                     ...
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -110,16 +161,7 @@
         </div>
     </form>
         <!-- Bootstrap JS and jQuery -->
-    
     <script>
-        function showConfirmationModal(id) {
-            // Store the ID in a hidden field or JavaScript variable to access it later in btnConfirmDelete_Click
-            document.getElementById('<%= HiddenFieldAppointment.ClientID %>').value = id;
-            // Show the Bootstrap modal
-            /*$('#toDeleteModal').modal('show');*/
-            // Prevent the postback
-            return false;
-        }
         function getAppointmentID(id) {
             document.getElementById('<%= HiddenFieldAppointment.ClientID %>').value = id;
         }

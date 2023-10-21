@@ -19,6 +19,7 @@ namespace Gabay_Final_V2.Prototype
         {
 
             BindingAppointment();
+            
         }
 
         private void BindingAppointment()
@@ -63,41 +64,54 @@ namespace Gabay_Final_V2.Prototype
         public void LoadAppointmentModal(int AppointmendID)
         {
             // Retrieve the User_ID from the session
-            
-                
-
-                using (SqlConnection conn = new SqlConnection(connection))
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                string query = @"SELECT * FROM appointment WHERE ID_appointment = @AppointmendID";
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    string query = @"SELECT * FROM appointment WHERE ID_appointment = @AppointmendID";
-                    conn.Open();
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@AppointmendID", AppointmendID);
+                    cmd.Parameters.AddWithValue("@AppointmendID", AppointmendID);
                         
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                appointmentName.Text = reader["full_name"].ToString();
-                                DateTime date = (DateTime)reader["appointment_date"];
-                                AppointmentDate.Text = date.ToString("yyyy-MM-dd");
-                                appointmentConcern.Text = reader["concern"].ToString();
-                            }
-                        }
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                         if (reader.Read())
+                         {
+                             appointmentName.Text = reader["full_name"].ToString();
+                             Label1.Text = reader["ID_appointment"].ToString();
+                             DateTime date = (DateTime)reader["appointment_date"];
+                             AppointmentDate.Text = date.ToString("dd MMM, yyyy ddd");
+                             AppointmentTime.Text = reader["appointment_time"].ToString();
+                             appointmentConcern.Text = reader["concern"].ToString();
+                            AppointmentStatus.Text = reader["appointment_status"].ToString();
+                         }
                     }
                 }
-         
-            
+            }
         }
 
-        protected void ViewAppointmentModal_Click(object sender, EventArgs e)
+        protected void ViewConcernModal_Click(object sender, EventArgs e)
         {
             int hiddenID = Convert.ToInt32(HiddenFieldAppointment.Value);
 
             LoadAppointmentModal(hiddenID);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showExampleModal", "$('#exampleModal').modal('show');", true);
         }
+        
 
+        protected void CloseViewModal_Click(object sender, EventArgs e)
+        {
+            CloseView();
+        }
 
+        public void CloseView()
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "hideExampleModal", "$('#exampleModal').modal('hide');", true);
+            HiddenFieldAppointment.Value = "";
+        }
+
+        protected void appointmentReschedule_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showRescheduleModal", "$('#reschedModal').modal('show');", true);
+        }
     }
 }

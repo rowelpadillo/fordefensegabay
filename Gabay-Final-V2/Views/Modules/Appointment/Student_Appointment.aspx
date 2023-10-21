@@ -71,7 +71,18 @@
 							<div class="col">
 								<label for="time" class="form-label">Time</label>
 								<!-- Replace with your ASP.NET TextBox for Time -->
-								<asp:TextBox ID="time" runat="server" TextMode="Time" CssClass="form-control" />
+								<%--<asp:TextBox ID="time" runat="server" TextMode="Time" CssClass="form-control" />--%>
+								<asp:DropDownList ID="time" runat="server" CssClass="form-select">
+									<asp:ListItem Value="" Selected="True">Selec Available Time</asp:ListItem>
+									<asp:ListItem Value="8:00 AM">8:00 AM</asp:ListItem>
+									<asp:ListItem Value="9:00 AM">9:00 AM</asp:ListItem>
+									<asp:ListItem Value="10:00 AM">10:00 AM</asp:ListItem>
+									<asp:ListItem Value="11:00 AM">11:00 AM</asp:ListItem>
+									<asp:ListItem Value="1:00 PM">1:00 PM</asp:ListItem>
+									<asp:ListItem Value="2:00 PM">2:00 PM</asp:ListItem>
+									<asp:ListItem Value="3:00 PM">3:00 PM</asp:ListItem>
+									<asp:ListItem Value="4:00 PM">4:00 PM</asp:ListItem>
+								</asp:DropDownList>
 							</div>
 							<div class="col">
 								<label for="selectedDateHidden" class="form-label">Date</label>

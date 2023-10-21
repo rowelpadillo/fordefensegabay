@@ -78,13 +78,13 @@ namespace Gabay_Final_V2.Prototype
         protected global::System.Web.UI.WebControls.HiddenField HiddenFieldAppointment;
 
         /// <summary>
-        /// Label1 control.
+        /// CloseViewModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Button CloseViewModal;
 
         /// <summary>
         /// appointmentName control.
@@ -93,7 +93,16 @@ namespace Gabay_Final_V2.Prototype
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox appointmentName;
+        protected global::System.Web.UI.WebControls.Label appointmentName;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
         /// appointmentConcern control.
@@ -105,13 +114,13 @@ namespace Gabay_Final_V2.Prototype
         protected global::System.Web.UI.WebControls.TextBox appointmentConcern;
 
         /// <summary>
-        /// AppointmentTime control.
+        /// AppointmentStatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList AppointmentTime;
+        protected global::System.Web.UI.WebControls.Label AppointmentStatus;
 
         /// <summary>
         /// AppointmentDate control.
@@ -120,6 +129,24 @@ namespace Gabay_Final_V2.Prototype
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AppointmentDate;
+        protected global::System.Web.UI.WebControls.Label AppointmentDate;
+
+        /// <summary>
+        /// AppointmentTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label AppointmentTime;
+
+        /// <summary>
+        /// appointmentReschedule control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton appointmentReschedule;
     }
 }

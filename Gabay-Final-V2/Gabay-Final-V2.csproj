@@ -142,10 +142,12 @@
     <Content Include="Prototype\WebForm8.aspx" />
     <Content Include="Prototype\WebForm9.aspx" />
     <Content Include="Resources\CustomJS\AcadCalendar\AcadCalendarJS.js" />
+    <Content Include="Resources\CustomJS\bootstrap.min.js" />
     <Content Include="Resources\CustomJS\Chatbot\AppointmentJS.js" />
     <Content Include="Resources\CustomJS\Chatbot\ChatbotJS.js" />
     <Content Include="Resources\CustomJS\Chatbot\ManageChatbot.js" />
     <Content Include="Resources\CustomJS\DeptProfile\DeptprofileJS.js" />
+    <Content Include="Resources\CustomJS\jquery-3.5.1.slim.min.js" />
     <Content Include="Resources\CustomJS\OpenModal.js" />
     <Content Include="Resources\CustomJS\Registration\DeptRegistrationJS.js" />
     <Content Include="Resources\CustomJS\Registration\RegistrationJS.js" />
