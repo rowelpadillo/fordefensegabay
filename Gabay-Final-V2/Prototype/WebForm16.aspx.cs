@@ -58,7 +58,6 @@ namespace Gabay_Final_V2.Prototype
             return studentTable;
         }
 
-        //KJ LUAB
         public void LoadAppointmentModal(int AppointmentID)
         {
             // Retrieve the User_ID from the session
@@ -212,6 +211,111 @@ namespace Gabay_Final_V2.Prototype
                     }
                 }
                 conn.Close();
+            }
+        }
+
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            string newTime = newtime.SelectedValue;
+            if (DateTime.TryParse(newdate.Text, out DateTime selectedDate))
+            {
+                // Format the date as "dd MMM, yyyy"
+                string formattedDate = selectedDate.ToString("dd MMM, yyyy");
+
+                // Save the formatted date to a variable or perform any other actions
+                string savedDate = formattedDate;
+
+                string successMessage = "Update the schedule to <b>" + HttpUtility.JavaScriptStringEncode(newTime) + "</b> and <b>" + HttpUtility.JavaScriptStringEncode(savedDate) + "</b>";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showConfirmationModal",
+                    $"$('#confirmationMessage').html('{successMessage}'); $('#ConfirmationModal').modal('show');", true);
+            }
+
+        }
+
+        protected void goBacktoReschedModal_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showReschedModal", "$('#reschedModal').modal('show');", true);
+        }
+
+        protected void ApproveLink_Click(object sender, EventArgs e)
+        {
+            DateTime.TryParse(newdate.Text, out DateTime selectedDate);
+            
+                string Appointee = appointmentName.Text;
+                string AppointmentID = Label1.Text;
+                string appointmentDate = AppointmentDate.Text;
+                string appointmentTime = AppointmentTime.Text;
+
+                string ApproveMessage = "<b>Apointment ID:</b> " + HttpUtility.JavaScriptStringEncode(AppointmentID) + "<br />" +
+                                           "<b>Appointee: </b>" + HttpUtility.JavaScriptStringEncode(Appointee) + "<br />" +
+                                           "<b>Date: </b>" + HttpUtility.JavaScriptStringEncode(appointmentDate) + "<br />" +
+                                           "<b>Time: </b>" + HttpUtility.JavaScriptStringEncode(appointmentTime) + "<br /> <hr />" +
+                                           "Approve appointment?";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "showApproveMessage",
+                    $"$('#approveMessage').html('{ApproveMessage}'); $('#ApproveModal').modal('show');", true);
+        }
+
+        protected void ApproveButton_Click(object sender, EventArgs e)
+        {
+            int AppointmentID = Convert.ToInt32(HiddenFieldAppointment.Value);
+            approveAppointment(AppointmentID);
+            BindingAppointment();
+            string successMessage = "Schedule Approved.";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+        }
+
+        public void approveAppointment(int AppointmentID)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                string query = @"UPDATE appointment SET appointment_status = @AppointmentStats WHERE ID_appointment = @AppointmentID";
+                string updateStatus = "approved";
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                    cmd.Parameters.AddWithValue("@AppointmentStats", updateStatus);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        protected void RejectLink_Click(object sender, EventArgs e)
+        {
+            string rejectMessage = "Reject Appointment?";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                $"$('#confirmRejectMessage').text('{rejectMessage}'); $('#RejectModal').modal('show');", true);
+        }
+
+        protected void rejectAppointmentBtnLink_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showRejectReason", "$('#rejectModal').modal('show');", true);
+        }
+
+        protected void rejectBtn_Click(object sender, EventArgs e)
+        {
+            int AppointmentID = Convert.ToInt32(HiddenFieldAppointment.Value);
+            rejectAppointment(AppointmentID);
+            BindingAppointment();
+            string successMessage = "Appointment updated to rejected";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+        }
+
+        public void rejectAppointment(int AppointmentID)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                string query = @"UPDATE appointment SET appointment_status = @AppointmentStats WHERE ID_appointment = @AppointmentID";
+                string updateStatus = "rejected";
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+                    cmd.Parameters.AddWithValue("@AppointmentStats", updateStatus);
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
     }

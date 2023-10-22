@@ -96,7 +96,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Appointment Content</h1>
+                        <h1 class="modal-title fs-5">Appointment Content</h1>
                         <asp:Button ID="CloseViewModal" runat="server" CssClass="btn-close" OnClick="CloseViewModal_Click"/>
                     </div>
                     <div class="modal-body">
@@ -111,6 +111,7 @@
                                         <asp:Label ID="Label1" runat="server" CssClass="text-secondary"></asp:Label>
                                     </div>
                                 </div>
+
                                 <div class="col-12 mb-2">
                                     <div class="form-floating">
                                         <asp:TextBox ID="appointmentConcern" CssClass="form-control appointmentConcern" runat="server"  placeholder="Concern"  style="height: 120px" TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
@@ -138,14 +139,10 @@
                                     </div>
                                 </div>
                                 <div class="col-8 mb-2 d-grid">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                        Approve Appointment
-                                    </button>
+                                    <asp:LinkButton ID="ApproveLink" runat="server" CssClass="btn btn-primary" OnClick="ApproveLink_Click">Approve Appointment</asp:LinkButton>
                                 </div>
                                  <div class="col-4 mb-2 d-grid">
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                         Reject
-                                    </button>
+                                     <asp:LinkButton ID="RejectLink" runat="server" CssClass="btn btn-danger" OnClick="RejectLink_Click">Reject</asp:LinkButton>
                                 </div>
                             </div>
                         </div>
@@ -159,7 +156,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <asp:LinkButton ID="gobackToViewAppointment" runat="server" CssClass="fs-5 text-secondary" OnClick="gobackToViewAppointment_Click">
-                                    <i class="bi bi-chevron-compact-left"></i>
+                             <i class="bi bi-chevron-compact-left"></i>
                         </asp:LinkButton>
                         <asp:LinkButton ID="closeReschedModal" runat="server" CssClass="btn-close" OnClick="closeReschedModal_Click">
                         </asp:LinkButton>
@@ -199,11 +196,11 @@
                                 <div class="col-6">
                                     <div class="form-floating">
                                         <asp:TextBox ID="newdate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
-                                        <label for="newDate">Available Date</label>
+                                        <label for="newdate">Available Date</label>
                                     </div>
                                 </div>
                                 <div class="col-12 d-grid">
-                                    <asp:Button ID="updtSchedBtn" runat="server" Text="Update Schedule" CssClass="btn bg-primary text-light" OnClick="updtSchedBtn_Click" />
+                                    <asp:LinkButton ID="updtSchedule" runat="server" CssClass="btn bg-primary text-light" OnClick="LinkButton1_Click">Update Schedule</asp:LinkButton>
                                 </div>
                             </div>
                         </div>
@@ -211,11 +208,96 @@
                 </div>
             </div>
         </div>
+        <%-- Reject Modal --%>
+        <div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <asp:LinkButton ID="goBackToViewFromReject" runat="server" CssClass="fs-5 text-secondary" OnClick="gobackToViewAppointment_Click">
+                            <i class="bi bi-chevron-compact-left"></i>
+                        </asp:LinkButton>
+                         <asp:LinkButton ID="closeReject" runat="server" CssClass="btn-close" OnClick="closeReschedModal_Click">
+                        </asp:LinkButton>
+                    </div>
+                    <div class="modal-body">
+                        <div class="contianer-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <span class="fs-5">Reason for rejecting</span>
+                                    <asp:TextBox ID="rejectReason" CssClass="form-control" runat="server" style="height: 100px" TextMode="MultiLine"></asp:TextBox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:LinkButton ID="LinkButton5" runat="server" CssClass="btn bg-secondary text-light" OnClick="gobackToViewAppointment_Click">Cancel</asp:LinkButton>
+                        <asp:Button ID="rejectBtn" runat="server" Text="Reject Appointment" CssClass="btn bg-primary text-light" OnClick="rejectBtn_Click" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-
-        <%-- Confirmation Modal --%>
-
+        <%-- Approved Confirmation Modal --%>
+        <div class="modal fade" id="ApproveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <asp:LinkButton ID="goBackToViewFromApprove" runat="server" CssClass="fs-5 text-secondary" OnClick="gobackToViewAppointment_Click">
+                            <i class="bi bi-chevron-compact-left"></i>
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="closeApproved" runat="server" CssClass="btn-close" OnClick="closeReschedModal_Click">
+                        </asp:LinkButton>
+                    </div>
+                    <div class="modal-body">
+                       <p id="approveMessage"></p>
+                    </div>
+                    <div class="modal-footer d-grid">
+                        <asp:Button ID="ApproveButton" runat="server" Text="Proceed" CssClass="btn bg-primary text-light" OnClick="ApproveButton_Click" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%--Reschedule Confirmation Modal --%>
+        <div class="modal fade" id="ConfirmationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <asp:LinkButton ID="LinkButton2" runat="server" CssClass="fs-5 text-secondary" OnClick="gobackToViewAppointment_Click">
+                            <i class="bi bi-chevron-compact-left"></i>
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton3" runat="server" CssClass="btn-close" OnClick="closeReschedModal_Click"></asp:LinkButton>
+                    </div>
+                    <div class="modal-body">
+                        <p id="confirmationMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:LinkButton ID="goBacktoReschedModal" runat="server" CssClass="btn bg-secondary" OnClick="goBacktoReschedModal_Click">Cancel</asp:LinkButton>
+                        <asp:Button ID="updtSchedBtn" runat="server" Text="Update Schedule" CssClass="btn bg-primary text-light" OnClick="updtSchedBtn_Click" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%-- Reject Confirmation Modal --%>
+        <div class="modal fade" id="RejectModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <asp:LinkButton ID="LinkButton1" runat="server" CssClass="fs-5 text-secondary" OnClick="gobackToViewAppointment_Click">
+                            <i class="bi bi-chevron-compact-left"></i>
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton4" runat="server" CssClass="btn-close" OnClick="closeReschedModal_Click"></asp:LinkButton>
+                    </div>
+                    <div class="modal-body">
+                        <p id="confirmRejectMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:LinkButton ID="goBackViewFromReject" runat="server" CssClass="btn bg-secondary" OnClick="gobackToViewAppointment_Click">Cancel</asp:LinkButton>
+                        <asp:LinkButton ID="rejectAppointmentBtnLink" runat="server" CssClass="btn bg-primary text-light" OnClick="rejectAppointmentBtnLink_Click">Proceed</asp:LinkButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
         <%-- Success modal --%>
         <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
