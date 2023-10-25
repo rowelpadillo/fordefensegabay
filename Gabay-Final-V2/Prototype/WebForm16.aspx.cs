@@ -8,6 +8,14 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using Gabay_Final_V2.Models;
+using System.IO;
+using ZXing;
+using ZXing.QrCode;
+using MimeKit;
+using MailKit.Net.Smtp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+
 
 namespace Gabay_Final_V2.Prototype
 {
@@ -17,11 +25,11 @@ namespace Gabay_Final_V2.Prototype
         int departmentUserID = 4053;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            BindingAppointment();
-            
+            if (!IsPostBack)
+            {
+                BindingAppointment();
+            }
         }
-
         private void BindingAppointment()
         {
            
@@ -106,6 +114,7 @@ namespace Gabay_Final_V2.Prototype
             getCurrentSchedule(AppointmentID);
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showRescheduleModal", "$('#reschedModal').modal('show');", true);
         }
+
         public void getCurrentSchedule(int AppointmentID)
         {
             using (SqlConnection conn = new SqlConnection(connection))
@@ -132,6 +141,7 @@ namespace Gabay_Final_V2.Prototype
                 }
             }
         }
+
         protected void gobackToViewAppointment_Click(object sender, EventArgs e)
         {
             ScriptManager.RegisterStartupScript(this, this.GetType(), "hideExampleModal", "$('#exampleModal').modal('show');", true);
@@ -260,7 +270,7 @@ namespace Gabay_Final_V2.Prototype
             int AppointmentID = Convert.ToInt32(HiddenFieldAppointment.Value);
             approveAppointment(AppointmentID);
             BindingAppointment();
-            string successMessage = "Schedule Approved.";
+            string successMessage = "Schedule is set.";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
                 $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
         }
@@ -269,15 +279,107 @@ namespace Gabay_Final_V2.Prototype
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
+                string getAppointmentInfoQuery = @"SELECT * FROM appointment WHERE ID_appointment = @AppointmentID";
+                conn.Open();
+                using (SqlCommand setCmd = new SqlCommand(getAppointmentInfoQuery, conn))
+                {
+                    setCmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+
+                    using (SqlDataReader reader = setCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string appointmentID = reader["ID_appointment"].ToString();
+                            string appointee = reader["full_name"].ToString();
+                            string destination = reader["deptName"].ToString();
+                            DateTime date = (DateTime)reader["appointment_date"];
+                            string appointmentDate = date.ToString("dd MMM, yyyy ddd");                            
+                            string appointmentTime = reader["appointment_time"].ToString();
+                            string appointeeEmail = reader["email"].ToString();
+
+                            string TempUrl = $"https://localhost:44341/Prototype/tempPage.aspx?appointmentID={appointmentID}";
+
+                            BarcodeWriter barcodeWriter = new BarcodeWriter();
+                            barcodeWriter.Format = BarcodeFormat.QR_CODE;
+                            barcodeWriter.Options = new QrCodeEncodingOptions
+                            {
+                                Width = 200,
+                                Height = 200,
+                            };
+                            System.Drawing.Bitmap qrCodeBitmap = barcodeWriter.Write(TempUrl);
+
+                            // Save the QR code as a temporary image file
+                            string tempQRCodeFilePath = Server.MapPath("~/TempQRCode.png");
+                            qrCodeBitmap.Save(tempQRCodeFilePath, System.Drawing.Imaging.ImageFormat.Png);
+
+                            var message = new MimeMessage();
+                            message.From.Add(new MailboxAddress("UC Gabay", "noReply@noReply.com"));
+                            message.To.Add(new MailboxAddress("Recipient", appointeeEmail));
+                            message.Subject = "Appointment Details";
+
+                            var builder = new BodyBuilder();
+
+                            // Add the logo and QR code centered in the email body
+                            builder.HtmlBody = $@"
+                                <div style='text-align: center;margin-bottom: 10px;'>
+                                    <div>
+                                        <img src='cid:logo-image' style='width: 100px; height: auto; margin-right: 5px; display: block; margin: 0 auto;'>
+                                    </div>
+                                    <div style='letter-spacing: 3px; color: #003366; font-weight: 600;'>
+                                        GABAY
+                                    </div>
+                                </div>
+                                <div style='text-align: center;'>
+                                    <img src='cid:qr-code-image' width='200' height='200'>
+                                </div>";
+
+                            // Add additional appointment details
+                            builder.HtmlBody += $@"<div style='text-align: center;'><h1>Your Appointment is all set!</h1></div>
+                                                <div style='text-align: center;'>
+                                                <p>Hello!<b> {appointee}</b>, your appointment is set please see the details below</p>
+                                                <p><b>Appointment ID:</b> {appointmentID}</p>
+                                                <p><b>Schedule:</b> {appointmentDate} {appointmentTime}</p>
+                                                <p><b>Destination:</b> {destination}</p>
+                                                </div>";
+
+                            var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+                            logoImage.ContentId = "logo-image";
+                            logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
+
+                            var qrCodeImage = builder.LinkedResources.Add(tempQRCodeFilePath);
+                            qrCodeImage.ContentId = "qr-code-image";
+                            qrCodeImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
+
+                            message.Body = builder.ToMessageBody();
+
+                            // Send the email using MailKit
+                            using (var client = new SmtpClient())
+                            {
+                                client.Connect("smtp.gmail.com", 587, false);
+                                client.Authenticate(ConfigurationManager.AppSettings["SystemEmail"], ConfigurationManager.AppSettings["SystemEmailPass"]);
+                                client.Send(message);
+                                client.Disconnect(true);
+                            }
+
+                            // Clean up (optional)
+                            System.IO.File.Delete(tempQRCodeFilePath);
+                        }
+                        
+                        reader.Close();
+                    }
+                }
+
+
                 string query = @"UPDATE appointment SET appointment_status = @AppointmentStats WHERE ID_appointment = @AppointmentID";
                 string updateStatus = "approved";
-                conn.Open();
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
                     cmd.Parameters.AddWithValue("@AppointmentStats", updateStatus);
                     cmd.ExecuteNonQuery();
                 }
+
+                conn.Close();
             }
         }
 
@@ -296,25 +398,117 @@ namespace Gabay_Final_V2.Prototype
         protected void rejectBtn_Click(object sender, EventArgs e)
         {
             int AppointmentID = Convert.ToInt32(HiddenFieldAppointment.Value);
-            rejectAppointment(AppointmentID);
+            string Rejectreason = rejectReason.Text;
+            rejectAppointment(AppointmentID, Rejectreason);
             BindingAppointment();
             string successMessage = "Appointment updated to rejected";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
                 $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
         }
 
-        public void rejectAppointment(int AppointmentID)
+        public void rejectAppointment(int AppointmentID, string rejectReason)
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
+                string getAppointmentInfoQuery = @"SELECT * FROM appointment WHERE ID_appointment = @AppointmentID";
+                conn.Open();
+                using (SqlCommand setCmd = new SqlCommand(getAppointmentInfoQuery, conn))
+                {
+                    setCmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+
+                    using (SqlDataReader reader = setCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string appointmentID = reader["ID_appointment"].ToString();
+                            string appointee = reader["full_name"].ToString();
+                            string destination = reader["deptName"].ToString();
+                            DateTime date = (DateTime)reader["appointment_date"];
+                            string appointmentDate = date.ToString("dd MMM, yyyy ddd");
+                            string appointmentTime = reader["appointment_time"].ToString();
+                            string appointeeEmail = reader["email"].ToString();
+
+                            var message = new MimeMessage();
+                            message.From.Add(new MailboxAddress("UC Gabay", "noReply@noReply.com"));
+                            message.To.Add(new MailboxAddress("Recipient", appointeeEmail));
+                            message.Subject = "Appointment Details";
+
+                            var builder = new BodyBuilder();
+
+                            // Add the logo and QR code centered in the email body
+                            builder.HtmlBody = $@"
+                                <div style='text-align: center;margin-bottom: 10px;'>
+                                    <div>
+                                        <img src='cid:logo-image' style='width: 100px; height: auto; margin-right: 5px; display: block; margin: 0 auto;'>
+                                    </div>
+                                    <div style='letter-spacing: 3px; color: #003366; font-weight: 600;'>
+                                        GABAY
+                                    </div>
+                                </div>
+                                <div style='text-align: center;'>
+                                    <img src='cid:erro-image' width='200' height='200'>
+                                </div>";
+
+                            // Add additional appointment details
+                            builder.HtmlBody += $@"<div style='text-align: center;'><h1>Something went wrong!</h1></div>
+                                                <div style='text-align: center;'>
+                                                <p>Hello!<b> {appointee}</b>, your appointment scheduled on <b>{appointmentDate} {appointmentTime}</b> </p>
+                                                <p>that addressed to {destination} is <b>Rejected</b></p>
+                                                <p> for the reason of:</p>
+                                                <p><b>{rejectReason}</b></p>
+                                                <p>If you have any concern question kindly visit the {destination}'s office or book another appointment</p>
+                                                <p>Thank you!</p>
+                                                </div>";
+
+                            var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+                            logoImage.ContentId = "logo-image";
+                            logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
+
+                            var qrCodeImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\tempIcons\\error.png");
+                            qrCodeImage.ContentId = "erro-image";
+                            qrCodeImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
+
+                            message.Body = builder.ToMessageBody();
+
+                            // Send the email using MailKit
+                            using (var client = new SmtpClient())
+                            {
+                                client.Connect("smtp.gmail.com", 587, false);
+                                client.Authenticate(ConfigurationManager.AppSettings["SystemEmail"], ConfigurationManager.AppSettings["SystemEmailPass"]);
+                                client.Send(message);
+                                client.Disconnect(true);
+                            }
+                        }
+
+                        reader.Close();
+                    }
+                }
                 string query = @"UPDATE appointment SET appointment_status = @AppointmentStats WHERE ID_appointment = @AppointmentID";
                 string updateStatus = "rejected";
-                conn.Open();
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
                     cmd.Parameters.AddWithValue("@AppointmentStats", updateStatus);
                     cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+            }
+        }
+
+        private string ConvertImageToBase64(string imagePath)
+        {
+            using (System.Drawing.Image image = System.Drawing.Image.FromFile(imagePath))
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    // Convert Image to byte[]
+                    image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    byte[] imageBytes = ms.ToArray();
+
+                    // Convert byte[] to base64 string
+                    string base64Image = Convert.ToBase64String(imageBytes);
+                    return base64Image;
                 }
             }
         }

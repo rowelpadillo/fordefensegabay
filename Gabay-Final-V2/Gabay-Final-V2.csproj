@@ -42,8 +42,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
       <HintPath>..\packages\BouncyCastle.Cryptography.2.2.1\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="MailKit, Version=4.2.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
       <HintPath>..\packages\MailKit.4.2.0\lib\net47\MailKit.dll</HintPath>
@@ -104,6 +110,12 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="WindowsBase" />
+    <Reference Include="zxing, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.9\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZXing.Net.0.16.9\lib\net47\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Bootstrap\Content\bootstrap-grid.css" />
@@ -124,6 +136,7 @@
     <Content Include="Bootstrap\Content\bootstrap.rtl.min.css" />
     <Content Include="Landing_Page\LandingPage.aspx" />
     <Content Include="Prototype\JavaScript.js" />
+    <Content Include="Prototype\tempPage.aspx" />
     <Content Include="Prototype\UC-LOGO.png" />
     <Content Include="Prototype\WebForm1.aspx" />
     <Content Include="Prototype\WebForm10.aspx" />
@@ -133,6 +146,7 @@
     <Content Include="Prototype\WebForm14.aspx" />
     <Content Include="Prototype\WebForm15.aspx" />
     <Content Include="Prototype\WebForm16.aspx" />
+    <Content Include="Prototype\WebForm17.aspx" />
     <Content Include="Prototype\WebForm2.aspx" />
     <Content Include="Prototype\ManageStudent.aspx" />
     <Content Include="Prototype\WebForm4.aspx" />
@@ -2233,6 +2247,8 @@
     <Content Include="Resources\CustomStyleSheet\Test.css" />
     <Content Include="Resources\Images\tempIcons\ccs logo.png" />
     <Content Include="Resources\Images\tempIcons\database.png" />
+    <Content Include="Resources\Images\tempIcons\error.png" />
+    <Content Include="Resources\Images\tempIcons\verified.png" />
     <Content Include="Resources\Images\uclm.png" />
     <Content Include="Resources\Images\buildings\1099451.jpg" />
     <Content Include="Resources\Images\buildings\2018447.jpg" />
@@ -2349,6 +2365,13 @@
     <Compile Include="Models\Chatbot_model.cs" />
     <Compile Include="Models\DbUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Prototype\tempPage.aspx.cs">
+      <DependentUpon>tempPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\tempPage.aspx.designer.cs">
+      <DependentUpon>tempPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Prototype\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2404,6 +2427,13 @@
     </Compile>
     <Compile Include="Prototype\WebForm16.aspx.designer.cs">
       <DependentUpon>WebForm16.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm17.aspx.cs">
+      <DependentUpon>WebForm17.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm17.aspx.designer.cs">
+      <DependentUpon>WebForm17.aspx</DependentUpon>
     </Compile>
     <Compile Include="Prototype\WebForm2.aspx.cs">
       <DependentUpon>WebForm2.aspx</DependentUpon>
@@ -2790,7 +2820,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Resources\tempPDF\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

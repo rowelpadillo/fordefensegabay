@@ -44,7 +44,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                 string query = @"SELECT a.appointment_status
                          FROM appointment a
                          INNER JOIN users_table u ON a.student_ID = u.login_ID
-                         WHERE u.user_ID = @userID AND a.appointment_status = 'pending'";
+                         WHERE u.user_ID = @userID AND (a.appointment_status != 'served' AND a.appointment_status != 'no show' AND a.appointment_status != 'rejected')";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -52,7 +52,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        return reader.Read(); // Return true if there's a pending appointment, false otherwise
+                        return reader.Read();
                     }
                 }
             }
