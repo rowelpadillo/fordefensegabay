@@ -170,9 +170,13 @@ namespace Gabay_Final_V2.Prototype
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
+                string getAppointmentInfoQuery = @"SELECT * FROM appointment WHERE ID_appointment = @AppointmentID";
+                conn.Open();
+              
+
                 string query = @"SELECT appointment_date, appointment_time, appointment_status
                  FROM appointment WHERE ID_appointment = @AppointmentID";
-                conn.Open();
+               
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
@@ -218,6 +222,78 @@ namespace Gabay_Final_V2.Prototype
                                 }
                             }
                         }
+                    }
+                }
+
+                using (SqlCommand setCmd = new SqlCommand(getAppointmentInfoQuery, conn))
+                {
+                    setCmd.Parameters.AddWithValue("@AppointmentID", AppointmentID);
+
+                    using (SqlDataReader reader = setCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string appointmentID = reader["ID_appointment"].ToString();
+                            string appointee = reader["full_name"].ToString();
+                            string destination = reader["deptName"].ToString();
+                            DateTime date = (DateTime)reader["appointment_date"];
+                            string appointmentDate = date.ToString("dd MMM, yyyy ddd");
+                            string appointmentTime = reader["appointment_time"].ToString();
+                            string appointeeEmail = reader["email"].ToString();
+
+                            var message = new MimeMessage();
+                            message.From.Add(new MailboxAddress("UC Gabay", "noReply@noReply.com"));
+                            message.To.Add(new MailboxAddress("Recipient", appointeeEmail));
+                            message.Subject = "Appointment Details";
+
+                            var builder = new BodyBuilder();
+
+                            // Add the logo and QR code centered in the email body
+                            builder.HtmlBody = $@"
+                                <div style='text-align: center;margin-bottom: 10px;'>
+                                    <div>
+                                        <img src='cid:logo-image' style='width: 100px; height: auto; margin-right: 5px; display: block; margin: 0 auto;'>
+                                    </div>
+                                    <div style='letter-spacing: 3px; color: #003366; font-weight: 600;'>
+                                        GABAY
+                                    </div>
+                                </div>
+                                <div style='text-align: center;'>
+                                    <img src='cid:reschedule-image' width='200' height='200'>
+                                </div>";
+
+                            // Add additional appointment details
+                            builder.HtmlBody += $@"<div style='text-align: center;'><h1>Heads up!</h1></div>
+                                                <div style='text-align: center;'>
+                                                <p>Hello!<b> {appointee}</b>, your is rescheduled please see the details below</p>
+                                                <p><b>Appointment ID:</b> {appointmentID}</p>
+                                                <p><b>New Schedule: {appointmentDate} {appointmentTime}</b></p>
+                                                <p>Please log in to your Gabay account <a href=""https://localhost:44341/Views/Loginpages/Student_login.aspx""> here</a> if you are comfortable with your updated schedule.</p>
+                                                </div>";
+
+                            var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+                            logoImage.ContentId = "logo-image";
+                            logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
+
+                            var qrCodeImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\tempIcons\\reschedule-icon-6.jpg");
+                            qrCodeImage.ContentId = "reschedule-image";
+                            qrCodeImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
+
+                            message.Body = builder.ToMessageBody();
+
+                            // Send the email using MailKit
+                            using (var client = new SmtpClient())
+                            {
+                                client.Connect("smtp.gmail.com", 587, false);
+                                client.Authenticate(ConfigurationManager.AppSettings["SystemEmail"], ConfigurationManager.AppSettings["SystemEmailPass"]);
+                                client.Send(message);
+                                client.Disconnect(true);
+                            }
+
+
+                        }
+
+                        reader.Close();
                     }
                 }
                 conn.Close();

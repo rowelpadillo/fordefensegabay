@@ -51,15 +51,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
         protected global::System.Web.UI.WebControls.HyperLink dashboard;
 
         /// <summary>
-        /// pndngStds control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink pndngStds;
-
-        /// <summary>
         /// wayFinding control.
         /// </summary>
         /// <remarks>
@@ -87,15 +78,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
         protected global::System.Web.UI.WebControls.HyperLink campusInfo;
 
         /// <summary>
-        /// campCalendar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink campCalendar;
-
-        /// <summary>
         /// faq control.
         /// </summary>
         /// <remarks>
@@ -103,33 +85,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink faq;
-
-        /// <summary>
-        /// prflBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton prflBtn;
-
-        /// <summary>
-        /// LinkButton1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
-
-        /// <summary>
-        /// profileBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink profileBtn;
 
         /// <summary>
         /// logoutBtn control.
@@ -150,13 +105,13 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
         protected global::System.Web.UI.WebControls.HyperLink sideNavProf;
 
         /// <summary>
-        /// lblDept_name control.
+        /// guestNameBx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDept_name;
+        protected global::System.Web.UI.WebControls.Label guestNameBx;
 
         /// <summary>
         /// sideNavDB control.
@@ -166,15 +121,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink sideNavDB;
-
-        /// <summary>
-        /// sideNavPend control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavPend;
 
         /// <summary>
         /// sideNavWF control.
@@ -202,15 +148,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink sideNavCI;
-
-        /// <summary>
-        /// sideNavCC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavCC;
 
         /// <summary>
         /// sideNavFAQ control.

@@ -341,7 +341,7 @@ namespace Gabay_Final_V2.Models
 			{
 				conn.Open();
 				string status = "pending";
-				string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
+				string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, s.course, u.status
 											FROM student s
 											INNER JOIN department d ON s.department_ID = d.ID_dept
 											INNER JOIN users_table u ON s.user_ID = u.user_ID
@@ -368,7 +368,7 @@ namespace Gabay_Final_V2.Models
 			{
 				conn.Open();
 				string status = "activated";
-				string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
+				string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, s.course, u.status
 											FROM student s
 											INNER JOIN department d ON s.department_ID = d.ID_dept
 											INNER JOIN users_table u ON s.user_ID = u.user_ID
@@ -395,7 +395,7 @@ namespace Gabay_Final_V2.Models
 			{
 				conn.Open();
 				string status = "deactivated";
-				string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, u.status
+				string queryFetchStudent = @"SELECT s.name, s.address, s.contactNumber, s.course_year, s.studentID, s.email, s.course, u.status
 											FROM student s
 											INNER JOIN department d ON s.department_ID = d.ID_dept
 											INNER JOIN users_table u ON s.user_ID = u.user_ID
@@ -465,8 +465,8 @@ namespace Gabay_Final_V2.Models
 				"<head>" +
 					"<style>" +
 					".headerContainer{" +
-                        "text-align: center;" +
-                        "margin-bottom: 10px;" +
+						"text-align: center;" +
+						"margin-bottom: 10px;" +
 					".LogoImg{" +
 						"width:100px;" +
 						"height:auto;" +
@@ -477,7 +477,7 @@ namespace Gabay_Final_V2.Models
 						"color:#003366;" +
 						"font-weight:600;}" +
 					".bodyContainer{" +
-                        "text-align: center;" +
+						"text-align: center;" +
 					".verifiedImg{" +
 						"width:10rem;" +
 						"height:auto;}" +

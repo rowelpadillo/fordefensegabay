@@ -12,7 +12,7 @@
             padding:5px;
         }
     </style>
-    <h1>Pending Student Registration</h1>
+    <h1>Manage Student Account</h1>
     <div class="container-fluid mb-1">
         <div class="row">
             <div class="col-lg-10 col-md-12">
@@ -45,7 +45,8 @@
                             <asp:BoundField DataField="name" HeaderText="Name" />
                             <asp:BoundField DataField="address" HeaderText="Address" />
                             <asp:BoundField DataField="contactNumber" HeaderText="ContactNumber" />
-                            <asp:BoundField DataField="course_year" HeaderText="Course Year" />
+                            <asp:BoundField DataField="course" HeaderText="Course" />
+                            <asp:BoundField DataField="course_year" HeaderText="Year Level" />
                             <asp:BoundField DataField="email" HeaderText="Email" />
                             <asp:BoundField DataField="status" HeaderText="Status" />
                             <asp:TemplateField>
@@ -62,7 +63,8 @@
                         <asp:BoundField DataField="name" HeaderText="Name" />
                         <asp:BoundField DataField="address" HeaderText="Address" />
                         <asp:BoundField DataField="contactNumber" HeaderText="ContactNumber" />
-                        <asp:BoundField DataField="course_year" HeaderText="Course Year" />
+                        <asp:BoundField DataField="course" HeaderText="Course" />
+                        <asp:BoundField DataField="course_year" HeaderText="Year Level" />
                         <asp:BoundField DataField="email" HeaderText="Email" />
                         <asp:BoundField DataField="status" HeaderText="Status" />
                         <asp:TemplateField>
@@ -78,7 +80,8 @@
                         <asp:BoundField DataField="name" HeaderText="Name" />
                         <asp:BoundField DataField="address" HeaderText="Address" />
                         <asp:BoundField DataField="contactNumber" HeaderText="ContactNumber" />
-                        <asp:BoundField DataField="course_year" HeaderText="Course Year" />
+                        <asp:BoundField DataField="course" HeaderText="Course" />
+                        <asp:BoundField DataField="course_year" HeaderText="Year Level" />
                         <asp:BoundField DataField="email" HeaderText="Email" />
                         <asp:BoundField DataField="status" HeaderText="Status" />
                         <%--<asp:TemplateField>
