@@ -118,7 +118,7 @@ namespace Gabay_Final_V2.Models
 
             // Find the script with the highest keyword count
             string bestScript = "";
-            int maxCount = 0;
+            int maxCount = 1;
 
             foreach (var pair in keywordCount)
             {
@@ -129,7 +129,7 @@ namespace Gabay_Final_V2.Models
                 }
             }
 
-            if (maxCount == 0)
+            if (maxCount == 1)
             {
                 bestScript = "I'm sorry, I didn't understand your question. Could you please rephrase it?";
             }

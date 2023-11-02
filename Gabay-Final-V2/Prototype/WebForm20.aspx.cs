@@ -1,17 +1,14 @@
 ﻿using Gabay_Final_V2.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
 
-namespace Gabay_Final_V2.Views.Modules.Chatbot
+namespace Gabay_Final_V2.Prototype
 {
-    public partial class Student_Chatbot : System.Web.UI.Page
+    public partial class WebForm20 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -109,8 +106,8 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
 
             if (userInput != "" || userInput == null)
             {
-
-                if (lowerInput == "hi")
+               
+                if (lowerInput == "hi") 
                 {
                     AddBotMessage("Hello! what can I assist to you today?");
                 }
@@ -123,5 +120,6 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                 txtUserInput.Text = string.Empty;
             }
         }
+
     }
 }

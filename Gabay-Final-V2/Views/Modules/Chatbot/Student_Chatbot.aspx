@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server"> 
     <link href="../../../Resources/CustomStyleSheet/Chatbot/ChatbotStyle.css" rel="stylesheet" />
     <script src="../../../Resources/CustomJS/Chatbot/ChatbotJS.js"></script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="chatbot-container">
@@ -14,16 +15,10 @@
             <asp:Button ID="btnSend" runat="server" CssClass="btn sndBtn" Text="Send" OnClick="btnSend_Click"/>
         </div>
     </div>
-    <script>
-        function buttonClick(buttonText) {
-            // Send the clicked button's text as user input to the server
-            document.getElementById('<%= txtUserInput.ClientID %>').value = buttonText;
+     <script>
+        function menuButtonClick(choice) {
+            document.getElementById('<%= txtUserInput.ClientID %>').value = choice;
             document.getElementById('<%= btnSend.ClientID %>').click();
         }
-        function scrollToBottom() {
-            var chatContainer = document.querySelector('.chatContainer');
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-        scrollToBottom();
-    </script>
+     </script>
 </asp:Content>
