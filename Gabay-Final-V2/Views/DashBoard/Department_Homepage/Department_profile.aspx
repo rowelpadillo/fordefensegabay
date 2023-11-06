@@ -233,6 +233,37 @@
                                         <span>Please provide office hours</span>
                                     </div>
                                 </div>
+                            <!-- asdasd -->
+                                    <div class="form-floating mb-3">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
+                                        Upload File
+                                    </button>
+                                    <!-- Bootstrap Modal for Upload -->
+                                   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="uploadModalLabel">PDF File Upload</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                  <asp:FileUpload ID="fileUpload" runat="server" />     
+                                                </div>
+                                                <div class="modal-body">
+                                                  <asp:TextBox ID="txtFileName" runat="server" placeholder="Enter File Name" />
+                                                </div>
+                                                <div class="modal-footer">
+                                                <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="BtnUpload_Click" CssClass="btn btn-primary" />
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                                
+                                            </div>
+                                        </div>
+                                </div>
+
+
                                 <div class="d-grid">
                                     <asp:Button ID="updBtnDeptInfo" CssClass="btn updtBtn" runat="server" Text="Save Changes" UseSubmitBehavior="false" OnClick="updBtnDeptInfo_Click" />
                                 </div>
@@ -243,6 +274,7 @@
             </div>
         </div>
     </div>
+             
     <%-- modal for department courses --%>
     <div class="modal fade" id="coursesModal" tabindex="-1" aria-labelledby="Courses" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -374,5 +406,13 @@
                  alert('No Courses Available');
              }
         }
+
+
     </script>
+
+     <!-- JavaScript to show/hide modal -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </asp:Content>

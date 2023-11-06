@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.IO;
 using System.Web.UI.WebControls;
 
 namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
@@ -22,6 +24,46 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
 
             }
 
+        }
+
+        // UPLOAD DEPARTMENT
+        protected void BtnUpload_Click(object sender, EventArgs e)
+        {
+            if (fileUpload.HasFile)
+            {
+                try
+                {
+                    // Get the file name and data
+                    string fileName = !string.IsNullOrEmpty(txtFileName.Text) ? txtFileName.Text : Path.GetFileName(fileUpload.FileName);
+                    byte[] fileData = fileUpload.FileBytes;
+
+                    // Insert the file data into the database
+                    InsertFileData(fileName, fileData);
+
+                    // Display a success message or perform any other actions
+                    Response.Redirect(Request.RawUrl);
+                }
+                catch (Exception)
+                {
+                    // Handle any exceptions or display an error message
+                }
+            }
+        }
+        //INSET DEPARTMENT
+        private void InsertFileData(string fileName, byte[] fileData)
+        {
+         //   using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+               // connection.Open();
+                string insertQuery = "INSERT INTO UploadedFiles (FileName, FileData) VALUES (@FileName, @FileData)";
+
+          //      using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                {
+              //      command.Parameters.AddWithValue("@FileName", fileName);
+            //        command.Parameters.AddWithValue("@FileData", fileData);
+              //      command.ExecuteNonQuery();
+                }
+            }
         }
         public void loadGeneralInfo(int sessionID)
         {
@@ -166,6 +208,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
                 conn.Close();
             }
         }
+       
 
         protected void updBtnDeptInfo_Click(object sender, EventArgs e)
         {
