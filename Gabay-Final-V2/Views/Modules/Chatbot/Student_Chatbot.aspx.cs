@@ -13,10 +13,12 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
 {
     public partial class Student_Chatbot : System.Web.UI.Page
     {
+        Chatbot_model conn = new Chatbot_model();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                ViewState["countUnAnswered"] = 0;
                 string greetingMessage1 = @"Hello! to assist you better, 
                    please choose an option in the menu or if you can't find what are you looking for,
                    just type your concern in a few words. If I can't answer you queries you can book
@@ -104,6 +106,7 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
         protected void btnSend_Click(object sender, EventArgs e)
         {
             string userInput = txtUserInput.Text;
+            int countUnAnsered = (int)ViewState["countUnAnswered"];
             AddUserMessage(userInput);
             string lowerInput = userInput.ToLower();
 
@@ -116,7 +119,7 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                 }
                 else
                 {
-                    string scriptColumn = Chatbot_model.FindMatchingScript(userInput);
+                    string scriptColumn = conn.FindMatchingScript(userInput, countUnAnsered);
                     scriptColumn = scriptColumn.Replace("\n", "<br>");
                     AddBotMessage(scriptColumn);
                 }

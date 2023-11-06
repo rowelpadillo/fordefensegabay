@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <meta charset="UTF-8"/>
     <link href="../Bootstrap/Content/bootstrap.css" rel="stylesheet" />
     <link href="../Resources/CustomStyleSheet/Chatbot/ChatbotStyle.css" rel="stylesheet" />
     <script src="../Bootstrap/Scripts/bootstrap.js"></script>
@@ -23,6 +24,7 @@
                 <asp:Button ID="btnSend" runat="server" CssClass="btn sndBtn" Text="Send" OnClick="btnSend_Click" />
             </div>
         </div>
+        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
     </form>
     <script>
         function menuButtonClick(choice) {

@@ -12,13 +12,13 @@
         <div class="chatContainer" id="chatContainer" runat="server"></div>
         <div class="input-group userInput-group">
             <asp:TextBox ID="txtUserInput" runat="server" CssClass="form-control userInput" aria-describedby="btnSend" placeholder="Enter your message here..."></asp:TextBox>
-            <asp:Button ID="btnSend" runat="server" CssClass="btn sndBtn" Text="Send" OnClick="btnSend_Click"/>
+            <asp:Button ID="btnSend" runat="server" CssClass="btn sndBtn" Text="Send" OnClick="btnSend_Click" />
         </div>
     </div>
-     <script>
+    <script>
         function menuButtonClick(choice) {
             document.getElementById('<%= txtUserInput.ClientID %>').value = choice;
             document.getElementById('<%= btnSend.ClientID %>').click();
         }
-     </script>
+    </script>
 </asp:Content>

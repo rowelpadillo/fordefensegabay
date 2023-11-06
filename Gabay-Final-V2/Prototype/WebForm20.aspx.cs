@@ -1,19 +1,25 @@
 ﻿using Gabay_Final_V2.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 
 namespace Gabay_Final_V2.Prototype
 {
     public partial class WebForm20 : System.Web.UI.Page
     {
+        Chatbot_model conn = new Chatbot_model();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                ViewState["countUnAnswered"] = 0;
                 string greetingMessage1 = @"Hello! to assist you better, 
                    please choose an option in the menu or if you can't find what are you looking for,
                    just type your concern in a few words. If I can't answer you queries you can book
@@ -101,25 +107,25 @@ namespace Gabay_Final_V2.Prototype
         protected void btnSend_Click(object sender, EventArgs e)
         {
             string userInput = txtUserInput.Text;
+            int countUnAnsered = (int)ViewState["countUnAnswered"];
             AddUserMessage(userInput);
             string lowerInput = userInput.ToLower();
-
+            string testMessage = @"Hello! what can I assist to you today?";
             if (userInput != "" || userInput == null)
             {
-               
-                if (lowerInput == "hi") 
+
+                if (lowerInput == "hi")
                 {
-                    AddBotMessage("Hello! what can I assist to you today?");
+                    AddBotMessage(testMessage);
                 }
                 else
                 {
-                    string scriptColumn = Chatbot_model.FindMatchingScript(userInput);
+                    string scriptColumn = conn.FindMatchingScript(userInput, countUnAnsered);
                     scriptColumn = scriptColumn.Replace("\n", "<br>");
                     AddBotMessage(scriptColumn);
                 }
                 txtUserInput.Text = string.Empty;
             }
         }
-
     }
 }
