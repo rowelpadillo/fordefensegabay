@@ -1,14 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm21.aspx.cs" Inherits="Gabay_Final_V2.Prototype.WebForm21" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <link href="../Bootstrap/Content/bootstrap.css" rel="stylesheet" />
-    <link href="../Resources/CustomStyleSheet/DefaultStyle.css" rel="stylesheet" />
-    <script src="../Bootstrap/Scripts/bootstrap.bundle.js"></script>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/DashBoard/Student_Homepage/Student_Master.Master" AutoEventWireup="true" CodeBehind="Student_profile.aspx.cs" Inherits="Gabay_Final_V2.Views.DashBoard.Student_Homepage.Student_profile" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
         .profile-icon{
             display:flex;
@@ -89,9 +82,6 @@
             color: #0c0c0c;
         }
     </style>
-</head>
-<body>
-    <form id="form1" runat="server">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -289,6 +279,4 @@
             </div>
         </div>
     
-    </form>
-</body>
-</html>
+</asp:Content>

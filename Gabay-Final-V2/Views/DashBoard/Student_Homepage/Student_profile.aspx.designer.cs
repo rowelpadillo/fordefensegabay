@@ -7,21 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gabay_Final_V2.Prototype
+namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
 {
 
 
-    public partial class WebForm21
+    public partial class Student_profile
     {
-
-        /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
         /// Label4 control.

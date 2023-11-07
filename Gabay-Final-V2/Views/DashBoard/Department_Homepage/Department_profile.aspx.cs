@@ -55,7 +55,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
          //   using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                // connection.Open();
-                string insertQuery = "INSERT INTO UploadedFiles (FileName, FileData) VALUES (@FileName, @FileData)";
+                //string insertQuery = "INSERT INTO UploadedFiles (FileName, FileData) VALUES (@FileName, @FileData)";
 
           //      using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
