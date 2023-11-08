@@ -7,182 +7,146 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
+namespace Gabay_Final_V2.Views.Modules.Appointment
 {
 
 
-    public partial class Guest_Master
+    public partial class Guest_Appointment
     {
 
         /// <summary>
-        /// head control.
+        /// SubmissionStatusSubmitted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Label SubmissionStatusSubmitted;
 
         /// <summary>
-        /// guestMaster control.
+        /// SubmitStatusNotSubmitted control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm guestMaster;
+        protected global::System.Web.UI.WebControls.Label SubmitStatusNotSubmitted;
 
         /// <summary>
-        /// GabayLogo control.
+        /// departmentChoices control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink GabayLogo;
+        protected global::System.Web.UI.WebControls.DropDownList departmentChoices;
 
         /// <summary>
-        /// dashboard control.
+        /// FullName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink dashboard;
+        protected global::System.Web.UI.WebControls.TextBox FullName;
 
         /// <summary>
-        /// wayFinding control.
+        /// Email control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink wayFinding;
+        protected global::System.Web.UI.WebControls.TextBox Email;
 
         /// <summary>
-        /// chatbot control.
+        /// ContactN control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink chatbot;
+        protected global::System.Web.UI.WebControls.TextBox ContactN;
 
         /// <summary>
-        /// campAppntmnt control.
+        /// time control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink campAppntmnt;
+        protected global::System.Web.UI.WebControls.DropDownList time;
 
         /// <summary>
-        /// campusInfo control.
+        /// date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink campusInfo;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl date;
 
         /// <summary>
-        /// faq control.
+        /// Message control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink faq;
+        protected global::System.Web.UI.WebControls.TextBox Message;
 
         /// <summary>
-        /// logoutBtn control.
+        /// searchInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button logoutBtn;
+        protected global::System.Web.UI.WebControls.TextBox searchInput;
 
         /// <summary>
-        /// sideNavProf control.
+        /// searchButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavProf;
+        protected global::System.Web.UI.WebControls.Button searchButton;
 
         /// <summary>
-        /// guestNameBx control.
+        /// searchResultsGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label guestNameBx;
+        protected global::System.Web.UI.WebControls.GridView searchResultsGridView;
 
         /// <summary>
-        /// sideNavDB control.
+        /// noResultsLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavDB;
+        protected global::System.Web.UI.WebControls.Label noResultsLabel;
 
         /// <summary>
-        /// sideNavWF control.
+        /// SubmitButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavWF;
+        protected global::System.Web.UI.WebControls.Button SubmitButton;
 
         /// <summary>
-        /// sideNavCB control.
+        /// FormSubmittedHiddenField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavCB;
-
-        /// <summary>
-        /// sideAppnt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideAppnt;
-
-        /// <summary>
-        /// sideNavCI control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavCI;
-
-        /// <summary>
-        /// sideNavFAQ control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavFAQ;
-
-        /// <summary>
-        /// ContentPlaceHolder1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.HiddenField FormSubmittedHiddenField;
     }
 }

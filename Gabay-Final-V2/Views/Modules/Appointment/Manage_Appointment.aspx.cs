@@ -32,7 +32,16 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             {
                 int user_ID = Convert.ToInt32(Session["user_ID"]);
                 DataTable dt = fetchAppointBasedOnDepartment(user_ID);
+                foreach (DataRow row in dt.Rows)
+                {
+                    string studentID = (string)row["student_ID"];
 
+                    if (studentID == "guest")
+                    {
+                        // Set "User Type" to "Guest" for guest appointments
+                        row["role"] = "Guest";
+                    }
+                }
                 GridView1.DataSource = dt;
                 GridView1.DataBind();
             }
@@ -40,7 +49,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
         public DataTable fetchAppointBasedOnDepartment(int userID)
         {
-            DataTable studentTable = new DataTable();
+            DataTable appointmentTable = new DataTable();
 
             using (SqlConnection conn = new SqlConnection(connection))
             {
@@ -48,20 +57,22 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
                 string queryFetchStudent = @"SELECT a.*, ur.role
                                             FROM appointment a
-                                            INNER JOIN users_table u ON a.student_ID = u.login_ID
-                                            INNER JOIN user_role ur ON u.role_ID = ur.role_id
-                                            WHERE a.deptName = (SELECT dept_name FROM department WHERE user_ID = @departmentUserID)";
+                                            LEFT JOIN users_table u ON a.student_ID = u.login_ID
+                                            LEFT JOIN user_role ur ON u.role_ID = ur.role_id
+                                            WHERE (a.deptName = (SELECT dept_name FROM department WHERE user_ID = @departmentUserID)
+                                            OR a.student_ID = 'guest')
+                                            AND (a.student_ID <> 'guest' OR a.deptName = (SELECT dept_name FROM department WHERE user_ID = @departmentUserID))";
                 using (SqlCommand cmd = new SqlCommand(queryFetchStudent, conn))
                 {
                     cmd.Parameters.AddWithValue("@departmentUserID", userID);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        studentTable.Load(reader);
+                        appointmentTable.Load(reader);
                     }
                 }
             }
-            return studentTable;
+            return appointmentTable;
         }
 
         public void LoadAppointmentModal(int AppointmentID)

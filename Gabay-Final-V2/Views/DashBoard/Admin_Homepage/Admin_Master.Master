@@ -42,7 +42,7 @@
                             <li class="nav-item p-1">
                                 <asp:HyperLink ID="manageDep" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_Department.aspx">
                               <i class="bi bi-building-fill-add"></i>
-                              <span class="mt-2">Manage Department</span>
+                              <span class="mt-2">Add Department</span>
                                 </asp:HyperLink>
                             </li>
                             <li class="nav-item p-1">
@@ -117,7 +117,7 @@
                     <li class="nav-item ">
                         <asp:HyperLink ID="sideNavDept" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_Department.aspx">
                             <i class="bi bi-building-fill-add"></i>
-                            <p class="mt-4">Manage Department</p>
+                            <p class="mt-4">Add Department</p>
                         </asp:HyperLink>
                     </li>
                     <li class="nav-item ">

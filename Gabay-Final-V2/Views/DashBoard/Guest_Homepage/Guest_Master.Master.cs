@@ -22,6 +22,10 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
             {
                 guestNameBx.Text = Session["GuestName"].ToString();
             }
+            else
+            {
+                Response.Redirect("~/Views/Loginpages/Guest_login.aspx");
+            }
         }
 
         protected void logoutBtn_Click(object sender, EventArgs e)

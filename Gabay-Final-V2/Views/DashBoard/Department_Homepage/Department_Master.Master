@@ -51,12 +51,12 @@
                                   <span class="mt-2">Way Finding</span>
                                 </asp:HyperLink>
                             </li>
-                            <li class="nav-item p-1">
+                           <%-- <li class="nav-item p-1">
                                 <asp:HyperLink ID="chatbot" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/Modules/Chatbot/Department_Chatbot.aspx?=">
                                   <i class="bi bi-chat-left-dots-fill me-2"></i>
                                   <span class="mt-2">Chatbot</span>
                                 </asp:HyperLink>
-                            </li>
+                            </li>--%>
                             <%--<li class="nav-item p-1">
                                 <asp:HyperLink ID="campusInfo" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/Modules/Campus_Info/Department_CampusInfo.aspx">
                                   <i class="bi bi-info-square-fill me-2"></i>
@@ -132,12 +132,12 @@
                             <p class="mt-4">Way Finding</p>
                         </asp:HyperLink>
                     </li>
-                    <li class="nav-item ">
+                   <%-- <li class="nav-item ">
                         <asp:HyperLink ID="sideNavCB" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Chatbot/Department_Chatbot.aspx?=">
                             <i class="bi bi-chat-left-dots-fill fs-4 me-3"></i>
                             <p class="mt-4">Chatbot</p>
                         </asp:HyperLink>
-                    </li>
+                    </li>--%>
                     <%--<li class="nav-item ">
                         <asp:HyperLink ID="sideNavCI" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Campus_Info/Department_CampusInfo.aspx">
                             <i class="bi bi-info-square-fill fs-4 me-3"></i>

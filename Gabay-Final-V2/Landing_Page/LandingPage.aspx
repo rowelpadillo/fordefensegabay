@@ -356,7 +356,7 @@ Let us always remember that in this journey called life, we are each other's gre
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-3 col-md-6 footer-contact">
+          <div class="col-lg-4 col-md-12 footer-contact">
             <h3>Gabay</h3>
             <p>
              UCLM <br/>
@@ -367,35 +367,22 @@ Let us always remember that in this journey called life, we are each other's gre
             </p>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <div class="col-lg-4 col-md-12 footer-links">
             <h4>Useful Links</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Features</a></li>
-              
             </ul>
           </div>
 
-          <div class="col-lg-3 col-md-6 footer-links">
+          <div class="col-lg-4 col-md-12 footer-links">
             <h4>Our Features</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Chatbot</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Appointment Booking</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Wayfinding</a></li>
             </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Social Networks</h4>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram""></i></a>
-              <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
           </div>
 
         </div>
@@ -411,7 +398,7 @@ Let us always remember that in this journey called life, we are each other's gre
         <!-- You can delete the links only if you purchased the pro version. -->
         <!-- Licensing information: https://bootstrapmade.com/license/ -->
         <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
-        Designed by <a href="https://bootstrapmade.com/">US</a>
+        <%--Designed by <a href="https://bootstrapmade.com/">US</a>--%>
       </div>
     </div>
   </footer><!-- End Footer -->

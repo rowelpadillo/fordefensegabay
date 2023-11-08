@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <img src="../../../Resources/Images/students.png" alt="" />
+                                    <img src="../../../Resources/Images/tempIcons/students.png" />
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                                 <div class="col-auto">
-                                    <img src="../../../Resources/Images/teachers.png" alt="" />
+                                    <img src="../../../Resources/Images/tempIcons/teachers.png" />
                                 </div>
                             </div>
                         </div>
