@@ -60,24 +60,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Admin_Homepage
         protected global::System.Web.UI.WebControls.HyperLink manageDep;
 
         /// <summary>
-        /// manageUser control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink manageUser;
-
-        /// <summary>
-        /// wayFinding control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink wayFinding;
-
-        /// <summary>
         /// chatbot control.
         /// </summary>
         /// <remarks>
@@ -123,15 +105,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Admin_Homepage
         protected global::System.Web.UI.WebControls.LinkButton logoutLink;
 
         /// <summary>
-        /// profileBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button profileBtn;
-
-        /// <summary>
         /// logoutBtn control.
         /// </summary>
         /// <remarks>
@@ -175,24 +148,6 @@ namespace Gabay_Final_V2.Views.DashBoard.Admin_Homepage
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink sideNavDept;
-
-        /// <summary>
-        /// sideNavPend control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavPend;
-
-        /// <summary>
-        /// sideNavWF control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavWF;
 
         /// <summary>
         /// sideNavCB control.

@@ -31,7 +31,7 @@
                     <div class="collapse navbar-collapse mt-4" id="navbarNav">
                         <ul class="navbar-nav d-lg-none">
                             <li class="nav-item p-1">
-                                <asp:HyperLink ID="dashboard" runat="server" CssClass="topnav-item text-center custom-text-color">
+                                <asp:HyperLink ID="dashboard" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/DashBoard/Guest_Homepage/Guest_Dashboard.aspx">
                                   <i class="bi bi-speedometer"></i>
                                   <span class="mt-2">Dashboard</span>
                                 </asp:HyperLink>
@@ -110,7 +110,7 @@
             <div class="sideBar bg-body-tertiary d-none d-lg-block">
                 <ul class="nav flex-column mt-3">
                     <li class="nav-item ">
-                        <asp:HyperLink ID="sideNavProf" runat="server" CssClass="profile">
+                        <asp:HyperLink ID="sideNavProf" runat="server" CssClass="profile" NavigateUrl="~/Views/DashBoard/Guest_Homepage/Guest_Dashboard.aspx">
                             <i class="bi bi-person-circle profile-Icon"></i>
                             <p>
                                 <asp:Label ID="guestNameBx" runat="server" Text="Label" CssClas="profileLabel text-center"></asp:Label>
@@ -118,7 +118,7 @@
                         </asp:HyperLink>
                     </li>
                     <li class="nav-item ">
-                        <asp:HyperLink ID="sideNavDB" runat="server" CssClass="navLinks text-center">
+                        <asp:HyperLink ID="sideNavDB" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/DashBoard/Guest_Homepage/Guest_Dashboard.aspx">
                             <i class="bi bi-speedometer fs-4 me-3""></i>
                             <p class="mt-4">Dashboard</p>
                         </asp:HyperLink>

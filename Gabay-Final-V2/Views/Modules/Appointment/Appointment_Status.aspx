@@ -30,7 +30,22 @@
         table td{
              vertical-align: middle;
         }
+         .custom-button {
+            background-color: darkblue; 
+            color: #fff;
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px;
+            cursor: pointer; 
+            margin-top: 20px;
+            float: right;
+        }
+
+            .custom-button:hover {
+                background-color: #007bff; 
+            }
     </style>
+    <asp:Button ID="ViewHistoryButton" runat="server" Text="View My History" CssClass="custom-button" OnClick="ViewHistoryButton_Click" />
     <div class="container">
             <div class="row">
                 <div class="col-12">
