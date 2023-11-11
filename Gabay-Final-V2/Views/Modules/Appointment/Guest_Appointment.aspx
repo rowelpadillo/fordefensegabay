@@ -66,6 +66,19 @@
 	.status-submitted {
 		color: green;
 	}
+	.img-placeholder{
+		width: 100px;
+		height: auto;
+	}
+	.reschedBtn{
+		margin-left:5px;
+	}
+	.reschedBtn:hover{
+		opacity:80%;
+	}
+	.acceptBtn{
+		width: 160px;
+	}
 	</style>
 
 	<div class="form-wrapper">
@@ -78,7 +91,7 @@
 					<label for="DepartmentDropDown" class="form-label">Department</label>
 					<asp:DropDownList ID="departmentChoices" CssClass="form-control text-input" runat="server" aria-label="Departments" AutoPostBack="True">
 						<asp:ListItem Selected="True" Value="">
-		Choose a Department...
+							Choose a Department...
 						</asp:ListItem>
 					</asp:DropDownList>
 
@@ -127,7 +140,7 @@
 				</button>
 
 			</div>
-			<%--    SEARCH NI--%>
+			<%--SEARCH NI--%>
 			<style>
 				.search-bar {
 					margin: 10px 0;
@@ -162,21 +175,73 @@
 				<div class="search-results">
 					<asp:GridView ID="searchResultsGridView" runat="server" AutoGenerateColumns="False" CssClass="table">
 						<Columns>
+							<asp:BoundField DataField="ID_appointment" HeaderText="ID" />
 							<asp:BoundField DataField="full_name" HeaderText="Full Name" />
 							<asp:BoundField DataField="appointment_status" HeaderText="Appointment Status" />
+							<asp:TemplateField>
+								<ItemTemplate>
+									<asp:Button ID="reschedBtn" runat="server" Text="View" CssClass="btn btn-primary text-light"
+										OnClick="reschedBtn_Click" OnClientClick='<%# "openModal(); return getAppointmentID(" + Eval("ID_appointment") + ");" %>'/>
+								</ItemTemplate>
+							</asp:TemplateField>
 						</Columns>
 						<HeaderStyle CssClass="table-header" />
 					</asp:GridView>
 					<asp:Label ID="noResultsLabel" runat="server" Text="No results found" Visible="false" CssClass="no-results-label"></asp:Label>
 				</div>
 			</div>
-
-
-
 		</div>
 	</div>
-
+	<asp:HiddenField ID="HiddenField1" runat="server" />
 	<%--MODAL--%>
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Appointment Reschedule</h1>
+					<asp:Button ID="reschedCloseBtn" runat="server" CssClass="btn-close" OnClick="reschedCloseBtn_Click" />
+				</div>
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+							<div class="col-12">
+								<div class="d-flex justify-content-center">
+									<img class="img-placeholder" src="../../../Resources/Images/tempIcons/reschedule-icon-6.jpg" />
+								</div>
+								<div class="text-center">
+									<span class="fs-5 fw-bold">Heads up!</span>
+									<p>Your appointment date has been changed, would you like to accept this new date?</p>
+									<asp:Label ID="Label2" runat="server" Text="Label" CssClass="fw-bold"></asp:Label>
+								</div>
+								<div class="d-flex justify-content-center">
+									<asp:Button ID="acceptBtn" runat="server" Text="Accept" CssClass="btn bg-success text-light reschedBtn acceptBtn" />
+									<asp:Button ID="rejectBtn" runat="server" Text="Reject" CssClass="btn bg-danger text-light reschedBtn"/>
+								</div>
+								<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="staticBackdropLabel1">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					...
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<asp:Button ID="Button1" runat="server" Text="Button" />
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
@@ -186,9 +251,7 @@
 				</div>
 				<div class="modal-body">
 					Send Appointment Request?
-			
 				</div>
-
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 					<asp:Button ID="SubmitButton" runat="server" Text="Submit Appointment" OnClick="SubmitButton_Click" ValidationGroup="FormValidation" CssClass="btn btn-primary" />
@@ -197,6 +260,16 @@
 		</div>
 	</div>
 	<asp:HiddenField ID="FormSubmittedHiddenField" runat="server" Value="false" />
+	 <script>
+		 function getAppointmentID(id) {
+			 document.getElementById('<%= HiddenField1.ClientID %>').value = id;
+		 }
+	 </script>
+	<script>
+		function openModal() {
+			$('#exampleModal').modal('show');
+		}
+	</script>
 	<script>
 		function checkFormFields() {
 			var fullName = document.getElementById('<%= FullName.ClientID %>').value;
@@ -223,7 +296,6 @@
 			inputFields[i].addEventListener("input", checkFormFields);
 		}
 	</script>
-
 	<script>
 		function checkField(fieldName, pattern) {
 			const input = document.getElementById(fieldName);
@@ -282,7 +354,7 @@
 		messageInput.addEventListener("input", () => {
 			messageInput.classList.remove("invalid");
 			messageInput.classList.add("valid");
-		}); s
+		});
 
 		// Call setMaxDate on page load
 		window.onload = setMaxDate;

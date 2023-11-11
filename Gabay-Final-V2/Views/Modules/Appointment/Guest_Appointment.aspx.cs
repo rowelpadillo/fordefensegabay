@@ -232,7 +232,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             {
                 conn.Open();
 
-                string query = "SELECT [full_name], [appointment_status] FROM appointment WHERE [ID_appointment] = @AppointmentID";
+                string query = "SELECT * FROM appointment WHERE [ID_appointment] = @AppointmentID";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
@@ -246,5 +246,15 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             return results;
         }
 
+        protected void reschedBtn_Click(object sender, EventArgs e)
+        {
+            string labelID = HiddenField1.Value.ToString();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccessModal", $"$('#exampleModal').modal('show');", true);
+        }
+
+        protected void reschedCloseBtn_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showSuccessModal", $"$('#exampleModal').modal('hide');", true);
+        }
     }
 }
