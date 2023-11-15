@@ -21,34 +21,37 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
                 int deptSessionID = Convert.ToInt32(Session["user_ID"]);
                 loadGeneralInfo(deptSessionID);
                 loadCredentials(deptSessionID);
+                BindFilesToDropDownList(deptSessionID);
+                // Other code...
+                BindUploadedFiles();
 
             }
 
         }
 
-        // UPLOAD DEPARTMENT
-        protected void BtnUpload_Click(object sender, EventArgs e)
-        {
-            if (fileUpload.HasFile)
-            {
-                try
-                {
-                    // Get the file name and data
-                    string fileName = !string.IsNullOrEmpty(txtFileName.Text) ? txtFileName.Text : Path.GetFileName(fileUpload.FileName);
-                    byte[] fileData = fileUpload.FileBytes;
+        //// UPLOAD DEPARTMENT
+        //protected void BtnUpload_Click(object sender, EventArgs e)
+        //{
+        //    if (fileUpload.HasFile)
+        //    {
+        //        try
+        //        {
+        //            // Get the file name and data
+        //            string fileName = !string.IsNullOrEmpty(txtFileName.Text) ? txtFileName.Text : Path.GetFileName(fileUpload.FileName);
+        //            byte[] fileData = fileUpload.FileBytes;
 
-                    // Insert the file data into the database
-                    InsertFileData(fileName, fileData);
+        //            // Insert the file data into the database
+        //            InsertFileData(fileName, fileData);
 
-                    // Display a success message or perform any other actions
-                    Response.Redirect(Request.RawUrl);
-                }
-                catch (Exception)
-                {
-                    // Handle any exceptions or display an error message
-                }
-            }
-        }
+        //            // Display a success message or perform any other actions
+        //            Response.Redirect(Request.RawUrl);
+        //        }
+        //        catch (Exception)
+        //        {
+        //            // Handle any exceptions or display an error message
+        //        }
+        //    }
+        //}
         //INSET DEPARTMENT
         private void InsertFileData(string fileName, byte[] fileData)
         {
@@ -407,5 +410,304 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
                 conn.Close();
             }
         }
+
+
+        //PARA SA KATUNG FILES NANI
+        private string GetLoggedInUserID()
+        {
+            return Session["user_ID"]?.ToString();
+        }
+
+        // Adjust the event handler for BtnUpload_Click
+        protected void BtnUpload_Click(object sender, EventArgs e)
+        {
+            if (fileUpload.HasFile)
+            {
+                try
+                {
+                    // Get the file name and data
+                    string fileName = !string.IsNullOrEmpty(txtFileName.Text) ? txtFileName.Text : Path.GetFileName(fileUpload.FileName);
+                    byte[] fileData = fileUpload.FileBytes;
+
+                    // Get the user_ID from the session
+                    int deptSessionID = Convert.ToInt32(Session["user_ID"]);
+
+                    // Insert the file data into the database along with user_ID
+                    InsertFileData(fileName, fileData, deptSessionID);
+
+                    // Display a success message or perform any other actions
+                    Response.Redirect(Request.RawUrl);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception for debugging
+                    // You can replace this with actual logging mechanism in your application
+                    Console.WriteLine($"Exception: {ex.Message}");
+                    throw; // Rethrow the exception to see the full stack trace in the browser
+                }
+            }
+        }
+
+
+
+        // Modify the UpdateFileData method
+        private void InsertFileData(string fileName, byte[] fileData, int userId)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+                string insertQuery = "INSERT INTO DepartmentFiles (FileName, FileData, user_ID) VALUES (@FileName, @FileData, @user_ID)";
+
+                using (SqlCommand command = new SqlCommand(insertQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@FileName", fileName);
+                    command.Parameters.AddWithValue("@FileData", fileData);
+                    command.Parameters.AddWithValue("@user_ID", userId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+
+
+        protected void lnkDownload_Click(object sender, EventArgs e)
+        {
+            if (ViewState["SelectedFileId"] != null)
+            {
+                int fileId = (int)ViewState["SelectedFileId"];
+
+                byte[] fileData = FetchFileDataFromDatabase(fileId);
+                string fileName = FetchFileNameFromDatabase(fileId);
+
+                if (fileData != null)
+                {
+                    Response.ContentType = "application/pdf";
+                    Response.AddHeader("Content-Disposition", $"inline; filename={fileName}");
+                    Response.BinaryWrite(fileData);
+                    Response.End();
+                }
+                else
+                {
+                    DownloadErrorLabel.Text = "File not found.";
+                }
+
+                string script = "window.open('" + Request.Url.AbsoluteUri + "', '_blank');";
+                ClientScript.RegisterStartupScript(this.GetType(), "openNewTab", script, true);
+            }
+            else
+            {
+                DownloadErrorLabel.Text = "Please select a file to preview.";
+            }
+        }
+
+        private byte[] FetchFileDataFromDatabase(int fileId)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+
+                string selectQuery = "SELECT FileData FROM DepartmentFiles WHERE FileId = @FileId";
+
+                using (SqlCommand command = new SqlCommand(selectQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@FileId", fileId);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return (byte[])result;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private string FetchFileNameFromDatabase(int fileId)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+
+                string selectQuery = "SELECT FileName FROM DepartmentFiles WHERE Fileid = @Fileid";
+
+                using (SqlCommand command = new SqlCommand(selectQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@Fileid", fileId);
+
+                    object result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        return result.ToString();
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public class FileData
+        {
+            public int FileId { get; set; }
+            public string FileName { get; set; }
+            public byte[] FileBytes { get; set; }
+        }
+
+        public List<FileData> FetchFilesDataFromDatabase(int userId)
+        {
+            List<FileData> filesList = new List<FileData>();
+
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+
+                // Modify the query to retrieve files only for the current user's session
+                string query = "SELECT FileId, FileName, FileData FROM DepartmentFiles WHERE user_ID = @userId";
+
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            FileData file = new FileData
+                            {
+                                FileId = reader.GetInt32(0),
+                                FileName = reader.GetString(1),
+                                FileBytes = (byte[])reader["FileData"]
+                            };
+                            filesList.Add(file);
+                        }
+                    }
+                }
+            }
+
+            return filesList;
+        }
+
+
+        // Modify the BindFilesToDropDownList method
+        private void BindFilesToDropDownList(int userId)
+        {
+            List<FileData> filesList = FetchFilesDataFromDatabase(userId);
+
+            // Add an empty item as the default in the DropDownList
+            ddlFiles.Items.Clear();
+            ddlFiles.Items.Add(new ListItem("Select Here", ""));
+
+            foreach (FileData file in filesList)
+            {
+                ListItem item = new ListItem(file.FileName, file.FileId.ToString());
+                ddlFiles.Items.Add(item);
+            }
+
+            if (ViewState["SelectedFileId"] != null)
+            {
+                int selectedFileId = (int)ViewState["SelectedFileId"];
+
+                // Check if the selected file is in the DropDownList items
+                if (ddlFiles.Items.FindByValue(selectedFileId.ToString()) != null)
+                {
+                    ddlFiles.SelectedValue = selectedFileId.ToString();
+                }
+                else
+                {
+                    // If the selected file is not in the items, set the selected value to the first item (empty/default)
+                    ddlFiles.SelectedIndex = 0;
+                }
+            }
+        }
+
+
+
+
+
+        // Adjust the SelectedIndexChanged event for ddlFiles
+        protected void ddlFiles_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Initialize a variable to store the selectedFileId
+            int selectedFileId;
+
+            // Check if the selected value is a valid integer
+            if (int.TryParse(ddlFiles.SelectedValue, out selectedFileId))
+            {
+                // Successfully parsed, update ViewState
+                ViewState["SelectedFileId"] = selectedFileId;
+                DownloadErrorLabel.Text = "Selected File ID: " + selectedFileId;
+
+                // Fetch and display the selected file data (if needed)
+                byte[] selectedFileData = FetchFileDataFromDatabase(selectedFileId);
+                if (selectedFileData != null)
+                {
+                    DownloadErrorLabel.Text = "";
+                }
+                else
+                {
+                    DownloadErrorLabel.Text = "Selected file data not found.";
+                }
+            }
+            else
+            {
+                // Handle the case where the selected value is not a valid integer
+                DownloadErrorLabel.Text = "Invalid selection. Please select a valid file.";
+            }
+        }
+
+        protected void RptFiles_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "DeleteFile")
+            {
+                int fileIdToDelete = Convert.ToInt32(e.CommandArgument);
+                DeleteFileData(fileIdToDelete);
+                BindUploadedFiles(); // Refresh the file list
+            }
+        }
+
+
+        // Modify the DeleteFileData method
+        private void DeleteFileData(int fileId)
+        {
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+                string deleteQuery = "DELETE FROM DepartmentFiles WHERE FileId = @FileId";
+
+                using (SqlCommand command = new SqlCommand(deleteQuery, conn))
+                {
+                    command.Parameters.AddWithValue("@FileId", fileId);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        private void BindUploadedFiles()
+        {
+            int deptSessionID = Convert.ToInt32(Session["user_ID"]);
+
+            using (SqlConnection conn = new SqlConnection(connection))
+            {
+                conn.Open();
+                // Modify the query to retrieve files only for the current user's session
+                string query = "SELECT FileId, FileName FROM DepartmentFiles WHERE user_ID = @userId";
+
+                using (SqlCommand command = new SqlCommand(query, conn))
+                {
+                    command.Parameters.AddWithValue("@userId", deptSessionID);
+
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable filesTable = new DataTable();
+                        adapter.Fill(filesTable);
+                        RptFiles.DataSource = filesTable;
+                        RptFiles.DataBind();
+                    }
+                }
+            }
+        }
+
     }
 }

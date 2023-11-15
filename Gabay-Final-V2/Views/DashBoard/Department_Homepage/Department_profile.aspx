@@ -5,7 +5,7 @@
     <link href="../../../Resources/CustomStyleSheet/Dept_profile/DeptProfStyle.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+   <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -63,6 +63,22 @@
                                                 </div>
                                                 <asp:Label ID="offHrs" runat="server" Text="Time"></asp:Label>
                                             </div>
+                                        </li>
+                                        <li>
+                                            <div class="FilesCont">
+                                                <div>
+                                                    <span class="fs-5">Files:</span>
+                                                </div>
+                                                <asp:DropDownList ID="ddlFiles" runat="server" CssClass="ddlFiles text-center" AutoPostBack="true" OnSelectedIndexChanged="ddlFiles_SelectedIndexChanged">
+                                                    <asp:ListItem Text="Select School Year" Value="" />
+                                                </asp:DropDownList>
+                                                <asp:LinkButton ID="LinkButton1" CssClass="dwnldLnk btn" runat="server" Text="View/Download" OnClick="lnkDownload_Click" OnClientClick="openInNewTab();">
+                        <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                                </asp:LinkButton>
+                                            </div>
+                                            <asp:Label ID="DownloadErrorLabel" runat="server" ForeColor="Red" />
+
+
                                         </li>
                                     </ul>
                                 </div>
@@ -140,6 +156,12 @@
                                             <span><i class="bi bi-chevron-right"></i></span>
                                         </div>
                                     </div>
+                                    <div class="cn p-3" data-bs-toggle="modal" data-bs-target="#filesModal">
+                                        <div class="d-flex justify-content-between modal-items">
+                                            <span>Files</span>
+                                            <span><i class="bi bi-chevron-right"></i></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -153,7 +175,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <asp:UpdatePanel ID="UpdatePanel3" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
+                    <contenttemplate>
                         <div class="modal-header">
                             <span class="modal-title modalRouting fs-5" id="lgnCrndtls" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-chevron-left"></i></span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -182,7 +204,7 @@
                                 </div>
                             </div>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </asp:UpdatePanel>
 
             </div>
@@ -193,7 +215,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
+                    <contenttemplate>
                         <div class="modal-header">
                             <span class="modal-title modalRouting fs-5" id="dptInfo" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-chevron-left"></i></span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -233,54 +255,22 @@
                                         <span>Please provide office hours</span>
                                     </div>
                                 </div>
-                            <!-- asdasd -->
-                                    <div class="form-floating mb-3">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal">
-                                        Upload File
-                                    </button>
-                                    <!-- Bootstrap Modal for Upload -->
-                                   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="uploadModalLabel">PDF File Upload</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                  <asp:FileUpload ID="fileUpload" runat="server" />     
-                                                </div>
-                                                <div class="modal-body">
-                                                  <asp:TextBox ID="txtFileName" runat="server" placeholder="Enter File Name" />
-                                                </div>
-                                                <div class="modal-footer">
-                                                <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="BtnUpload_Click" CssClass="btn btn-primary" />
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                                
-                                            </div>
-                                        </div>
-                                </div>
-
-
                                 <div class="d-grid">
                                     <asp:Button ID="updBtnDeptInfo" CssClass="btn updtBtn" runat="server" Text="Save Changes" UseSubmitBehavior="false" OnClick="updBtnDeptInfo_Click" />
                                 </div>
                             </div>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </asp:UpdatePanel>
             </div>
         </div>
     </div>
-             
     <%-- modal for department courses --%>
     <div class="modal fade" id="coursesModal" tabindex="-1" aria-labelledby="Courses" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <asp:UpdatePanel ID="UpdatePanel1" class="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
+                    <contenttemplate>
                         <div class="modal-header">
                             <span class="modal-title modalRouting fs-5" id="dptCourse" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-chevron-left"></i></span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -316,7 +306,7 @@
                                 </div>
                             </div>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </asp:UpdatePanel>
             </div>
         </div>
@@ -326,7 +316,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <asp:UpdatePanel ID="UpdatePanel4" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
+                    <contenttemplate>
                         <div class="modal-header">
                             <span class="modal-title modalRouting fs-5" data-bs-toggle="modal" data-bs-target="#editModal"><i class="bi bi-chevron-left"></i></span>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -355,11 +345,61 @@
                                 </div>
                             </div>
                         </div>
-                    </ContentTemplate>
+                    </contenttemplate>
                 </asp:UpdatePanel>
             </div>
         </div>
     </div>
+
+    <%-- KATU NI SA FILES NA--%>
+    <div class="modal fade" id="filesModal" aria-hidden="true" aria-labelledby="files" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadModalLabel">File Upload</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">          
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <asp:Repeater ID="RptFiles" runat="server" OnItemCommand="RptFiles_ItemCommand" EnableViewState="true">
+                                <ItemTemplate>
+                                    <tr>
+                                        <td><%# Eval("FileName") %></td>
+                                        <td>
+                                            <asp:Button ID="btnDeleteFile" runat="server" Text="Delete" CommandName="DeleteFile" CommandArgument='<%# Eval("FileId") %>' CssClass="btn btn-danger btn-sm" />
+                                        </td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-body">
+                    <asp:FileUpload ID="fileUpload" runat="server" />
+                </div>
+                <div class="modal-body">
+                    <asp:TextBox ID="txtFileName" runat="server" placeholder="Enter File Name" />
+                </div>
+                <div class="modal-footer">
+                    <asp:Button ID="btnUpload" runat="server" Text="Upload" OnClick="BtnUpload_Click" CssClass="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
     <%-- success modal --%>
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -395,20 +435,28 @@
         }
         function resetCourses() {
             var coursesAppended = document.getElementById('<%= CoursesAppended.ClientID %>');
-             var currentContent = coursesAppended.value;
-             var courses = currentContent.split('\n');
+            var currentContent = coursesAppended.value;
+            var courses = currentContent.split('\n');
 
-             if (courses.length > 0) {
-                 courses.pop(); // Remove the last item
-                 coursesAppended.value = courses.join('\n');
-             } else {
-                 // Handle the case where there are no courses left
-                 alert('No Courses Available');
-             }
+            if (courses.length > 0) {
+                courses.pop(); // Remove the last item
+                coursesAppended.value = courses.join('\n');
+            } else {
+                // Handle the case where there are no courses left
+                alert('No Courses Available');
+            }
         }
-
-
     </script>
+
+    <script type="text/javascript">
+        function openInNewTab() {
+            // Get the URL of the clicked button's page
+            var url = '<%= ResolveUrl("Department_profile.aspx") %>';
+            window.open(url, '_blank');
+            return false; // To prevent the default postback action
+        }
+    </script>
+
 
      <!-- JavaScript to show/hide modal -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -160,6 +160,25 @@
 					background-color: skyblue;
 					margin-left: 10px;
 				}
+				.auto-style1 {
+					border-style: none;
+					border-color: inherit;
+					border-width: 0;
+					--bs-btn-close-color: #000;
+					--bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+					--bs-btn-close-opacity: 0.5;
+					--bs-btn-close-hover-opacity: 0.75;
+					--bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+					--bs-btn-close-focus-opacity: 1;
+					--bs-btn-close-disabled-opacity: 0.25;
+					--bs-btn-close-white-filter: invert(1) grayscale(100%) brightness(200%);
+					box-sizing: content-box;
+					width: 1em;
+					padding: 0.25em 0.25em;
+					color: var(--bs-btn-close-color);
+					border-radius: 0.375rem;
+					opacity: var(--bs-btn-close-opacity);
+				}
 			</style>
 
 			<div class="col-md-6">
@@ -181,7 +200,8 @@
 							<asp:TemplateField>
 								<ItemTemplate>
 									<asp:Button ID="reschedBtn" runat="server" Text="View" CssClass="btn btn-primary text-light"
-										OnClick="reschedBtn_Click" OnClientClick='<%# "openModal(); return getAppointmentID(" + Eval("ID_appointment") + ");" %>'/>
+										OnClick="reschedBtn_Click" OnClientClick='<%# "openModal(); return getAppointmentID(" + Eval("ID_appointment") + ");" %>'
+										Visible='<%# Eval("appointment_status").ToString().Equals("reschedule") %>' />
 								</ItemTemplate>
 							</asp:TemplateField>
 						</Columns>
@@ -194,7 +214,7 @@
 	</div>
 	<asp:HiddenField ID="HiddenField1" runat="server" />
 	<%--MODAL--%>
-	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="reschedModal" tabindex="-1" aria-labelledby="reschedModal" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -208,16 +228,21 @@
 								<div class="d-flex justify-content-center">
 									<img class="img-placeholder" src="../../../Resources/Images/tempIcons/reschedule-icon-6.jpg" />
 								</div>
-								<div class="text-center">
-									<span class="fs-5 fw-bold">Heads up!</span>
+								<div class="text-center mb-3">
+									<p class="fs-5 fw-bold">Heads up!</p>
+									<span>Hello, <asp:Label ID="AppointeeName" runat="server" Text="Label"></asp:Label></span>
 									<p>Your appointment date has been changed, would you like to accept this new date?</p>
-									<asp:Label ID="Label2" runat="server" Text="Label" CssClass="fw-bold"></asp:Label>
+									<span class="mb-3">
+										<asp:Label ID="ReschedDate" runat="server" Text="Date" CssClass="fw-bold"></asp:Label>
+										<span> at </span>
+										<asp:Label ID="ReschedTime" runat="server" Text="Time" CssClass="fw-bold"></asp:Label>
+									</span>
+									<p>Appointment ID: <asp:Label ID="AppointmentID" runat="server" Text="Label" CssClass="fw-bold"></asp:Label></p>
 								</div>
-								<div class="d-flex justify-content-center">
-									<asp:Button ID="acceptBtn" runat="server" Text="Accept" CssClass="btn bg-success text-light reschedBtn acceptBtn" />
-									<asp:Button ID="rejectBtn" runat="server" Text="Reject" CssClass="btn bg-danger text-light reschedBtn"/>
+								<div class="d-flex justify-content-center ">
+									<asp:LinkButton ID="acceptBtn" runat="server" CssClass="btn bg-success text-light reschedBtn acceptBtn" OnClick="acceptBtn_Click">Accept</asp:LinkButton>
+									<asp:LinkButton ID="rejectBtn" runat="server" CssClass="btn bg-danger text-light reschedBtn" OnClick="rejectBtn_Click">Reject</asp:LinkButton>
 								</div>
-								<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 							</div>
 						</div>
 					</div>
@@ -225,23 +250,25 @@
 			</div>
 		</div>
 	</div>
-	<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	
+	<div class="modal fade" id="rejectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="staticBackdropLabel1">Modal title</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<asp:Button ID="rejectAppmntCls" runat="server" CssClass="btn-close" OnClick="rejectAppmntCls_Click"/>
 				</div>
 				<div class="modal-body">
-					...
+					<p>Are you sure to reject this appoint?</p>
+					<span>Rejecting this appointment means your appointment ticket will be closed</span>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<asp:Button ID="Button1" runat="server" Text="Button" />
+					<asp:Button ID="cancel" runat="server" Text="Cancel" CssClass="btn btn-secondary" OnClick="cancel_Click"/>
+					<asp:Button ID="rejectAppmntBtn" runat="server" Text="Proceed" CssClass="btn btn-primary text-light" OnClick="rejectAppmntBtn_Click" />
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
@@ -255,6 +282,29 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 					<asp:Button ID="SubmitButton" runat="server" Text="Submit Appointment" OnClick="SubmitButton_Click" ValidationGroup="FormValidation" CssClass="btn btn-primary" />
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%-- Success modal --%>
+	<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body bg-success text-center text-light">
+					<i class="bi bi-info-circle-fill"></i>
+					<p id="successMessage"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%-- Error modal --%>
+	<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body bg-danger text-center text-light">
+					<i class="bi bi-exclamation-circle-fill"></i>
+					<p id="errorMessage"></p>
 				</div>
 			</div>
 		</div>

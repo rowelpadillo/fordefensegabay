@@ -650,6 +650,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                     }
                 }
                 string query = @"UPDATE appointment SET appointment_status = @AppointmentStats WHERE ID_appointment = @AppointmentID";
+
                 string updateStatus = "rejected";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {

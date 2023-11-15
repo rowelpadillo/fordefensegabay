@@ -150,13 +150,40 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         protected global::System.Web.UI.WebControls.Button reschedCloseBtn;
 
         /// <summary>
-        /// Label2 control.
+        /// AppointeeName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label AppointeeName;
+
+        /// <summary>
+        /// ReschedDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ReschedDate;
+
+        /// <summary>
+        /// ReschedTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ReschedTime;
+
+        /// <summary>
+        /// AppointmentID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label AppointmentID;
 
         /// <summary>
         /// acceptBtn control.
@@ -165,7 +192,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button acceptBtn;
+        protected global::System.Web.UI.WebControls.LinkButton acceptBtn;
 
         /// <summary>
         /// rejectBtn control.
@@ -174,25 +201,34 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button rejectBtn;
+        protected global::System.Web.UI.WebControls.LinkButton rejectBtn;
 
         /// <summary>
-        /// Label1 control.
+        /// rejectAppmntCls control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
+        protected global::System.Web.UI.WebControls.Button rejectAppmntCls;
 
         /// <summary>
-        /// Button1 control.
+        /// cancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button cancel;
+
+        /// <summary>
+        /// rejectAppmntBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button rejectAppmntBtn;
 
         /// <summary>
         /// SubmitButton control.
