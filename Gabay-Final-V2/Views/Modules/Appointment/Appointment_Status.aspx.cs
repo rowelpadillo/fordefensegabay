@@ -44,7 +44,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                 string query = @"SELECT a.ID_appointment, a.appointment_status, a.appointment_date, a.appointment_time, a.concern, a.student_ID
                         FROM appointment a
                         INNER JOIN users_table u ON a.student_ID = u.login_ID
-                        WHERE u.user_ID = @userID";
+                        WHERE u.user_ID = @userID AND (a.appointment_status != 'served' AND a.appointment_status != 'no show' AND a.appointment_status != 'rejected')";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -267,7 +267,9 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             {
                 int appointmentIDtoInt = Convert.ToInt32(appointmentID.Text);
                 rejectAppointment(appointmentIDtoInt);
-                
+                int userID = Convert.ToInt32(Session["user_ID"]);
+                populateAppointmentLabel(userID);
+
                 string successMessage = "Your appointment ticket is now closed";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
                     $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);

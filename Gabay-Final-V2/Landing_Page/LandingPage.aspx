@@ -223,11 +223,6 @@
               <p>"Wayfinding for schools helps users efficiently navigate the campus, locating classrooms, offices, and facilities. It includes signs, maps, and digital tools to simplify the journey, ensuring students, staff, and visitors can find their way with ease."</p>
             </div>
           </div>
-
-          
-
-
-
         </div>
 
       </div>

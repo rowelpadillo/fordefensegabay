@@ -1,0 +1,25 @@
+﻿.homeSection {
+    height: 550px !important;
+    background-image: url('../images/model-flip1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.hLeft-cont {
+    margin-left: 30px;
+    height: 500px;
+    display: flex; /* Use flexbox to center content */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center vertically */
+}
+
+.hLeft h1 {
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.GuestName{
+    font-size: 40px;
+    font-weight: 600;
+}

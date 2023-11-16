@@ -2246,6 +2246,7 @@
     <Content Include="Resources\CustomStyleSheet\Chatbot\ManageChatbotStyle.css" />
     <Content Include="Resources\CustomStyleSheet\DeptInfo\DeptInfo.css" />
     <Content Include="Resources\CustomStyleSheet\Dept_profile\DeptProfStyle.css" />
+    <Content Include="Resources\CustomStyleSheet\GuestDashboard.css" />
     <Content Include="Resources\CustomStyleSheet\Landing_Page\LandingPageStyle.css" />
     <Content Include="Resources\CustomStyleSheet\PendingPageStyle.css" />
     <Content Include="Resources\CustomStyleSheet\RegistrationStyle.css" />
@@ -2253,6 +2254,7 @@
     <Content Include="Resources\Images\tempIcons\ccs logo.png" />
     <Content Include="Resources\Images\tempIcons\database.png" />
     <Content Include="Resources\Images\tempIcons\error.png" />
+    <Content Include="Resources\Images\tempIcons\model2.png" />
     <Content Include="Resources\Images\tempIcons\reschedule-icon-6.jpg" />
     <Content Include="Resources\Images\tempIcons\students.png" />
     <Content Include="Resources\Images\tempIcons\teachers.png" />
