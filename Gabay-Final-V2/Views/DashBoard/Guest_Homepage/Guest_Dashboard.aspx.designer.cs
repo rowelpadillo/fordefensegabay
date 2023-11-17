@@ -15,7 +15,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
     {
 
         /// <summary>
-        /// Guest Name control.
+        /// GuestName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

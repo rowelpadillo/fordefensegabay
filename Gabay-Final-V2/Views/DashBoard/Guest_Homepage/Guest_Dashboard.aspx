@@ -3,7 +3,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
    <link href="../../../Resources/CustomStyleSheet/GuestDashboard.css" rel="stylesheet" />
-   <section id="homeSection" class="mb-5"> 
+   <section id="homeSection"> 
         <div class="container-fluid homeSection">
             <div class="row h-100" >
                 <div class="col-lg-5 col-md-12">
@@ -14,12 +14,19 @@
                                 <asp:Label ID="GuestName" runat="server" Text="Guest Name" CssClass="GuestName"></asp:Label></span>
                             <div class="text-secondary">to a</div>
                             <h3 class="text-secondary">Modern Approach of University Information Sharing</h3>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="col-7 d-none d-md-block">
                 </div>
             </div>
+        </div>
+    </section>
+    <section class="footer">
+        <div class="d-flex flex-column align-items-center">
+            <span>All Rights Reserved</span>
+            <span>For more info please contact Us: Gabay_Team7@gmail.com</span>
         </div>
     </section>
     

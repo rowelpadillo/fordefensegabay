@@ -73,7 +73,15 @@ namespace Gabay_Final_V2.Models
 
             }
         }
-        public string FindMatchingScript(string userInput, int countUnAnsered)
+
+        private int countUnAnswered;
+
+        public int CountUnAnswered
+        {
+            get { return countUnAnswered; }
+            set { countUnAnswered = value; }
+        }
+        public string FindMatchingScript(string userInput, ref int countUnAnsered)
         {
             Dictionary<string, int> keywordCount = new Dictionary<string, int>();
 
@@ -119,12 +127,11 @@ namespace Gabay_Final_V2.Models
             // Find the script with the highest keyword count
             string bestScript = "";
             int maxCount = 0;
-            int unAnsweredCount = 0;
             string unAnswered = @"I'm sorry, I didn't understand your question. Could you please rephrase it?";
             string referToAppointment = @"I apologize, I am unable to answer your question, 
                                           please use the appointment within gabay to book an
                                           appointment so that a representative can answer your question.";
-
+            
             foreach (var pair in keywordCount)
             {
                 if (pair.Value > maxCount)
@@ -137,25 +144,27 @@ namespace Gabay_Final_V2.Models
             if (maxCount == 0)
             {
                 countUnAnsered++;
-                
+
                 // if the ViewState counts is more than 3 it sets bestScript to referToAppointment otherwise bestScript is set to unAnswered
                 if (countUnAnsered >= 3)
                 {
                     bestScript = referToAppointment;
-                    countUnAnsered = 0; //resest the ViewState to 0;
+                    countUnAnsered = 0; 
+                    CountUnAnswered = countUnAnsered;// reset the count to 0;
                 }
                 else
                 {
                     bestScript = unAnswered;
                 }
-                unAnsweredCount = countUnAnsered;
+                CountUnAnswered = countUnAnsered;
             }
             else
             {
                 bestScript = bestScript.Replace("\n", "<br>");
                 countUnAnsered = 0;
+                CountUnAnswered = countUnAnsered;
             }
-            
+
             return bestScript;
         }
     }

@@ -116,7 +116,7 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                 }
                 else
                 {
-                    string scriptColumn = conn.FindMatchingScript(userInput, countUnAnsered);
+                    string scriptColumn = conn.FindMatchingScript(userInput,ref countUnAnsered);
                     scriptColumn = scriptColumn.Replace("\n", "<br>");
                     AddBotMessage(scriptColumn);
                 }

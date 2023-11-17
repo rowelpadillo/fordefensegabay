@@ -14,16 +14,11 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
     public partial class Guest_Chatbot : System.Web.UI.Page
     {
         Chatbot_model conn = new Chatbot_model();
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                ViewState["countUnAnswered"] = 0;
-                string greetingMessage1 = @"Hello! to assist you better, 
+        string greetingMessage1 = @"Hello! to assist you better, 
                    please choose an option in the menu or if you can't find what are you looking for,
                    just type your concern in a few words. If I can't answer you queries you can book
                    and appointment to a designated department for your concern";
-                string greetingMessage = @"<div class='container-slider'>
+        string greetingMessage = @"<div class='container-slider'>
                                                    <button id='prevButton' type='button' class='btn buttons d-flex justify-content-center align-items-center'>
                                                        <i class='bi bi-chevron-compact-left'></i>
                                                    </button>
@@ -79,6 +74,12 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                                                        <i class='bi bi-chevron-compact-right'></i>
                                                    </button>
                                                </div>";
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                ViewState["countUnAnswered"] = 0;
+                
                 AddBotMessage(greetingMessage1);
                 AddBotMessageMenu(greetingMessage);
             }
@@ -119,7 +120,7 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                 }
                 else
                 {
-                    string scriptColumn = conn.FindMatchingScript(userInput, countUnAnsered);
+                    string scriptColumn = conn.FindMatchingScript(userInput,ref countUnAnsered);
                     scriptColumn = scriptColumn.Replace("\n", "<br>");
                     AddBotMessage(scriptColumn);
                 }
