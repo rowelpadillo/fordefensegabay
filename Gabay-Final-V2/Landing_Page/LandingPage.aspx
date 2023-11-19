@@ -8,13 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link href="../Bootstrap/Content/bootstrap.css" rel="stylesheet" />
     <link href="../Resources/CustomStyleSheet/DefaultStyle.css" rel="stylesheet" />
-    <link href="../Resources/CustomStyleSheet/Landing_Page/LandingPageStyle.css" rel="stylesheet" />
     <link href="../FontAwesome/css/all.css" rel="stylesheet" />
     <script src="../Bootstrap/Scripts/bootstrap.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="../FontAwesome/js/all.js"></script>
+    <link href="../Resources/CustomStyleSheet/Landing_Page/LandingPageStyle.css" rel="stylesheet" />
 </head>
+
+
+
 <body>
     <%-- Top Header --%>
     <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="nav">
@@ -31,9 +34,9 @@
                     <button class="btn bg-primary" data-toggle="modal" data-target="#loginSelection">Get Started</button>
                 </div>
             </div>
-            
         </div>
     </nav>
+
     <%-- Modal for login options --%>
     <div class="modal fade" id="loginSelection" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -223,6 +226,11 @@
               <p>"Wayfinding for schools helps users efficiently navigate the campus, locating classrooms, offices, and facilities. It includes signs, maps, and digital tools to simplify the journey, ensuring students, staff, and visitors can find their way with ease."</p>
             </div>
           </div>
+
+          
+
+
+
         </div>
 
       </div>
@@ -265,7 +273,7 @@ Let us always remember that in this journey called life, we are each other's gre
       </div>
     </section><!-- End About Us Section -->
     <!-- ======= Team Section ======= -->
-    <section id="team" class="team section-bg mb-5">
+    <section id="team" class="team section-bg">
       <div class="container" data-aos="fade-up">
 
         <div class="section-title">
@@ -275,62 +283,79 @@ Let us always remember that in this journey called life, we are each other's gre
 
         <div class="row justify-content-center">
 
-          <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
+          <div class="col-lg-5" data-aos="zoom-in" data-aos-delay="100">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="../Resources/Images/Faces/kj.jpg" class="img-fluid" alt=""/></div>
+              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/luab.jpg" />  </div>
               <div class="member-info">
-                <h4>Kjgwapo</h4>
+                <h4>Kerr John Luab</h4>
                 <span>Tester</span>
-                <p>once gwapo always gwapo</p>
+                <p>"Test with purpose; purpose with test."</p>
+                   <div class="social">
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i> </a>
+                </div>
                
               </div>
             </div>
           </div>
 
-          <div class="col-lg-6 mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="200">
+          <div class="col-lg-5 mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="200">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="assets/img/team/team-2.jpg" class="img-fluid" alt=""/></div>
+              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Jeremiah.jpg" /> </div>
               <div class="member-info">
-                <h4>Jermiaaha</h4>
-                <span>Hackerist</span>
-                <p>asdasdasdasdasdasda</p>
-              
+                <h4>Jeremiah James Rodrigez</h4>
+                <span>Hustler</span>
+                <p>"A hustler turns dreams into plans and plans into reality."</p>
+                     <div class="social">
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i> </a>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="300">
+          <div class="col-lg-5 mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""/></div>
+              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/rowel.png" /> </div>
               <div class="member-info">
-                <h4>Rowel</h4>
+                <h4>Rowel Padillo</h4>
                 <span>Project manager</span>
-                <p>asdasd</p>
+                <p>"A project manager: turning chaos into clarity, one milestone at a time."</p>
+                     <div class="social">
+                      <a href="#"><i class="bi bi-facebook"></i></a>
+                      <a href="#"><i class="bi bi-linkedin"></i> </a>
+                    </div>
                 
               </div>
             </div>
           </div>
 
-          <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="400">
+                   <div class="col-lg-5 mt-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="member d-flex align-items-start">
-              <div class="pic"><img src="assets/img/team/team-4.jpg" class="img-fluid" alt=""/></div>
+              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Kent%20(2).jpg" /> </div>
               <div class="member-info">
-                <h4>Kent</h4>
-                <span>hackerist</span>
-                <p>Dasdd</p>
-               
+                <h4>Kent Gerald Quiros</h4>
+                <span>Hustler</span>
+                <p>"Hustle in silence; let your success make the noise."</p>
+                     <div class="social">
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                  <a href="#"><i class="bi bi-linkedin"></i> </a>
+                </div>
               </div>
             </div>
           </div>
 
-            <div class="col-lg-6 mt-4" data-aos="zoom-in" data-aos-delay="500">
+            <div class="col-lg-5 mt-4" data-aos="zoom-in" data-aos-delay="500">
               <div class="member d-flex align-items-start">
-                <div class="pic"><img src="assets/img/team/team-3.jpg" class="img-fluid" alt=""/></div>
+                <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Arnan.jpg" /> </div>
                 <div class="member-info">
-                  <h4>jandelpogi</h4>
-                  <span>Project manager</span>
-                  <p>asdasd</p>
-                  
+                  <h4>Johndel E. Arnan</h4>
+                  <span>Hipster</span>
+                  <p>"Hipsters: rewriting the rules, one unique expression at a time."</p>
+                     <div class="social">
+                      <a href="#"><i class="bi bi-facebook"></i></a>
+                      <a href="#"><i class="bi bi-linkedin"></i> </a>
+                    </div>
                 </div>
               </div>
             </div>
@@ -351,7 +376,7 @@ Let us always remember that in this journey called life, we are each other's gre
       <div class="container">
         <div class="row">
 
-          <div class="col-lg-4 col-md-12 footer-contact">
+          <div class="col-lg-3 col-md-6 footer-contact">
             <h3>Gabay</h3>
             <p>
              UCLM <br/>
@@ -362,22 +387,35 @@ Let us always remember that in this journey called life, we are each other's gre
             </p>
           </div>
 
-          <div class="col-lg-4 col-md-12 footer-links">
+          <div class="col-lg-3 col-md-6 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Features</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#homeSection">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#aboutUS">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#services">Features</a></li>
+              
             </ul>
           </div>
 
-          <div class="col-lg-4 col-md-12 footer-links">
+          <div class="col-lg-3 col-md-6 footer-links">
             <h4>Our Features</h4>
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Chatbot</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Appointment Booking</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Wayfinding</a></li>
             </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Social Networks</h4>
+            <p>"Do more things that make you forget to check your phone."</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram""></i></a>
+              <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
           </div>
 
         </div>
@@ -387,13 +425,6 @@ Let us always remember that in this journey called life, we are each other's gre
     <div class="container footer-bottom clearfix">
       <div class="copyright">
         &copy; Copyright <strong><span>Gabay</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
-        <%--Designed by <a href="https://bootstrapmade.com/">US</a>--%>
       </div>
     </div>
   </footer><!-- End Footer -->

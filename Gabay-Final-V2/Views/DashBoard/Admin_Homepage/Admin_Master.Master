@@ -45,12 +45,12 @@
                               <span class="mt-2">Add Department</span>
                                 </asp:HyperLink>
                             </li>
-                            <%--<li class="nav-item p-1">
+                            <li class="nav-item p-1">
                                 <asp:HyperLink ID="manageUser" runat="server" CssClass="topnav-item text-center custom-text-color" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_Users.aspx">
                               <i class="bi bi-building-fill-add"></i>
                               <span class="mt-2">Manage Users</span>
                                 </asp:HyperLink>
-                            </li>--%>
+                            </li>
                           <%--  <li class="nav-item p-1">
                                 <asp:HyperLink ID="wayFinding" runat="server" CssClass="topnav-item text-cente custom-text-color">
                               <i class="bi bi-map-fill me-2"></i>
@@ -120,12 +120,12 @@
                             <p class="mt-4">Add Department</p>
                         </asp:HyperLink>
                     </li>
-                    <%--<li class="nav-item ">
+                    <li class="nav-item ">
                         <asp:HyperLink ID="sideNavPend" runat="server" CssClass="navLinks text-center" NavigateUrl="~/Views/Modules/Admin_Modules/Manage_Users.aspx">
                             <i class="bi bi-people-fill fs-4 me-3"></i>
                             <p class="mt-4">Manage Users</p>
                         </asp:HyperLink>
-                    </li>--%>
+                    </li>
                    <%-- <li class="nav-item ">
                         <asp:HyperLink ID="sideNavWF" runat="server" CssClass="navLinks text-center">
                             <i class="bi bi-map-fill fs-4 me-3"></i>

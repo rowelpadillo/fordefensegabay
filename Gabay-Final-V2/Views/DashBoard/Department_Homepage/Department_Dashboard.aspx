@@ -5,7 +5,6 @@
     <style>
         .sulod .container {
             margin-top: 10vh;
-            min-height: 90vh;
         }
 
         /* CSS for the chart container */
@@ -42,6 +41,23 @@
                 color: #000000;
                 border-bottom: 2px solid #000000;
             }
+
+        .row {
+            justify-content: space-evenly;
+        }
+        .custom-card-width {
+          width: 120px;
+}
+
+        .card-body {
+        padding: 15px; /* Adjust the value as needed */
+    }
+
+    
+        /*
+            .row div {
+                width: 360px;
+            }*/
     </style>
     <div class="sulod">
         <div class="container">
@@ -103,12 +119,94 @@
                     </div>
                 </div>
             </div>
-            <div class="chart-container">
-                <canvas id="myDonutChart" class="chart-canvas"></canvas>
+
+            <%--  end sa row--%>
+            <div class="row ">
+                <div class="chart-container">
+                    <canvas id="myDonutChart" class="chart-canvas"></canvas>
+
+                    <!-- New card on the right side -->
+                    <div class="container" data-aos="fade-up">
+
+                        <div class="section-title">
+                            <h2>Appointments</h2>
+                        </div>
+
+                        <div class="row align-items-center">
+
+                            <!-- First Card -->
+                            <div class="col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="card custom-card-width bg-success text-white shadow align-items-center">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="icon-circle bg-light mr-4">
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Approved</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                <asp:Label ID="ApprovedAppointmentCountLabel" runat="server" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Second Card -->
+                            <div class="col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                                <div class="card custom-card-width bg-danger text-white shadow align-items-center">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="icon-circle bg-light mr-4">
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Denied</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                <asp:Label ID="DeniedAppointmentCountLabel" runat="server" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Add spacing between the rows -->
+                            <div class="w-100"></div>
+
+                            <!-- Third Card -->
+                            <div class="col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                                <div class="card custom-card-width bg-primary text-white shadow align-items-center">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="icon-circle bg-light mr-4">
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Reschedules</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                <asp:Label ID="RescheduleAppointmentCountLabel" runat="server" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fourth Card -->
+                            <div class="col-md-6 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                                <div class="card custom-card-width bg-warning text-white shadow align-items-center">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="icon-circle bg-light mr-4">
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-weight-bold text-uppercase mb-1">Pending</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">
+                                                <asp:Label ID="PendingAppointmentCountLabel" runat="server" Text=""></asp:Label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Function to create and update the smaller donut chart
         function createDonutChart(studentCount, departmentCount) {
@@ -121,7 +219,7 @@
                 labels: ['Active Students', 'Pending Students'],
             };
             var options = {
-                cutoutPercentage: 60, // Adjust this value to control the thickness of the donut
+                cutoutPercentage: 50, // Adjust this value to control the thickness of the donut
             };
             var donutChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -133,4 +231,7 @@
         // Call the function to create the smaller donut chart
         createDonutChart(<%= ActiveuserCountLabel.Text %>, <%= PendinguserCountLabel.Text %>);
     </script>
+   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </asp:Content>

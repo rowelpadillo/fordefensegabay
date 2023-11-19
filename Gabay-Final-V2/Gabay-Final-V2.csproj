@@ -2258,6 +2258,11 @@
     <Content Include="Resources\Images\tempIcons\reschedule-icon-6.jpg" />
     <Content Include="Resources\Images\tempIcons\students.png" />
     <Content Include="Resources\Images\tempIcons\teachers.png" />
+    <Content Include="Resources\Images\tempIcons\teamPics\Arnan.jpg" />
+    <Content Include="Resources\Images\tempIcons\teamPics\Jeremiah.jpg" />
+    <Content Include="Resources\Images\tempIcons\teamPics\Kent %282%29.jpg" />
+    <Content Include="Resources\Images\tempIcons\teamPics\luab.jpg" />
+    <Content Include="Resources\Images\tempIcons\teamPics\rowel.png" />
     <Content Include="Resources\Images\tempIcons\verified.png" />
     <Content Include="Resources\Images\uclm.png" />
     <Content Include="Resources\Images\buildings\1099451.jpg" />

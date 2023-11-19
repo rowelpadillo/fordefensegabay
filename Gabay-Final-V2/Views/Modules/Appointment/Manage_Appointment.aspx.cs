@@ -350,8 +350,8 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
         private void InsertStatusChangeToHistory(SqlConnection conn, int AppointmentID, string newStatus, string currentDate, string currentTime)
         {
-            string insertQuery = "INSERT INTO AppointmentStatusHistory (AppointmentID, StatusChangeDate, PreviousStatus, NewStatus) " +
-                                "VALUES (@AppointmentID, @StatusChangeDate, @PreviousStatus, @NewStatus)";
+            string insertQuery = "INSERT INTO AppointmentStatusHistory (AppointmentID, StatusChangeDate, PreviousStatus, NewStatus, Notification) " +
+                                "VALUES (@AppointmentID, @StatusChangeDate, @PreviousStatus, @NewStatus, @Notification)";
 
             using (SqlCommand cmd = new SqlCommand(insertQuery, conn))
             {
@@ -359,6 +359,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                 cmd.Parameters.AddWithValue("@StatusChangeDate", DateTime.Now);
                 cmd.Parameters.AddWithValue("@PreviousStatus", "current_status");
                 cmd.Parameters.AddWithValue("@NewStatus", newStatus);
+                cmd.Parameters.AddWithValue("@Notification", "UNREAD");
 
                 cmd.ExecuteNonQuery();
             }
@@ -531,14 +532,15 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
                 // Insert a record into AppointmentStatusHistory
                 string queryInsertHistory = @"
-                INSERT INTO AppointmentStatusHistory (AppointmentID, StatusChangeDate, PreviousStatus, NewStatus)
-                VALUES (@AppointmentID, @StatusChangeDate, @PreviousStatus, @NewStatus)";
+                INSERT INTO AppointmentStatusHistory (AppointmentID, StatusChangeDate, PreviousStatus, NewStatus, Notification)
+                VALUES (@AppointmentID, @StatusChangeDate, @PreviousStatus, @NewStatus ,@Notification)";
                 using (SqlCommand cmdInsertHistory = new SqlCommand(queryInsertHistory, conn))
                 {
                     cmdInsertHistory.Parameters.AddWithValue("@AppointmentID", AppointmentID);
                     cmdInsertHistory.Parameters.AddWithValue("@StatusChangeDate", DateTime.Now);
                     cmdInsertHistory.Parameters.AddWithValue("@PreviousStatus", "current_status");
                     cmdInsertHistory.Parameters.AddWithValue("@NewStatus", "approved");
+                    cmdInsertHistory.Parameters.AddWithValue("@Notification", "UNREAD");
                     cmdInsertHistory.ExecuteNonQuery();
                 }
 
@@ -661,19 +663,21 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
                 // Insert a record into AppointmentStatusHistory
                 string queryInsertHistory = @"
-                INSERT INTO AppointmentStatusHistory (AppointmentID, StatusChangeDate, PreviousStatus, NewStatus)
-                VALUES (@AppointmentID, @StatusChangeDate, @PreviousStatus, @NewStatus)";
+                INSERT INTO AppointmentStatusHistory (AppointmentID, StatusChangeDate, PreviousStatus, NewStatus, Notification)
+                VALUES (@AppointmentID, @StatusChangeDate, @PreviousStatus, @NewStatus, @Notification)";
                 using (SqlCommand cmdInsertHistory = new SqlCommand(queryInsertHistory, conn))
                 {
                     cmdInsertHistory.Parameters.AddWithValue("@AppointmentID", AppointmentID);
                     cmdInsertHistory.Parameters.AddWithValue("@StatusChangeDate", DateTime.Now); // Current date and time
                     cmdInsertHistory.Parameters.AddWithValue("@PreviousStatus", "current_status"); // Replace with the actual previous status
                     cmdInsertHistory.Parameters.AddWithValue("@NewStatus", "rejected"); // New status
+                    cmdInsertHistory.Parameters.AddWithValue("@Notification", "UNREAD");
                     cmdInsertHistory.ExecuteNonQuery();
                 }
 
                 // Notify that the status has changed.
                 DepartmentUser.OnAppointmentStatusChanged(EventArgs.Empty);
+
 
 
                 conn.Close();
@@ -714,16 +718,19 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                     cmd.ExecuteNonQuery();
                 }
                 string queryInsertHistory = @"
-                INSERT INTO AppointmentStatusHistory (AppointmentID, StatusChangeDate, PreviousStatus, NewStatus)
-                VALUES (@AppointmentID, @StatusChangeDate, @PreviousStatus, @NewStatus)";
+                INSERT INTO AppointmentStatusHistory (AppointmentID, StatusChangeDate, PreviousStatus, NewStatus, Notification)
+                VALUES (@AppointmentID, @StatusChangeDate, @PreviousStatus, @NewStatus, @Notification)";
                 using (SqlCommand cmdInsertHistory = new SqlCommand(queryInsertHistory, conn))
                 {
                     cmdInsertHistory.Parameters.AddWithValue("@AppointmentID", AppointmentID);
                     cmdInsertHistory.Parameters.AddWithValue("@StatusChangeDate", DateTime.Now);
                     cmdInsertHistory.Parameters.AddWithValue("@PreviousStatus", "current_status");
-                    cmdInsertHistory.Parameters.AddWithValue("@NewStatus", "approved");
+                    cmdInsertHistory.Parameters.AddWithValue("@NewStatus", "served");
+                    cmdInsertHistory.Parameters.AddWithValue("@Notification", "UNREAD");
+
                     cmdInsertHistory.ExecuteNonQuery();
                 }
+
 
                 // Notify that the status has changed.
                 DepartmentUser.OnAppointmentStatusChanged(EventArgs.Empty);

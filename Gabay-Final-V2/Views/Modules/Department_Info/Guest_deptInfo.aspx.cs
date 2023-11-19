@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+
 namespace Gabay_Final_V2.Views.Modules.Department_Info
 {
     public partial class Guest_deptInfo : System.Web.UI.Page
     {
+        string conn = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -17,7 +20,7 @@ namespace Gabay_Final_V2.Views.Modules.Department_Info
                 List<Department> departments = new List<Department>();
 
                 // Replace with your database connection code
-                using (SqlConnection connection = new SqlConnection("Data Source=DESKTOP-6DAE04O\\SQLEXPRESS;Initial Catalog=gabaydb_v.1.8;Integrated Security=True"))
+                using (SqlConnection connection = new SqlConnection(conn))
                 {
                     string query = @"SELECT ID_dept, dept_name, dept_head, dept_description,
                                      contactNumber, email, courses, office_hour FROM department";
