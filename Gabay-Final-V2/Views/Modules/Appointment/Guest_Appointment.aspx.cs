@@ -24,8 +24,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
            
             if (!IsPostBack)
             {
-                // Set the minimum date for the date input field
-                date.Attributes["min"] = DateTime.Now.ToString("yyyy-MM-dd");
+                
                 // Populate the department dropdown list
                 ddlDept(departmentChoices);
             }
@@ -525,6 +524,57 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                 }
 
                 conn.Close();
+            }
+        }
+
+        protected void departmentChoices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDateOptions();
+            DisableBookedTimes();
+        }
+
+        private void UpdateDateOptions()
+        {
+            // Set the minimum date to today + 3 days
+            date.Attributes["min"] = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd");
+        }
+
+        private void DisableBookedTimes()
+        {
+            // Check the database for existing appointments on the selected date and disable booked times
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = "SELECT appointment_time FROM appointment WHERE deptName = @DepartmentName AND appointment_date = @AppointmentDate";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@DepartmentName", departmentChoices.SelectedValue);
+                    cmd.Parameters.AddWithValue("@AppointmentDate", date.Value);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    // Loop through the results and disable corresponding times in the 'time' DropDownList
+                    while (reader.Read())
+                    {
+                        string bookedTime = reader["appointment_time"].ToString();
+                        ListItem item = time.Items.FindByValue(bookedTime);
+                        if (item != null)
+                        {
+                            //item.Enabled = false;
+                            item.Attributes["class"] = "disabled";
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
+                }
             }
         }
     }

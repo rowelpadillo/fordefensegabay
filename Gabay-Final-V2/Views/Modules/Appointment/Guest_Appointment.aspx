@@ -89,7 +89,7 @@
 				<asp:Label ID="SubmitStatusNotSubmitted" runat="server" Text="" CssClass="submit-status-NotSubmitted" />
 				<div class="form-group">
 					<label for="DepartmentDropDown" class="form-label">Department</label>
-					<asp:DropDownList ID="departmentChoices" CssClass="form-control text-input" runat="server" aria-label="Departments" AutoPostBack="True">
+					<asp:DropDownList ID="departmentChoices" CssClass="form-control text-input" runat="server" aria-label="Departments" AutoPostBack="True" OnSelectedIndexChanged="departmentChoices_SelectedIndexChanged">
 						<asp:ListItem Selected="True" Value="">
 							Choose a Department...
 						</asp:ListItem>
@@ -111,6 +111,10 @@
 				<div class="form-group">
 					<div class="row">
 						<div class="col">
+							<label for="selectedDate" class="form-label">Date</label>
+							<input type="date" id="date" runat="server" name="date" class="form-control text-input" />
+						</div>
+						<div class="col">
 							<label for="time" class="form-label">Time</label>
 							<asp:DropDownList ID="time" runat="server" CssClass="form-control text-input">
 								<asp:ListItem Value="" Selected="True">Select Available Time</asp:ListItem>
@@ -124,10 +128,7 @@
 								<asp:ListItem Value="4:00 PM">4:00 PM</asp:ListItem>
 							</asp:DropDownList>
 						</div>
-						<div class="col">
-							<label for="selectedDate" class="form-label">Date</label>
-							<input type="date" id="date" runat="server" name="date" class="form-control text-input" />
-						</div>
+						
 					</div>
 				</div>
 				<div class="form-group">
