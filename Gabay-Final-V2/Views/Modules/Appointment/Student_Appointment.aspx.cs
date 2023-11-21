@@ -21,6 +21,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         {
             if (!IsPostBack)
             {
+                UpdateDateOptions();
                 if (Session["user_ID"] != null)
                 {
                     int userID = Convert.ToInt32(Session["user_ID"]);
@@ -81,7 +82,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                             ContactN.Text = reader["contactNumber"].ToString();
                             IdNumber.Text = reader["studentID"].ToString();
                             Year.Text = reader["course_year"].ToString();
-                            DepartmentDropDown.Text = reader["dept_name"].ToString();
+                            DepartmentName.Text = reader["dept_name"].ToString();
                         }
                     }
                 }
@@ -96,15 +97,15 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             string ConNum = ContactN.Text;
             string StudIdNum = IdNumber.Text;
             string CourseYear = Year.Text;
-            string DepartmentName = DepartmentDropDown.Text;
+            string departmentName = DepartmentName.Text;
 
-            string SchedDate = selectedDateHidden.Text;
+            string SchedDate = date.Text;
             string SchedTime = time.Text;
             string Concern = Message.Text;
 
             if (Session["user_ID"] != null)
             {
-                SaveAppointmentDetails(fullname, email, ConNum, StudIdNum, CourseYear, DepartmentName, SchedDate, SchedTime, Concern);
+                SaveAppointmentDetails(fullname, email, ConNum, StudIdNum, CourseYear, departmentName, SchedDate, SchedTime, Concern);
                 Response.Redirect("~/Views/Modules/Appointment/Appointment_Status.aspx");
             }
            
@@ -140,6 +141,57 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                     cmd.Parameters.AddWithValue("@statusSched", statusSched);
                     
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        private void UpdateDateOptions()
+        {
+            // Set the minimum date to today + 3 days
+            date.Attributes["min"] = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd");
+        }
+
+        protected void date_TextChanged(object sender, EventArgs e)
+        {
+            string selectedDate = date.Text;
+            string selectedDept = DepartmentName.Text;
+
+            SelectedDate.Value = selectedDate;
+
+            checkAppointmentTime(selectedDept, selectedDate);
+        }
+
+        public void checkAppointmentTime(string selectedDept, string selectedDate)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"SELECT appointment_time from appointment
+                                 WHERE deptName = @selectedDept
+                                 AND appointment_date = @selectedDate
+                                 AND (appointment_status != 'rejected' AND appointment_status != 'served' AND appointment_status != 'no show')";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@selectedDept", selectedDept);
+                    cmd.Parameters.AddWithValue("@selectedDate", selectedDate);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        // Check if there are any rows in the result set
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+                                string bookedTime = reader["appointment_time"].ToString();
+                                ListItem item = time.Items.FindByValue(bookedTime);
+                                if (item != null)
+                                {
+                                    item.Enabled = false;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -69,6 +69,12 @@
 					<div class="mb-3">
 						<div class="row">
 							<div class="col">
+								<label for="date" class="form-label">Date</label>
+								<%--<input type="date" id="selectedDateHidden" runat="server" name="date" class="form-control" />--%>
+								<asp:TextBox ID="date" CssClass="form-control" runat="server" TextMode="Date" OnTextChanged="date_TextChanged" AutoPostBack="True"></asp:TextBox>
+								<asp:HiddenField ID="SelectedDate" runat="server" />
+							</div>
+							<div class="col">
 								<label for="time" class="form-label">Time</label>
 								<!-- Replace with your ASP.NET TextBox for Time -->
 								<%--<asp:TextBox ID="time" runat="server" TextMode="Time" CssClass="form-control" />--%>
@@ -84,16 +90,11 @@
 									<asp:ListItem Value="4:00 PM">4:00 PM</asp:ListItem>
 								</asp:DropDownList>
 							</div>
-							<div class="col">
-								<label for="selectedDateHidden" class="form-label">Date</label>
-								<%--<input type="date" id="selectedDateHidden" runat="server" name="date" class="form-control" />--%>
-								<asp:TextBox ID="selectedDateHidden" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
-							</div>
 						</div>
 					</div>
 					<div class="mb-3">
-						<label for="DepartmentDropDown" class="form-label">Department</label>
-						<asp:TextBox ID="DepartmentDropDown" CssClass="form-control" runat="server" ReadOnly="True"></asp:TextBox>
+						<label for="DepartmentName" class="form-label">Department</label>
+						<asp:TextBox ID="DepartmentName" CssClass="form-control" runat="server" ReadOnly="True"></asp:TextBox>
 					</div>
 					<div class="mb-3">
 						<label for="Message" class="form-label">Concern</label>

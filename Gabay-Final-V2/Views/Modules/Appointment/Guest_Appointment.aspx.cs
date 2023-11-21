@@ -24,7 +24,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
            
             if (!IsPostBack)
             {
-                
+                UpdateDateOptions();
                 // Populate the department dropdown list
                 ddlDept(departmentChoices);
             }
@@ -83,7 +83,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                 string fullName = FullName.Text;
                 string contactNumber = ContactN.Text;
                 string selectedTime = time.SelectedValue;
-                string selectedDate = date.Value;
+                string selectedDate = date.Text;
                 string deptName = departmentChoices.SelectedItem.Text; // Get the selected department name
                 string concern = Message.Text; // Get the concern/message
 
@@ -109,7 +109,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                     Email.Text = "";
                     ContactN.Text = "";
                     time.SelectedIndex = 0; // Reset the dropdown selection
-                    date.Value = "";
+                    date.Text = "";
                     departmentChoices.SelectedIndex = 0; // Reset the dropdown selection
                     Message.Text = "";
                 }
@@ -527,10 +527,42 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             }
         }
 
-        protected void departmentChoices_SelectedIndexChanged(object sender, EventArgs e)
+       
+
+        public string convertDeptIDtoName(string deptID)
         {
-            UpdateDateOptions();
-            DisableBookedTimes();
+            string deptName = "";
+
+            // Convert deptID to integer
+            int convertedID = Convert.ToInt32(deptID);
+
+            // Use using statement to automatically close connection
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"SELECT dept_name FROM department WHERE ID_dept = @deptID";
+
+                // Use using statement to automatically close command
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    // Add parameter to the query
+                    cmd.Parameters.AddWithValue("@deptID", convertedID);
+
+                    // Execute the query and read the result
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        // Check if there are rows returned
+                        if (reader.Read())
+                        {
+                            // Retrieve the department name from the result
+                            deptName = reader["dept_name"].ToString();
+                        }
+                    }
+                }
+            }
+
+            return deptName;
         }
 
         private void UpdateDateOptions()
@@ -539,41 +571,55 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             date.Attributes["min"] = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd");
         }
 
-        private void DisableBookedTimes()
+        protected void departmentChoices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Check the database for existing appointments on the selected date and disable booked times
+            string departmentName = departmentChoices.SelectedValue;
+            deptID.Value = departmentName;
+            convertDeptIDtoName(deptID.Value);
+        }
+
+        protected void date_TextChanged(object sender, EventArgs e)
+        {
+            string selectedDate = date.Text;
+            string selectedDept = deptID.Value;
+            
+            SelectedDate.Value = selectedDate;
+
+            checkAppointmentTime(convertDeptIDtoName(selectedDept), selectedDate);
+        }
+
+        public void checkAppointmentTime(string selectedDept, string selectedDate)
+        {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                try
+                conn.Open();
+
+                string query = @"SELECT appointment_time from appointment
+                                 WHERE deptName = @selectedDept
+                                 AND appointment_date = @selectedDate
+                                 AND (appointment_status != 'rejected' AND appointment_status != 'served' AND appointment_status != 'no show')";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
-                    conn.Open();
+                    cmd.Parameters.AddWithValue("@selectedDept", selectedDept);
+                    cmd.Parameters.AddWithValue("@selectedDate", selectedDate);
 
-                    string query = "SELECT appointment_time FROM appointment WHERE deptName = @DepartmentName AND appointment_date = @AppointmentDate";
-                    SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@DepartmentName", departmentChoices.SelectedValue);
-                    cmd.Parameters.AddWithValue("@AppointmentDate", date.Value);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    // Loop through the results and disable corresponding times in the 'time' DropDownList
-                    while (reader.Read())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        string bookedTime = reader["appointment_time"].ToString();
-                        ListItem item = time.Items.FindByValue(bookedTime);
-                        if (item != null)
+                        // Check if there are any rows in the result set
+                        if (reader.HasRows)
                         {
-                            //item.Enabled = false;
-                            item.Attributes["class"] = "disabled";
+                            while (reader.Read())
+                            {
+                                string bookedTime = reader["appointment_time"].ToString();
+                                ListItem item = time.Items.FindByValue(bookedTime);
+                                if (item != null)
+                                {
+                                    item.Enabled = false;
+                                }
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    conn.Close();
                 }
             }
         }

@@ -17,6 +17,7 @@
 </head>
 <body>
     <form id="guestMaster" class="guestMaster" runat="server">
+        <asp:ScriptManager ID="GuestScriptManager" runat="server"></asp:ScriptManager>
         <%--TOP NAV--%>
         <header class="shadow sticky-top">
             <nav class="navbar navbar-expand-lg bg-body-tertiary z-1">
