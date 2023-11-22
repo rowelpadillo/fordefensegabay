@@ -2346,6 +2346,7 @@
     <Content Include="Views\LoginPages\Student_login.aspx" />
     <Content Include="Views\Modules\Academic_Calendar\Student_AcadCalen.aspx" />
     <Content Include="Views\Modules\Admin_Modules\Manage_AcadCalen.aspx" />
+    <Content Include="Views\Modules\Admin_Modules\Manage_Announcement.aspx" />
     <Content Include="Views\Modules\Admin_Modules\Manage_CampusInfo.aspx" />
     <Content Include="Views\Modules\Admin_Modules\Manage_Chatbot.aspx" />
     <Content Include="Views\Modules\Admin_Modules\Manage_Department.aspx" />
@@ -2668,6 +2669,13 @@
     </Compile>
     <Compile Include="Views\Modules\Admin_Modules\Manage_AcadCalen.aspx.designer.cs">
       <DependentUpon>Manage_AcadCalen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Modules\Admin_Modules\Manage_Announcement.aspx.cs">
+      <DependentUpon>Manage_Announcement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Modules\Admin_Modules\Manage_Announcement.aspx.designer.cs">
+      <DependentUpon>Manage_Announcement.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Modules\Admin_Modules\Manage_CampusInfo.aspx.cs">
       <DependentUpon>Manage_CampusInfo.aspx</DependentUpon>

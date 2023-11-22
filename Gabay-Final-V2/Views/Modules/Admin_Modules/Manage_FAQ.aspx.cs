@@ -37,20 +37,35 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
 
         protected void btnAddFAQ_Click(object sender, EventArgs e)
         {
-            string newQuestion = txtNewQuestion.Text;
-            string newAnswer = txtNewAnswer.Text;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO FAQTable (Question, Answer) VALUES (@Question, @Answer)", connection);
-                cmd.Parameters.AddWithValue("@Question", newQuestion);
-                cmd.Parameters.AddWithValue("@Answer", newAnswer);
-                cmd.ExecuteNonQuery();
-            }
+                string newQuestion = txtNewQuestion.Text;
+                string newAnswer = txtNewAnswer.Text;
 
-            // Reload FAQs after adding a new one
-            LoadFAQs();
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO FAQTable (Question, Answer) VALUES (@Question, @Answer)", connection);
+                    cmd.Parameters.AddWithValue("@Question", newQuestion);
+                    cmd.Parameters.AddWithValue("@Answer", newAnswer);
+                    cmd.ExecuteNonQuery();
+                }
+                // Reload FAQs after adding a new one
+                LoadFAQs();
+
+                string successMessage = "Question Added successfully.";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                    $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+            }
+            catch  (Exception ex)
+            {
+                string errorMessage = "An error occurred while adding a question: " + ex.Message;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+            }
+            
+
+           
         }
 
         protected void FAQRepeater_ItemCommand(object source, RepeaterCommandEventArgs e)

@@ -11,6 +11,14 @@
             <asp:ListItem Text="Students Account" Value="Students"></asp:ListItem>
             <asp:ListItem Text="Departments Account" Value="Departments"></asp:ListItem>
         </asp:DropDownList>
+        <div class="d-flex flex-row justify-content-end mt-3">
+            <asp:DropDownList ID="ddlReportType" runat="server" CssClass="form-select me-2 w-50">
+                <asp:ListItem Text="Choose Format" Value="" Disabled="true" Selected="true"></asp:ListItem>
+                <asp:ListItem Text="Excel" Value="Excel"></asp:ListItem>
+                <asp:ListItem Text="PDF" Value="PDF"></asp:ListItem>
+            </asp:DropDownList>
+            <asp:Button ID="btnDownloadReports" runat="server" Text="Generate Reports" OnClick="btnDownloadReports_Click" CssClass="btn btn-success" />
+        </div>
         <div class="mt-2"></div>
     </div>
 
@@ -21,11 +29,6 @@
                 <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" ItemStyle-CssClass="" />
                 <asp:BoundField DataField="StudentDepartment" HeaderText="Student Department" SortExpression="StudentDepartment" ItemStyle-CssClass="" />
                 <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" ItemStyle-CssClass="" />
-                <asp:TemplateField Visible="false" HeaderText="Department" SortExpression="Department">
-                    <ItemTemplate>
-                        <asp:Label ID="lblStudentDepartment" runat="server" Text='<%# Eval("StudentDepartment") %>'></asp:Label>
-                    </ItemTemplate>
-                </asp:TemplateField>
                 <asp:TemplateField HeaderText="Actions">
                     <ItemTemplate>
                         <%--             <asp:LinkButton ID="lnkEdit" runat="server" Text='<i class="fas fa-edit"></i>' CssClass="btn btn-primary" OnClientClick='<%# "showEditPasswordModal(" + Container.DataItemIndex + "); return false;" %>' />--%>
@@ -93,6 +96,30 @@
                 <div class="modal-footer">
                     <asp:Button ID="btnConfirmEditPassword" runat="server" Text="Yes" OnClick="btnConfirmEditPassword_Click" CssClass="btn btn-primary" />
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+     <%-- Success modal --%>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body bg-success text-center text-light">
+                    <i class="bi bi-info-circle-fill"></i>
+                    <p id="successMessage"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+     <%-- Error modal --%>
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body bg-danger text-center text-light">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                    <p id="errorMessage"></p>
                 </div>
             </div>
         </div>

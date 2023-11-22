@@ -7,6 +7,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.html.simpleparser;
+using System.IO;
 
 
 namespace Gabay_Final_V2.Views.Modules.Admin_Modules
@@ -29,8 +33,6 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
             SetGridViewVisibility();
             BindGridView(ddlFilter.SelectedValue);
         }
-
-
 
         private void BindGridView(string filter)
         {
@@ -84,68 +86,156 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
 
         protected void btnConfirmDelete_Click(object sender, EventArgs e)
         {
-            // Get the selected row index from the hidden field
-            int rowIndex = Convert.ToInt32(hfSelectedRowIndex.Value);
+            try
+            {
+                // Get the selected row index from the hidden field
+                int rowIndex = Convert.ToInt32(hfSelectedRowIndex.Value);
 
-            // Determine which GridView is currently active (Students or Departments)
-            GridView gridView;
-            if (ddlFilter.SelectedValue == "Students")
-            {
-                gridView = GridViewStudents;
-            }
-            else if (ddlFilter.SelectedValue == "Departments")
-            {
-                gridView = GridViewDepartments;
-            }
-            else
-            {
-                // Handle the case where no filter is selected
-                return;
-            }
-
-            // Make sure the rowIndex is within bounds
-            if (rowIndex >= 0 && rowIndex < gridView.Rows.Count)
-            {
-                int idToDelete = Convert.ToInt32(gridView.DataKeys[rowIndex].Value);
-
-                // Perform the delete operation based on your database schema
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                // Determine which GridView is currently active (Students or Departments)
+                GridView gridView;
+                if (ddlFilter.SelectedValue == "Students")
                 {
-                    connection.Open();
-                    string deleteQuery = "";
-                    if (ddlFilter.SelectedValue == "Students")
-                    {
-                        deleteQuery = "DELETE FROM student WHERE ID_student = @ID";
-                    }
-                    else if (ddlFilter.SelectedValue == "Departments")
-                    {
-                        deleteQuery = "DELETE FROM department WHERE ID_dept = @ID";
-                    }
-
-                    using (SqlCommand cmd = new SqlCommand(deleteQuery, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@ID", idToDelete);
-                        cmd.ExecuteNonQuery();
-                    }
+                    gridView = GridViewStudents;
+                }
+                else if (ddlFilter.SelectedValue == "Departments")
+                {
+                    gridView = GridViewDepartments;
+                }
+                else
+                {
+                    // Handle the case where no filter is selected
+                    return;
                 }
 
-                // Rebind the GridView to reflect the changes
-                BindGridView(ddlFilter.SelectedValue);
+                // Make sure the rowIndex is within bounds
+                if (rowIndex >= 0 && rowIndex < gridView.Rows.Count)
+                {
+                    int idToDelete = Convert.ToInt32(gridView.DataKeys[rowIndex].Value);
 
-                // Optionally, show a success message or perform other actions after delete
+                    // Perform the delete operation based on your database schema
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        string deleteQuery = "";
+                        if (ddlFilter.SelectedValue == "Students")
+                        {
+                            deleteQuery = "DELETE FROM student WHERE ID_student = @ID";
+                        }
+                        else if (ddlFilter.SelectedValue == "Departments")
+                        {
+                            deleteQuery = "DELETE FROM department WHERE ID_dept = @ID";
+                        }
+
+                        using (SqlCommand cmd = new SqlCommand(deleteQuery, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@ID", idToDelete);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Rebind the GridView to reflect the changes
+                    BindGridView(ddlFilter.SelectedValue);
+
+                    // Optionally, show a success message or perform other actions after delete
+                }
+
+                // Hide the modal after delete
+                ScriptManager.RegisterStartupScript(this, GetType(), "hideModal", "$('#confirmDeleteModal').modal('hide');", true);
+
+                string successMessage = "Announcement Added successfully.";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                    $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
             }
-
-            // Hide the modal after delete
-            ScriptManager.RegisterStartupScript(this, GetType(), "hideModal", "$('#confirmDeleteModal').modal('hide');", true);
+            catch  (Exception ex)
+            {
+                string errorMessage = "An error occurred while deleting the announcement: " + ex.Message;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+            }
+            
         }
 
         //EDIT PASSWORD
 
         protected void btnConfirmEditPassword_Click(object sender, EventArgs e)
         {
-            // Get the selected row index from the hidden field
-            int rowIndex = Convert.ToInt32(hfSelectedRowIndex.Value);
+            try
+            {
+                // Get the selected row index from the hidden field
+                int rowIndex = Convert.ToInt32(hfSelectedRowIndex.Value);
 
+                // Determine which GridView is currently active (Students or Departments)
+                GridView gridView;
+                if (ddlFilter.SelectedValue == "Students")
+                {
+                    gridView = GridViewStudents;
+                }
+                else if (ddlFilter.SelectedValue == "Departments")
+                {
+                    gridView = GridViewDepartments;
+                }
+                else
+                {
+                    // Handle the case where no filter is selected
+                    return;
+                }
+
+                // Make sure the rowIndex is within bounds
+                if (rowIndex >= 0 && rowIndex < gridView.Rows.Count)
+                {
+                    int idToEdit = Convert.ToInt32(gridView.DataKeys[rowIndex].Value);
+
+                    // Get the new password from the input field in the modal
+                    string newPassword = txtNewPassword.Text;
+
+                    // Perform the password change operation based on your database schema
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        string updateQuery = "";
+                        if (ddlFilter.SelectedValue == "Students")
+                        {
+                            updateQuery = "UPDATE student SET stud_pass = @Password WHERE ID_student = @ID";
+                        }
+                        else if (ddlFilter.SelectedValue == "Departments")
+                        {
+                            updateQuery = "UPDATE department SET dept_pass = @Password WHERE ID_dept = @ID";
+                        }
+
+                        using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@ID", idToEdit);
+                            cmd.Parameters.AddWithValue("@Password", newPassword);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+
+                    // Rebind the GridView to reflect the changes
+                    BindGridView(ddlFilter.SelectedValue);
+
+                    // Optionally, show a success message or perform other actions after password change
+                }
+
+                // Hide the modal after password change
+                ScriptManager.RegisterStartupScript(this, GetType(), "hideEditPasswordModal", "$('#editPasswordModal').modal('hide');", true);
+                
+                string successMessage = "Password updated successfully.";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                    $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+            }
+            catch  (Exception ex)
+            {
+                string errorMessage = "An error occurred while updating the password: " + ex.Message;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+            }
+            
+        }
+
+        //Generate Reports
+
+        protected void btnDownloadReports_Click(object sender, EventArgs e)
+        {
             // Determine which GridView is currently active (Students or Departments)
             GridView gridView;
             if (ddlFilter.SelectedValue == "Students")
@@ -162,44 +252,170 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
                 return;
             }
 
-            // Make sure the rowIndex is within bounds
-            if (rowIndex >= 0 && rowIndex < gridView.Rows.Count)
+            // Create a DataTable to hold the data from the GridView
+            DataTable dt = new DataTable();
+
+            // Add columns to the DataTable based on the GridView header
+            foreach (DataControlField field in gridView.Columns)
             {
-                int idToEdit = Convert.ToInt32(gridView.DataKeys[rowIndex].Value);
-
-                // Get the new password from the input field in the modal
-                string newPassword = txtNewPassword.Text;
-
-                // Perform the password change operation based on your database schema
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                // Exclude the "Actions" column
+                if (field.HeaderText != "Actions")
                 {
-                    connection.Open();
-                    string updateQuery = "";
-                    if (ddlFilter.SelectedValue == "Students")
-                    {
-                        updateQuery = "UPDATE student SET stud_pass = @Password WHERE ID_student = @ID";
-                    }
-                    else if (ddlFilter.SelectedValue == "Departments")
-                    {
-                        updateQuery = "UPDATE department SET dept_pass = @Password WHERE ID_dept = @ID";
-                    }
+                    dt.Columns.Add(field.HeaderText);
+                }
+            }
 
-                    using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
+            foreach (GridViewRow row in gridView.Rows)
+            {
+                DataRow dr = dt.NewRow();
+
+                // Iterate through the cells in the row
+                foreach (TableCell cell in row.Cells)
+                {
+                    DataControlField field = gridView.Columns[row.Cells.GetCellIndex(cell)];
+
+                    // Exclude the "Actions" column
+                    if (field.HeaderText != "Actions")
                     {
-                        cmd.Parameters.AddWithValue("@ID", idToEdit);
-                        cmd.Parameters.AddWithValue("@Password", newPassword);
-                        cmd.ExecuteNonQuery();
+                        // Add the cell text to the DataRow
+                        dr[field.HeaderText] = cell.Text;
                     }
                 }
 
-                // Rebind the GridView to reflect the changes
-                BindGridView(ddlFilter.SelectedValue);
-
-                // Optionally, show a success message or perform other actions after password change
+                // Add the DataRow to the DataTable
+                dt.Rows.Add(dr);
             }
 
-            // Hide the modal after password change
-            ScriptManager.RegisterStartupScript(this, GetType(), "hideEditPasswordModal", "$('#editPasswordModal').modal('hide');", true);
+            // Determine the selected report type (Excel or PDF)
+            string reportType = ddlReportType.SelectedValue;
+
+            // Call the appropriate method to export the DataTable
+            if (reportType == "Excel")
+            {
+                ExportToExcel(dt);
+            }
+            else if (reportType == "PDF")
+            {
+                // Call the method to export to PDF (implement this method)
+                ExportToPDF(dt);
+            }
+        }
+
+        private void ExportToExcel(DataTable dt)
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment;filename=ExportedData.xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.ms-excel";
+
+            using (System.IO.StringWriter sw = new System.IO.StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    // Create a form to contain the grid
+                    Table table = new Table();
+                    table.GridLines = GridLines.Both;
+
+                    // Add the header row to the table
+                    TableRow headerRow = new TableRow();
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        // Exclude the "Department" and "Actions" columns
+                        if (dt.Columns[i].ColumnName != "Department" && dt.Columns[i].ColumnName != "Actions")
+                        {
+                            TableCell cell = new TableCell();
+                            cell.Text = dt.Columns[i].ColumnName;
+                            headerRow.Cells.Add(cell);
+                        }
+                    }
+                    table.Rows.Add(headerRow);
+
+                    // Add each data row to the table
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        TableRow row = new TableRow();
+                        for (int j = 0; j < dt.Columns.Count; j++)
+                        {
+                            // Exclude the "Department" and "Actions" columns
+                            if (dt.Columns[j].ColumnName != "Department" && dt.Columns[j].ColumnName != "Actions")
+                            {
+                                TableCell cell = new TableCell();
+                                cell.Text = dt.Rows[i][j].ToString();
+                                row.Cells.Add(cell);
+                            }
+                        }
+                        table.Rows.Add(row);
+                    }
+
+                    // Render the table to the HTMLTextWriter
+                    table.RenderControl(htw);
+
+                    // Write the HTML to the response stream
+                    Response.Write(sw.ToString());
+                    Response.End();
+                }
+            }
+        }
+        private void ExportToPDF(DataTable dt)
+        {
+            Document document = new Document();
+
+            // Provide the path where you want to save the PDF file
+            string filePath = Server.MapPath("~/ExportedData.pdf");
+
+            // Create a PdfWriter instance to write to the document
+            PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+
+            document.Open();
+
+            // Add title to the document
+            Paragraph title = new Paragraph("Generated Report", new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD, BaseColor.BLUE));
+            title.Alignment = Element.ALIGN_CENTER;
+            document.Add(title);
+
+            // Add spacing between title and table
+            document.Add(new Paragraph("\n"));
+
+            // Add table to the document
+            PdfPTable table = new PdfPTable(dt.Columns.Count);
+            table.WidthPercentage = 100; // Table width is set to 100% of the page width
+
+            // Add columns to the table
+            foreach (DataColumn column in dt.Columns)
+            {
+                if (column.ColumnName != "Actions" && column.ColumnName != "Department")
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(column.ColumnName, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE)));
+                    cell.BackgroundColor = new BaseColor(91, 192, 222); // Header row background color
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    table.AddCell(cell);
+                }
+            }
+
+            // Add data rows to the table
+            foreach (DataRow row in dt.Rows)
+            {
+                foreach (DataColumn column in dt.Columns)
+                {
+                    if (column.ColumnName != "Actions" && column.ColumnName != "Department")
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(row[column].ToString(), new Font(Font.FontFamily.HELVETICA, 10)));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.AddCell(cell);
+                    }
+                }
+            }
+
+            document.Add(table);
+
+            document.Close();
+
+            // Provide the file for download
+            Response.ContentType = "application/pdf";
+            Response.AppendHeader("Content-Disposition", "attachment; filename=ExportedData.pdf");
+            Response.TransmitFile(filePath);
+            Response.End();
         }
 
     }

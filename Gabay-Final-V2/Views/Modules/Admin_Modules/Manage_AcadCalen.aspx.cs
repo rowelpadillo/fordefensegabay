@@ -35,23 +35,41 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
                     InsertFileData(fileName, fileData);
 
                     // Display a success message or perform any other actions
-                    Response.Redirect(Request.RawUrl);
+                    string successMessage = "Calendar Added successfully.";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                        $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+                    BindUploadedFiles();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Handle any exceptions or display an error message
+                    string errorMessage = "An error occurred while uploading the acadenic calendaer: " + ex.Message;
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                        $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
                 }
             }
         }
 
         protected void RptFiles_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            if (e.CommandName == "Delete")
+            try
             {
-                int fileIdToDelete = Convert.ToInt32(e.CommandArgument);
-                DeleteFileData(fileIdToDelete);
-                BindUploadedFiles(); // Refresh the file list
+                if (e.CommandName == "Delete")
+                {
+                    int fileIdToDelete = Convert.ToInt32(e.CommandArgument);
+                    DeleteFileData(fileIdToDelete);
+                    BindUploadedFiles(); // Refresh the file list
+                }
+                string successMessage = "Calendar deleted successfully.";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                    $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
             }
+            catch (Exception ex)
+            {
+                string errorMessage = "An error occurred while deleting the calendar: " + ex.Message;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+            }
+           
         }
 
         private void BindUploadedFiles()

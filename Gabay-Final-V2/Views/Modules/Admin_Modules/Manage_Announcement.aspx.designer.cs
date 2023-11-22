@@ -7,218 +7,164 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gabay_Final_V2.Views.DashBoard.Admin_Homepage
+namespace Gabay_Final_V2.Views.Modules.Admin_Modules
 {
 
 
-    public partial class Admin_Master
+    public partial class Manage_Announcement
     {
 
         /// <summary>
-        /// head control.
+        /// txtSearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
 
         /// <summary>
-        /// adminMaster control.
+        /// AnnouncementList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm adminMaster;
+        protected global::System.Web.UI.WebControls.GridView AnnouncementList;
 
         /// <summary>
-        /// GabayLogo control.
+        /// HidAnnouncementID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink GabayLogo;
+        protected global::System.Web.UI.WebControls.HiddenField HidAnnouncementID;
 
         /// <summary>
-        /// dashboard control.
+        /// closeEditModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink dashboard;
+        protected global::System.Web.UI.WebControls.Button closeEditModal;
 
         /// <summary>
-        /// manageDep control.
+        /// Titlebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink manageDep;
+        protected global::System.Web.UI.WebControls.TextBox Titlebx;
 
         /// <summary>
-        /// manageUser control.
+        /// Datebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink manageUser;
+        protected global::System.Web.UI.WebControls.TextBox Datebx;
 
         /// <summary>
-        /// ManageAnnouncement control.
+        /// ShortDescbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink ManageAnnouncement;
+        protected global::System.Web.UI.WebControls.TextBox ShortDescbx;
 
         /// <summary>
-        /// chatbot control.
+        /// DtlDescBx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink chatbot;
+        protected global::System.Web.UI.WebControls.TextBox DtlDescBx;
 
         /// <summary>
-        /// campCalendar control.
+        /// Imgbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink campCalendar;
+        protected global::System.Web.UI.WebControls.FileUpload Imgbx;
 
         /// <summary>
-        /// faq control.
+        /// updtAnnouncement control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink faq;
+        protected global::System.Web.UI.WebControls.Button updtAnnouncement;
 
         /// <summary>
-        /// profLink control.
+        /// addTitlebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton profLink;
+        protected global::System.Web.UI.WebControls.TextBox addTitlebx;
 
         /// <summary>
-        /// logoutLink control.
+        /// addDatebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton logoutLink;
+        protected global::System.Web.UI.WebControls.TextBox addDatebx;
 
         /// <summary>
-        /// logoutBtn control.
+        /// addFilebx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button logoutBtn;
+        protected global::System.Web.UI.WebControls.FileUpload addFilebx;
 
         /// <summary>
-        /// sideNavProf control.
+        /// addShrtbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavProf;
+        protected global::System.Web.UI.WebControls.TextBox addShrtbx;
 
         /// <summary>
-        /// lblDept_name control.
+        /// addDtldbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDept_name;
+        protected global::System.Web.UI.WebControls.TextBox addDtldbx;
 
         /// <summary>
-        /// sideNavDB control.
+        /// SaveAnnouncement control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavDB;
+        protected global::System.Web.UI.WebControls.Button SaveAnnouncement;
 
         /// <summary>
-        /// sideNavDept control.
+        /// dltAnnouceBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavDept;
-
-        /// <summary>
-        /// sideNavPend control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavPend;
-
-        /// <summary>
-        /// sideMangeAnnouncement control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideMangeAnnouncement;
-
-        /// <summary>
-        /// sideNavCB control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavCB;
-
-        /// <summary>
-        /// sideNavCC control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavCC;
-
-        /// <summary>
-        /// sideNavFAQ control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink sideNavFAQ;
-
-        /// <summary>
-        /// ContentPlaceHolder1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.Button dltAnnouceBtn;
     }
 }

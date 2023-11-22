@@ -20,7 +20,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <style>
+   <style>
         .icon-button {
             position: relative;
             display: flex;
@@ -60,6 +60,19 @@
 
         .hidden {
             display: none;
+        }
+
+        .modal-dialog.modal-dialog-right {
+            right: 0 !important;
+            margin-right: 3% !important;
+            top: 6% !important;
+        }
+        .custom-button {
+            background-color: grey;
+            color: white; 
+            width: 200px; 
+            margin: 0 auto; 
+            display: block; 
         }
     </style>
 
@@ -207,25 +220,32 @@
         </div>
         <!-- Add this modal markup at the end of the body tag -->
         <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-right" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="notificationModalLabel">Notification Details</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <%-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
-                        </button>
+                        </button>--%>
                     </div>
                     <div class="modal-body">
-                        <asp:GridView ID="notificationGridView" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
-                            <Columns>
-                                <asp:BoundField DataField="AppointmentID" HeaderText="Appointment ID" />
-                                <asp:BoundField DataField="StatusChangeDate" HeaderText="Status Changed Date" />
-                                <asp:BoundField DataField="NewStatus" HeaderText="Status" />
-                            </Columns>
-                        </asp:GridView>
+                        <!-- wlay  notify -->
+                        <div id="noNotificationMessage"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <asp:GridView ID="notificationGridView" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                                    <Columns>
+                                        <asp:BoundField DataField="AppointmentID" HeaderText="Appointment ID" />
+                                        <asp:BoundField DataField="StatusChangeDate" HeaderText="Status Changed Date" />
+                                        <asp:BoundField DataField="NewStatus" HeaderText="Status" />
+                                    </Columns>
+                                </asp:GridView>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <asp:Button ID="btnMarkAsRead" runat="server" Text="Read" CssClass="btn btn-primary" OnClientClick="hideBadge(); return true;" OnClick="BtnMarkAsRead_Click" />
+                        <!-- Add or modify buttons here as needed -->
+                        <asp:Button ID="btnMarkAsRead" runat="server" Text="Mark as Read" CssClass="custom-button" OnClientClick="hideBadge(); return true;" OnClick="BtnMarkAsRead_Click" />
                         <%-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
                     </div>
                 </div>
