@@ -193,13 +193,16 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
                     {
                         connection.Open();
                         string updateQuery = "";
+                        string updateUserQuery = "";
                         if (ddlFilter.SelectedValue == "Students")
                         {
                             updateQuery = "UPDATE student SET stud_pass = @Password WHERE ID_student = @ID";
+                            updateUserQuery = "UPDATE users_table SET password = @Password WHERE user_ID IN (SELECT user_ID FROM student WHERE ID_student = @ID)";
                         }
                         else if (ddlFilter.SelectedValue == "Departments")
                         {
                             updateQuery = "UPDATE department SET dept_pass = @Password WHERE ID_dept = @ID";
+                            updateUserQuery = "UPDATE users_table SET password = @Password WHERE user_ID IN (SELECT user_ID FROM department WHERE ID_dept = @ID)";
                         }
 
                         using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
@@ -208,8 +211,14 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
                             cmd.Parameters.AddWithValue("@Password", newPassword);
                             cmd.ExecuteNonQuery();
                         }
-                    }
 
+                        using (SqlCommand cmd = new SqlCommand(updateUserQuery, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@ID", idToEdit);
+                            cmd.Parameters.AddWithValue("@Password", newPassword);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
                     // Rebind the GridView to reflect the changes
                     BindGridView(ddlFilter.SelectedValue);
 
