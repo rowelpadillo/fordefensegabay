@@ -10,7 +10,7 @@
                     <div class="hLeft-cont">
                         <div class="hLeft d-flex flex-column text-center">
                             <h1 class="titleHeader fs-1 fw-bold">WELCOME!</h1>
-                            <span class="fs-2">
+                            <span class="fs-2 ">
                                 <asp:Label ID="GuestName" runat="server" Text="Guest Name" CssClass="GuestName"></asp:Label></span>
                             <div class="text-secondary">to a</div>
                             <h3 class="text-secondary">Modern Approach of University Information Sharing</h3>

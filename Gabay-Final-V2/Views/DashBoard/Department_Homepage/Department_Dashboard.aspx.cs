@@ -23,7 +23,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
 
                     string userName = FetchSessionStringDept(userID);
 
-                    lblDept_name.Text = userName;
+                    lblDept_name.Text = userName.ToUpper();
                 }
                 // Call the method to retrieve and display the user count
                 UpdateUserCount();

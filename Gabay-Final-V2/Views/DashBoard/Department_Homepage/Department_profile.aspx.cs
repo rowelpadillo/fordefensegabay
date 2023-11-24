@@ -431,9 +431,10 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
 
                     // Get the user_ID from the session
                     int deptSessionID = Convert.ToInt32(Session["user_ID"]);
+                    int deptID = 2024;
 
                     // Insert the file data into the database along with user_ID
-                    InsertFileData(fileName, fileData, deptSessionID);
+                    InsertFileData(fileName, fileData, deptSessionID, deptID);
 
                     // Display a success message or perform any other actions
                     Response.Redirect(Request.RawUrl);
@@ -451,18 +452,19 @@ namespace Gabay_Final_V2.Views.DashBoard.Department_Homepage
 
 
         // Modify the UpdateFileData method
-        private void InsertFileData(string fileName, byte[] fileData, int userId)
+        private void InsertFileData(string fileName, byte[] fileData, int userId, int deptID)
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
                 conn.Open();
-                string insertQuery = "INSERT INTO DepartmentFiles (FileName, FileData, user_ID) VALUES (@FileName, @FileData, @user_ID)";
+                string insertQuery = "INSERT INTO DepartmentFiles (FileName, FileData, user_ID, department_ID) VALUES (@FileName, @FileData, @user_ID, @deptID)";
 
                 using (SqlCommand command = new SqlCommand(insertQuery, conn))
                 {
                     command.Parameters.AddWithValue("@FileName", fileName);
                     command.Parameters.AddWithValue("@FileData", fileData);
                     command.Parameters.AddWithValue("@user_ID", userId);
+                    command.Parameters.AddWithValue("@deptID", deptID);
                     command.ExecuteNonQuery();
                 }
             }

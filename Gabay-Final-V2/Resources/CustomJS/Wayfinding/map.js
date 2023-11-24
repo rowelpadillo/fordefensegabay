@@ -912,6 +912,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var rtg2toold = document.getElementById('rtg2tooldbldg');
     var rtg2tog1 = document.getElementById('gate2togate1');
     var rtpdshs = document.getElementById('rtpdshs');
+    var rtoldtostdy = document.getElementById('rtoldtostdy');
     var rtg2tostdy = document.getElementById('rtg2tostdy');
     var rtcanteen = document.getElementById('rtg2tocanteen');
     var rtpco = document.getElementById('rtpco');
@@ -3612,6 +3613,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.speechSynthesis.speak(msg);
                 map8.style.display = 'block';
                 showRoute(rtoldtocanteen, anxbtn2, rtg2toold, oldbtn1);
+            }, 6200);
+        }
+    });
+
+    stdybtn.addEventListener('click', function () {
+        if (!isbtngate2Clicked) {
+            isnsacanteenClicked = true;
+            hideMaps(), hideRoute()
+            msg.text = "From Gate 1.. go straight pass the cashier";
+            window.speechSynthesis.speak(msg);
+            map1.style.display = 'block';
+            hideFloorButton()
+            showRoute(rtg1tog2, oldbtn1, rtg2toreg, anxbtn2);
+            setTimeout(function () {
+                hideMaps(), hideRoute()
+                msg.text = "Then go straight from old building to Study Hall and Enrollment Area";
+                window.speechSynthesis.speak(msg);
+                map8.style.display = 'block';
+                showRoute(rtoldtostdy, anxbtn2, rtg2toold, oldbtn1);
             }, 6200);
         }
     });
@@ -6480,7 +6500,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (isbtngate2Clicked && !isstdybtnClicked) {
             isstdybtnClicked = true;
             hideMaps(), hideRoute()
-            msg.text = "From gate 2 go straight.. then turn left to study hall";
+            msg.text = "From gate 2 go straight.. then turn left to study hall and Enrollment Area";
             window.speechSynthesis.speak(msg);
             map8.style.display = 'block';
             hideFloorButton()
@@ -6498,6 +6518,20 @@ document.addEventListener('DOMContentLoaded', function () {
             map8.style.display = 'block';
             hideFloorButton()
             showRoute(rtcanteen, anxbtn2, rte1, oldbtn1);
+
+        }
+    });
+
+    stdybtn.addEventListener('click', function () {
+        if (isbtngate2Clicked && !isstdybtnClicked) {
+            isstdybtnClicked = true;
+            hideMaps(), hideRoute()
+            hideMaps(), hideRoute()
+            msg.text = "From gate 2 go straight then turn left to study hall or Enrollment Area";
+            window.speechSynthesis.speak(msg);
+            map8.style.display = 'block';
+            hideFloorButton()
+            showRoute(rtg2tostdy, anxbtn2, rte1, oldbtn1);
 
         }
     });
@@ -53421,7 +53455,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cbe807, cbe808, cbe809, cbe810, cbe811, cbe812, cbe813, cbe814, cbe815, cbe816, malecr8cbe, femalecr8cbe, cbe901, cbe902, cbe903, cbe904, cbe905, cbe906, cpelab, fablab, eceroom,
             eeroom, rvwroom, ieroom, malecr9cbe, femalecr9cbe, cbe1001, cbe1002, cbe1003, cbe1004, cbe1005, cbe1006, cbe1007, cbe1008, cbe1009, cbe1010, cbe1011, cbe1012, cbe1013, cbe1014, cbe1015,
             cbe1016, malecr10cbe, femalecr10cbe, anxmcrmezflr, anxfcrmezflr, drwngrm, me110, mefemalecr, me111, memechlab, me114, me115, me116, me117, me118, me119, me120, me101, me102, me103, me104,
-            me105, me106, me107, memalecr,
+            me105, me106, me107, memalecr, 
 
 
             btnarhve, btncrmelab, btna23, btna24, btnavr, btnchoir, btncrimfclty, btncnsul2nd, ma9, collgefclty, a31, a32, a35, cssdean, ccsfclty, cnslrm,
@@ -53461,7 +53495,7 @@ document.addEventListener('DOMContentLoaded', function () {
             rtg1toa31, rtg1toa32, rtg1toa35, rtg1toconsul, rtg1toccsfaculty, rtg1toccsdean, rtg1toannexleft, rtte17, rtg1toarchve, rtg1tocrimelb, rtg1toa23, rtg1toa24, rtg1toavr, rtg1tochoirrom, rtg1tocrimfaculty,
             rtg1toconsulrom, rannex2nd, rtte15, rtmainannex, rtleftannex4th, rtg1hrmfaculty, rtg1toCO, rtg1togs, rtg1totsr, rtg1totetac, rtg1tohko, rtg1tohrmminihotel, rtg1toreceparea, rtg1tohrmkit2
             , rtmcrmez, rtfcrmez, gate2tomcr, gate2tofcr, gate2tomez, gate2tobm, gate2to2nd, gate2tomain2nd, g2toc2, gate2tocicsco, rtmachneshp, ranx2, rttomeroom, rtme101, rtme102, rtme103, rtme104, rtme105,
-            rtme106, rtme107, rtmemalecr, rtme108, rtme110, rtmefemalecr, rtme111, rtmemechlab, rtme114, rtme115, rtme116, rtme117, rtme118, rtme119, rtme120];
+            rtme106, rtme107, rtmemalecr, rtme108, rtme110, rtmefemalecr, rtme111, rtmemechlab, rtme114, rtme115, rtme116, rtme117, rtme118, rtme119, rtme120, rtoldtostdy];
 
 
 
@@ -53502,7 +53536,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 rtg1toa31, rtg1toa32, rtg1toa35, rtg1toconsul, rtg1toccsfaculty, rtg1toccsdean, rtg1toannexleft, rtte17, rtg1toarchve, rtg1tocrimelb, rtg1toa23, rtg1toa24, rtg1toavr, rtg1tochoirrom, rtg1tocrimfaculty,
                 rtg1toconsulrom, rannex2nd, rtte15, rtmainannex, rtleftannex4th, rtg1hrmfaculty, rtg1toCO, rtg1togs, rtg1totsr, rtg1totetac, rtg1tohko, rtg1tohrmminihotel, rtg1toreceparea, rtg1tohrmkit2
                 , rtmcrmez, rtfcrmez, gate2tomcr, gate2tofcr, gate2tomez, gate2tobm, gate2to2nd, gate2tomain2nd, g2toc2, gate2tocicsco, rtmachneshp, ranx2, rttomeroom, rtme101, rtme102, rtme103, rtme104, rtme105,
-                rtme106, rtme107, rtmemalecr, rtme108, rtme110, rtmefemalecr, rtme111, rtmemechlab, rtme114, rtme115, rtme116, rtme117, rtme118, rtme119, rtme120);
+                rtme106, rtme107, rtmemalecr, rtme108, rtme110, rtmefemalecr, rtme111, rtmemechlab, rtme114, rtme115, rtme116, rtme117, rtme118, rtme119, rtme120, rtoldtostdy);
         }
     });
 
@@ -53560,7 +53594,7 @@ document.addEventListener('DOMContentLoaded', function () {
             rtg1toa31, rtg1toa32, rtg1toa35, rtg1toconsul, rtg1toccsfaculty, rtg1toccsdean, rtg1toannexleft, rtte17, rtg1toarchve, rtg1tocrimelb, rtg1toa23, rtg1toa24, rtg1toavr, rtg1tochoirrom, rtg1tocrimfaculty,
             rtg1toconsulrom, rannex2nd, rtte15, rtmainannex, rtleftannex4th, rtg1hrmfaculty, rtg1toCO, rtg1togs, rtg1totsr, rtg1totetac, rtg1tohko, rtg1tohrmminihotel, rtg1toreceparea, rtg1tohrmkit2
             , rtmcrmez, rtfcrmez, gate2tomcr, gate2tofcr, gate2tomez, gate2tobm, gate2to2nd, gate2tomain2nd, g2toc2, gate2tocicsco, rtmachneshp, ranx2, rttomeroom, rtme101, rtme102, rtme103, rtme104, rtme105,
-            rtme106, rtme107, rtmemalecr, rtme108, rtme110, rtmefemalecr, rtme111, rtmemechlab, rtme114, rtme115, rtme116, rtme117, rtme118, rtme119, rtme120];
+            rtme106, rtme107, rtmemalecr, rtme108, rtme110, rtmefemalecr, rtme111, rtmemechlab, rtme114, rtme115, rtme116, rtme117, rtme118, rtme119, rtme120, rtoldtostdy];
 
         elements.forEach(element => element.style.display = 'none');
 

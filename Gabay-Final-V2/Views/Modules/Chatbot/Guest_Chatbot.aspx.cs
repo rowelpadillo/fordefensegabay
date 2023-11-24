@@ -82,6 +82,7 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                 
                 AddBotMessage(greetingMessage1);
                 AddBotMessageMenu(greetingMessage);
+
             }
 
         }

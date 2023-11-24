@@ -22,7 +22,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Admin_Homepage
                 {
                     int userID = Convert.ToInt32(Session["user_ID"]);
 
-                    string userName = FetchSessionStringAdmin(userID);
+                    string userName = FetchSessionStringAdmin(userID).ToUpper();
 
                     lblDept_name.Text = userName;
                     // Call the method to retrieve and display the user count

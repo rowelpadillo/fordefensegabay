@@ -90,10 +90,11 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                 // Additional data
                 string status = "pending";
                 string studentID = "guest";
+                string notificationStatus = "UNREAD";
                 string courseYear = "4";
 
                 // Insert data into the "appointment" table
-                int appointmentID = InsertAppointmentRecord(fullName, email, studentID, courseYear, contactNumber, selectedDate, selectedTime, deptName, concern, status);
+                int appointmentID = InsertAppointmentRecord(fullName, email, studentID, courseYear, contactNumber, selectedDate, selectedTime, deptName, concern, status, notificationStatus);
 
                 if (appointmentID > 0)
                 {
@@ -116,13 +117,13 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             }
         }
 
-        private int InsertAppointmentRecord(string fullName, string email, string studentID, string courseYear, string contactNumber, string selectedDate, string selectedTime, string deptName, string concern, string status)
+        private int InsertAppointmentRecord(string fullName, string email, string studentID, string courseYear, string contactNumber, string selectedDate, string selectedTime, string deptName, string concern, string status, string notificationStatus)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                string query = "INSERT INTO appointment ([deptName], [full_name], [email], [student_ID], [course_year], [contactNumber], [appointment_date], [appointment_time], [concern], [appointment_status]) " +
-                    "VALUES (@DeptName, @FullName, @Email, @StudentID, @CourseYear, @ContactNumber, @SelectedDate, @SelectedTime, @Concern, @Status); SELECT SCOPE_IDENTITY()";
+                string query = "INSERT INTO appointment ([deptName], [full_name], [email], [student_ID], [course_year], [contactNumber], [appointment_date], [appointment_time], [concern], [appointment_status], [Notification]) " +
+                    "VALUES (@DeptName, @FullName, @Email, @StudentID, @CourseYear, @ContactNumber, @SelectedDate, @SelectedTime, @Concern, @Status, @Notif); SELECT SCOPE_IDENTITY()";
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
@@ -136,6 +137,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                     cmd.Parameters.AddWithValue("@SelectedTime", selectedTime);
                     cmd.Parameters.AddWithValue("@Concern", concern);
                     cmd.Parameters.AddWithValue("@Status", status);
+                    cmd.Parameters.AddWithValue("@Notif", notificationStatus);
 
                     return Convert.ToInt32(cmd.ExecuteScalar());
                 }

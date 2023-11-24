@@ -14,11 +14,67 @@
     <link href="../../../FontAwesome/css/all.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="../../../Resources/CustomJS/OpenModal.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
+    <style>
+        .icon-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            color: #ffffff;
+            background: #003366;
+            border: none;
+            outline: none;
+            border-radius: 50%;
+            right: 10px;
+        }
+
+            .icon-button:hover {
+                cursor: pointer;
+            }
+
+            .icon-button:active {
+                background: #cccccc;
+            }
+
+        .icon-button__badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 25px;
+            height: 25px;
+            background: red;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .modal-dialog.modal-dialog-right {
+            right: 0 !important;
+            margin-right: 3% !important;
+            top: 6% !important;
+        }
+        .custom-button {
+            background-color: grey;
+            color: white; 
+            width: 200px; 
+            margin: 0 auto; 
+            display: block; 
+        }
+    </style>
     <form id="departmentMaster" class="departmentMaster" runat="server">
          <%--TOP NAV--%>
         <header class="shadow sticky-top">
@@ -95,6 +151,10 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="icon-button" onclick="GetUnreadNotifications()" data-toggle="modal" data-target="#notificationModal">
+                        <span class="material-icons">notifications</span>
+                        <asp:Label ID="lblNotificationCount" runat="server" CssClass="icon-button__badge"></asp:Label>
+                    </div>
                     <div class="d-none d-lg-block" id="lgout-prfl_btn">
                         <asp:HyperLink ID="profileBtn" runat="server" CssClass="btn logout-profileBtn" NavigateUrl="~/Views/DashBoard/Department_Homepage/Department_profile.aspx?=">Profile</asp:HyperLink>
                         <asp:Button ID="logoutBtn" runat="server" Text="Logout" CssClass="btn logout-profileBtn" OnClick="logoutBtn_Click" UseSubmitBehavior="false" />
@@ -169,6 +229,81 @@
                 </asp:ContentPlaceHolder>
             </div>
         </div>
+
+        <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+             <div class="modal-dialog modal-dialog-right" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationModalLabel">Notification Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <asp:GridView ID="notificationGridView" runat="server" AutoGenerateColumns="False" CssClass="centered-gridview">
+                        <Columns>
+                        <%--    <asp:BoundField DataField="ID_appointment" HeaderText="Appointment ID" SortExpression="ID_appointment" ItemStyle-CssClass="center-align" />--%>
+                            <asp:BoundField DataField="full_name" HeaderText="Name" SortExpression="full_name" ItemStyle-CssClass="center-align" />
+                            <asp:BoundField DataField="appointment_date" HeaderText="Date" SortExpression="appointment_date" ItemStyle-CssClass="center-align" />
+                            <asp:BoundField DataField="appointment_status" HeaderText="Status" SortExpression="appointment_status" ItemStyle-CssClass="center-align" />
+                        </Columns>
+                    </asp:GridView>
+                    </div>
+                    <div class="modal-footer">
+                        <%--<asp:Button ID="btnMarkAsRead" runat="server" Text="Read" CssClass="btn btn-primary" OnClientClick="hideBadge(); return true;" OnClick="btnMarkAsRead_Click" />--%>
+                        <asp:LinkButton ID="btnMarkAsRead" runat="server" CssClass="custom-button" OnClientClick="hideBadge(); return true;" OnClick="btnMarkAsRead_Click" PostBackUrl="~/Views/Modules/Appointment/Manage_Appointment.aspx">Read</asp:LinkButton>
+                       <%-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
+                    </div>
+                </div>
+            </div>
+        </div>
     </form>
+     <script>
+         function GetUnreadNotifications() {
+             $.ajax({
+                 type: "POST",
+                 url: "Department_Master.Master/GetUnreadNotificationsDataTableFromDatabase",
+                 contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 success: function (result) {
+                     // Check if there are unread notifications
+                     if (result.d.Count > 0) {
+                         // Update the badge content with the count of unread notifications
+                         updateBadge(result.d.Count);
+
+                         // Bind the data to the GridView
+                         notificationGridView.DataSource = result.d.Data;
+                         notificationGridView.DataBind();
+
+                         // Show the modal
+                         $('#notificationModal').modal('show');
+                     } else {
+                         // If count is 0, hide or style the badge accordingly
+                         hideBadge();
+                     }
+                 },
+                 error: function (xhr, ajaxOptions, thrownError) {
+                     console.error(thrownError);
+                 }
+             });
+         }
+
+         function hideBadge() {
+             // Get the label element representing the badge
+             var badgeLabel = document.getElementById('<%= lblNotificationCount.ClientID %>');
+
+             // Check if the badge label exists
+             if (badgeLabel) {
+                 // Check if the count is zero
+                 if (parseInt(badgeLabel.innerHTML) === 0) {
+                     // If count is zero, make the badge invisible
+                     badgeLabel.style.display = 'none';
+                 } else {
+                     // If count is not zero, set background color to red
+                     badgeLabel.style.backgroundColor = 'red';
+                 }
+             }
+         }
+     </script>
 </body>
 </html>

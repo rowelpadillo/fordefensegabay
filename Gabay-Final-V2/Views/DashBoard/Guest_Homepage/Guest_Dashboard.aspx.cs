@@ -15,7 +15,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Guest_Homepage
             Response.Cache.SetNoStore();
             if (Session["GuestName"] != null)
             {
-                GuestName.Text = Session["GuestName"].ToString();
+                GuestName.Text = Session["GuestName"].ToString().ToUpper();
             }
             else
             {
