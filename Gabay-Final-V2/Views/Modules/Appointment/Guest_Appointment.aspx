@@ -112,13 +112,13 @@
                     <div class="row">		
                         <div class="col">
                             <label for="selectedDate" class="form-label">Date</label>
-                            <asp:TextBox ID="date" runat="server" TextMode="Date" CssClass="form-control text-input" OnTextChanged="date_TextChanged" AutoPostBack="True"></asp:TextBox>
+                            <asp:TextBox ID="date" runat="server" TextMode="Date" CssClass="form-control text-input" OnTextChanged="date_TextChanged" AutoPostBack="True" Enabled="False"></asp:TextBox>
                             <asp:HiddenField ID="SelectedDate" runat="server" />
                         </div>
                         <asp:HiddenField ID="deptID" runat="server" />
-                        <div class="col">
+                        <div class="col">   
                             <label for="time" class="form-label">Time</label>
-                            <asp:DropDownList ID="time" runat="server" CssClass="form-control text-input">
+                            <asp:DropDownList ID="time" runat="server" CssClass="form-control text-input" Enabled="False">
                                 <asp:ListItem Value="" Selected="True">Select Available Time</asp:ListItem>
                                 <asp:ListItem Value="8:00 AM">8:00 AM</asp:ListItem>
                                 <asp:ListItem Value="9:00 AM">9:00 AM</asp:ListItem>

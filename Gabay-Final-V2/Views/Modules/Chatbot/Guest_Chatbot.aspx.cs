@@ -18,6 +18,7 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                    please choose an option in the menu or if you can't find what are you looking for,
                    just type your concern in a few words. If I can't answer you queries you can book
                    and appointment to a designated department for your concern";
+        string menuDialog = @"Please Choose your answer in the menu below";
         string greetingMessage = @"<div class='container-slider'>
                                                    <button id='prevButton' type='button' class='btn buttons d-flex justify-content-center align-items-center'>
                                                        <i class='bi bi-chevron-compact-left'></i>
@@ -81,7 +82,9 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                 ViewState["countUnAnswered"] = 0;
                 
                 AddBotMessage(greetingMessage1);
+                AddBotMessage(menuDialog);
                 AddBotMessageMenu(greetingMessage);
+               
 
             }
 
