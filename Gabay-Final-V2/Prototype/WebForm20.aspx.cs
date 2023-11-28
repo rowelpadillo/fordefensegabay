@@ -17,8 +17,7 @@ namespace Gabay_Final_V2.Prototype
         Chatbot_model conn = new Chatbot_model();
         string greetingMessage1 = @"Hello! to assist you better, 
                    please choose an option in the menu or if you can't find what are you looking for,
-                   just type your concern in a few words. If I can't answer you queries you can book
-                   and appointment to a designated department for your concern";
+                   just type your concern in a few words.";
         string greetingMessage = @"<div class='container-slider'>
                                                    <button id='prevButton' type='button' class='btn buttons d-flex justify-content-center align-items-center'>
                                                        <i class='bi bi-chevron-compact-left'></i>
@@ -75,6 +74,7 @@ namespace Gabay_Final_V2.Prototype
                                                        <i class='bi bi-chevron-compact-right'></i>
                                                    </button>
                                                </div>";
+        string buttonsSelectionDialog = "Please Select your choices below:";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -82,6 +82,7 @@ namespace Gabay_Final_V2.Prototype
                 ViewState["countUnAnswered"] = 0;
                
                 AddBotMessage(greetingMessage1);
+                AddBotMessage(buttonsSelectionDialog);
                 AddBotMessageMenu(greetingMessage);
             }
 
@@ -108,7 +109,7 @@ namespace Gabay_Final_V2.Prototype
         protected void btnSend_Click(object sender, EventArgs e)
         {
             string userInput = txtUserInput.Text;
-            int countUnAnsered = (int)ViewState["countUnAnswered"];
+            int countUnAnswered = (int)ViewState["countUnAnswered"];
             AddUserMessage(userInput);
             string lowerInput = userInput.ToLower();
             string testMessage = @"Hello! what can I assist to you today?";
@@ -121,15 +122,15 @@ namespace Gabay_Final_V2.Prototype
                 }
                 else
                 {
-                    string scriptColumn = conn.FindMatchingScript(userInput, ref countUnAnsered);
+                    string scriptColumn = conn.FindMatchingScript(userInput, ref countUnAnswered);
                     scriptColumn = scriptColumn.Replace("\n", "<br>");
                     AddBotMessage(scriptColumn);
 
-
                     // Update ViewState with the new count from the returned value
                     ViewState["countUnAnswered"] = conn.CountUnAnswered;
-
+                   
                 }
+                Label1.Text = countUnAnswered.ToString();
                 txtUserInput.Text = string.Empty;
             }
         }

@@ -108,22 +108,23 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
         protected void btnSend_Click(object sender, EventArgs e)
         {
             string userInput = txtUserInput.Text;
-            int countUnAnsered = (int)ViewState["countUnAnswered"];
+            int countUnAnswered = (int)ViewState["countUnAnswered"];
             AddUserMessage(userInput);
             string lowerInput = userInput.ToLower();
 
             if (userInput != "" || userInput == null)
             {
-
                 if (lowerInput == "hi")
                 {
                     AddBotMessage("Hello! what can I assist to you today?");
                 }
                 else
                 {
-                    string scriptColumn = conn.FindMatchingScript(userInput,ref countUnAnsered);
+                    string scriptColumn = conn.FindMatchingScript(userInput,ref countUnAnswered);
                     scriptColumn = scriptColumn.Replace("\n", "<br>");
                     AddBotMessage(scriptColumn);
+
+                    ViewState["countUnAnswered"] = conn.CountUnAnswered;
                 }
                 txtUserInput.Text = string.Empty;
             }

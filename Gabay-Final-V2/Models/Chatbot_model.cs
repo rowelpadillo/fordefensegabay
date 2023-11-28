@@ -81,7 +81,7 @@ namespace Gabay_Final_V2.Models
             get { return countUnAnswered; }
             set { countUnAnswered = value; }
         }
-        public string FindMatchingScript(string userInput, ref int countUnAnsered)
+        public string FindMatchingScript(string userInput, ref int countUnAnswered)
         {
             Dictionary<string, int> keywordCount = new Dictionary<string, int>();
 
@@ -129,9 +129,9 @@ namespace Gabay_Final_V2.Models
             int maxCount = 0;
             string unAnswered = @"I'm sorry, I didn't understand your question. Could you please rephrase it?";
             string referToAppointment = @"I apologize, I am unable to answer your question, 
-                                          please use the appointment within gabay to book an
-                                          appointment so that a representative can answer your question.";
-            
+                                  please use the appointment within gabay to book an
+                                  appointment so that a representative can answer your question.";
+
             foreach (var pair in keywordCount)
             {
                 if (pair.Value > maxCount)
@@ -143,26 +143,27 @@ namespace Gabay_Final_V2.Models
 
             if (maxCount == 0)
             {
-                countUnAnsered++;
+                countUnAnswered++;
 
                 // if the ViewState counts is more than 3 it sets bestScript to referToAppointment otherwise bestScript is set to unAnswered
-                if (countUnAnsered >= 3)
+                if (countUnAnswered >= 3)
                 {
                     bestScript = referToAppointment;
-                    countUnAnsered = 0; 
-                    CountUnAnswered = countUnAnsered;// reset the count to 0;
+                    countUnAnswered = 0;
                 }
                 else
                 {
                     bestScript = unAnswered;
                 }
-                CountUnAnswered = countUnAnsered;
+
+                // Update the ViewState count
+                CountUnAnswered = countUnAnswered;
             }
             else
             {
                 bestScript = bestScript.Replace("\n", "<br>");
-                countUnAnsered = 0;
-                CountUnAnswered = countUnAnsered;
+                countUnAnswered = 0;
+                CountUnAnswered = countUnAnswered;
             }
 
             return bestScript;
