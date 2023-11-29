@@ -37,6 +37,9 @@
         .appointmentID{
             font-size:13px;
         }
+         .short-dropdown {
+            width: 180px;
+        }
     </style>
    <div class="container">
             <div class="row">
@@ -61,7 +64,17 @@
                         </ul>
                     </div>
                 </div>
-               
+                <div class="col-4 col-sm-12">
+                    <div class="d-flex flex-row justify-content-end mt-3">
+                        <asp:DropDownList ID="ddlReportType" runat="server" CssClass="form-select me-2 short-dropdown">
+                            <asp:ListItem Text="Choose Format" Value="" Disabled="true" Selected="true"></asp:ListItem>
+                            <asp:ListItem Text="Excel" Value="Excel"></asp:ListItem>
+                            <asp:ListItem Text="PDF" Value="PDF"></asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:Button ID="btnDownloadReports" runat="server" Text="Generate Reports" OnClick="btnDownloadReports_Click" CssClass="btn btn-success" />
+                    </div>
+                </div>
+            <div class="mt-2"></div>
                 <div class="col-12">
                     <asp:GridView ID="GridView1" runat="server" CssClass="table" DataKeyNames="ID_appointment" AutoGenerateColumns="false">
                         <Columns>

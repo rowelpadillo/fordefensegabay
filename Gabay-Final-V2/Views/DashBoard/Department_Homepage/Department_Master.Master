@@ -231,7 +231,7 @@
         </div>
 
         <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
-             <div class="modal-dialog modal-dialog-right" role="document">
+            <div class="modal-dialog modal-dialog-right" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="notificationModalLabel">Notification Details</h5>
@@ -240,14 +240,18 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    <asp:GridView ID="notificationGridView" runat="server" AutoGenerateColumns="False" CssClass="centered-gridview">
-                        <Columns>
-                        <%--    <asp:BoundField DataField="ID_appointment" HeaderText="Appointment ID" SortExpression="ID_appointment" ItemStyle-CssClass="center-align" />--%>
-                            <asp:BoundField DataField="full_name" HeaderText="Name" SortExpression="full_name" ItemStyle-CssClass="center-align" />
-                            <asp:BoundField DataField="appointment_date" HeaderText="Date" SortExpression="appointment_date" ItemStyle-CssClass="center-align" />
-                            <asp:BoundField DataField="appointment_status" HeaderText="Status" SortExpression="appointment_status" ItemStyle-CssClass="center-align" />
-                        </Columns>
-                    </asp:GridView>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <asp:GridView ID="notificationGridView" runat="server" AutoGenerateColumns="False" CssClass="table table-bordered">
+                                    <Columns>
+                                        <%--    <asp:BoundField DataField="ID_appointment" HeaderText="Appointment ID" SortExpression="ID_appointment" ItemStyle-CssClass="center-align" />--%>
+                                        <asp:BoundField DataField="full_name" HeaderText="Name" SortExpression="full_name" ItemStyle-CssClass="center-align" />
+                                        <asp:BoundField DataField="appointment_date" HeaderText="Date" SortExpression="appointment_date" ItemStyle-CssClass="center-align" />
+                                        <asp:BoundField DataField="appointment_status" HeaderText="Status" SortExpression="appointment_status" ItemStyle-CssClass="center-align" />
+                                    </Columns>
+                                </asp:GridView>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <%--<asp:Button ID="btnMarkAsRead" runat="server" Text="Read" CssClass="btn btn-primary" OnClientClick="hideBadge(); return true;" OnClick="btnMarkAsRead_Click" />--%>

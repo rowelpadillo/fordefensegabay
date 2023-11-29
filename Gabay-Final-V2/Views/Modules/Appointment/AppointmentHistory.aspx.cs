@@ -131,5 +131,34 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             HiddenFieldAppointment.Value = "";
         }
 
+        protected void ddlStatusFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyStatusFilter();
+        }
+
+        private void ApplyStatusFilter()
+        {
+            string selectedStatus = ddlStatusFilter.SelectedValue;
+            DataTable originalData = GetAppointmentHistoryFromDatabase(Convert.ToInt32(Session["user_ID"]));
+
+            if (!string.IsNullOrEmpty(selectedStatus))
+            {
+                DataRow[] filteredRows = originalData.Select($"appointment_status = '{selectedStatus}'");
+                DataTable filteredData = originalData.Clone();
+                foreach (DataRow row in filteredRows)
+                {
+                    filteredData.ImportRow(row);
+                }
+
+                GridView1.DataSource = filteredData;
+            }
+            else
+            {
+                GridView1.DataSource = originalData;
+            }
+
+            GridView1.DataBind();
+        }
+
     }
 }
