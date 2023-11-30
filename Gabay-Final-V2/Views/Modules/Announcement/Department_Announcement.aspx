@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-10">
-                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control float-end mb-3" placeholder="Search Announcement..."></asp:TextBox>
+                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control float-end mb-3" placeholder="Search Announcement by Title..." AutoPostBack="True" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
             </div>
         </div>
        
@@ -38,14 +38,19 @@
                 <asp:BoundField DataField="DetailedDescription" HeaderText="Detailed Description" />
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
-                        <asp:Button ID="gridviewEdit" CssClass="btn bg-primary text-light" runat="server" Text="Edit" OnClientClick='<%# "return getAnnouncementID(" + Eval("AnnouncementID") + ");" %>' OnClick="gridviewEdit_Click" />
-                        <asp:LinkButton ID="gridviewDeleteBtn" CssClass="btn bg-danger text-light" runat="server" OnClientClick='<%# "return showConfirmationModal(" + Eval("AnnouncementID") + ");" %>'>
-                                Delete
-                        </asp:LinkButton>
+                        <div class="d-flex justify-content-evenly">
+                            <asp:LinkButton ID="gridviewEdit" CssClass="btn bg-primary text-light" runat="server" OnClientClick='<%# "return getAnnouncementID(" + Eval("AnnouncementID") + ");" %>' OnClick="gridviewEdit_Click"><i class="bi bi-pencil-square"></i></asp:LinkButton>
+                            <asp:LinkButton ID="gridviewDeleteBtn" CssClass="btn bg-danger text-light" runat="server" OnClientClick='<%# "return showConfirmationModal(" + Eval("AnnouncementID") + ");" %>'>
+                                <i class="bi bi-trash-fill"></i>
+                            </asp:LinkButton>
+                        </div>
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
+        <div class="d-flex justify-content-center">
+             <asp:Label ID="noResultsLabel" runat="server" Text="No results found" Visible="false" CssClass="no-results-label"></asp:Label>
+        </div>
         <asp:HiddenField ID="HidAnnouncementID" runat="server" />
     </div>
 

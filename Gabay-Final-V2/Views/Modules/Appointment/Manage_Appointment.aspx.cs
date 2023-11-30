@@ -69,9 +69,9 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                         row["role"] = "guest";
                     }
                 }
-               
-                GridView1.DataSource = dt;
-                GridView1.DataBind();
+
+                AppointmentView.DataSource = dt;
+                AppointmentView.DataBind();
             }
         }
 
@@ -1090,5 +1090,60 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             Response.End();
         }
 
+        //protected void txtSearch_TextChanged(object sender, EventArgs e)
+        //{
+        //    BindDataTable(txtSearch.Text);
+        //}
+
+        //public void BindDataTable(string SearchKeyword)
+        //{
+        //    if (Session["user_ID"] != null)
+        //    {
+        //        int user_ID = Convert.ToInt32(Session["user_ID"]);
+        //        DataTable dt = SearchAnnouncement(SearchKeyword, user_ID);
+
+        //        foreach (DataRow row in dt.Rows)
+        //        {
+        //            string studentID = (string)row["student_ID"];
+
+        //            if (studentID == "guest")
+        //            {
+        //                // Set "User Type" to "Guest" for guest appointments
+        //                row["role"] = "guest";
+        //            }
+        //        }
+
+        //        AppointmentView.DataSource = dt;
+        //        AppointmentView.DataBind();
+        //    }
+        //}
+
+        //public DataTable SearchAnnouncement(string SearchKeyword, int user_ID)
+        //{
+
+        //    DataTable dt = new DataTable();
+        //    using (SqlConnection conn = new SqlConnection(connection))
+        //    {
+        //        string query = @"SELECT a.*, ur.role
+        //                                    FROM appointment a
+        //                                    LEFT JOIN users_table u ON a.student_ID = u.login_ID
+        //                                    LEFT JOIN user_role ur ON u.role_ID = ur.role_id
+        //                                    WHERE a.ID_appointment LIKE '%' + @SearchKeyword + '%' AND user_ID = @user_ID";
+
+        //        conn.Open();
+
+        //        using (SqlCommand cmd = new SqlCommand(query, conn))
+        //        {
+        //            cmd.Parameters.AddWithValue("@SearchKeyword", SearchKeyword);
+        //            cmd.Parameters.AddWithValue("@SearchKeyword", SearchKeyword);
+
+        //            using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+        //            {
+        //                adapter.Fill(dt);
+        //            }
+        //        }
+        //    }
+        //    return dt;
+        //}
     }
 }

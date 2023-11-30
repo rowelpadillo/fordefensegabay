@@ -38,6 +38,7 @@
             </div>
             
             <div class="col-12">
+
                 <div class="gridViewContainer">
                     <asp:GridView ID="pending_table" runat="server" AutoGenerateColumns="False" CssClass="table" DataKeyNames="studentID">
                         <Columns>

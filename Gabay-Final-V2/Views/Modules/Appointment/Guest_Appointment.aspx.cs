@@ -56,7 +56,9 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             {
                 conn.Open();
 
-                string query = "SELECT COUNT(*) FROM appointment WHERE [email] = @Email";
+                string query = @"SELECT COUNT(*) FROM appointment 
+                                 WHERE [email] = @Email
+                                 AND appointment_status NOT IN ('rejected', 'served', 'no show')";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@Email", email);

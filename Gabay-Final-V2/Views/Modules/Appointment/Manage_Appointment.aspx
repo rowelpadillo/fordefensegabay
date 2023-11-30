@@ -44,13 +44,12 @@
    <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-md-12">
-                    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control float-end mb-3" placeholder="Search student..."></asp:TextBox>
+                    <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control float-end mb-3" placeholder="Search student..." AutoPostBack="True" OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
                 </div>
                 <div class="col-lg-2 col-md-12">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Appointment Status
-                        </button>
+                            Appointment Status</button>
                         <ul class="dropdown-menu w-100">
                             <li>
                                 <asp:LinkButton ID="displayPending" CssClass="dropdown-item" runat="server">Pending</asp:LinkButton>
@@ -76,7 +75,7 @@
                 </div>
             <div class="mt-2"></div>
                 <div class="col-12">
-                    <asp:GridView ID="GridView1" runat="server" CssClass="table" DataKeyNames="ID_appointment" AutoGenerateColumns="false">
+                    <asp:GridView ID="AppointmentView" runat="server" CssClass="table" DataKeyNames="ID_appointment" AutoGenerateColumns="false">
                         <Columns>
                             <asp:BoundField DataField="ID_appointment" HeaderText="Appointment ID" />
                             <asp:BoundField DataField="full_name" HeaderText="Recipient" />
@@ -91,6 +90,9 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
+                    <div class="d-flex justify-content-center">
+                        <asp:Label ID="noResultsLabel" runat="server" Text="No results found" Visible="false" CssClass="no-results-label"></asp:Label>
+                    </div>
                 </div>
                 <asp:HiddenField ID="HiddenFieldAppointment" runat="server" />
             </div>
