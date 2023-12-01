@@ -38,9 +38,9 @@
                 <asp:BoundField DataField="DetailedDescription" HeaderText="Detailed Description" />
                 <asp:TemplateField HeaderText="Action">
                     <ItemTemplate>
-                        <asp:Button ID="gridviewEdit" CssClass="btn bg-primary text-light" runat="server" Text="Edit" OnClientClick='<%# "return getAnnouncementID(" + Eval("AnnouncementID") + ");" %>' OnClick="gridviewEdit_Click" />
-                        <asp:LinkButton ID="gridviewDeleteBtn" CssClass="btn bg-danger text-light" runat="server" OnClientClick='<%# "return showConfirmationModal(" + Eval("AnnouncementID") + ");" %>'>
-                                Delete
+                         <asp:LinkButton ID="gridviewEdit" Text='<i class="fas fa-edit"></i>' CssClass="btn btn-primary" runat="server" OnClick="gridviewEdit_Click"  OnClientClick='<%# "return getAnnouncementID(" + Eval("AnnouncementID")  + ");" %>'>
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="gridviewDeleteBtn" Text='<i class="fas fa-trash-alt" style="color: white;"></i>' CssClass="btn btn-danger" runat="server" OnClientClick='<%# "return showConfirmationModal(" + Eval("AnnouncementID") + ");" %>'>
                         </asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>

@@ -99,10 +99,13 @@ namespace Gabay_Final_V2.Views.Modules.Academic_Calendar
 
         private void BindFilesToDropDownList()
         {
+
             AcadCalen_model acadCalenModel = new AcadCalen_model(); // Create an instance of AcadCalen_model
             List<AcadCalen_model.FileData> filesList = acadCalenModel.FetchFilesDataFromDatabase();
 
+            // Add an empty item as the default in the DropDownList
             ddlFiles.Items.Clear();
+            ddlFiles.Items.Add(new ListItem("School Year Calendar", ""));
 
             foreach (AcadCalen_model.FileData file in filesList)
             {
@@ -110,30 +113,55 @@ namespace Gabay_Final_V2.Views.Modules.Academic_Calendar
                 ddlFiles.Items.Add(item);
             }
 
+
             if (ViewState["SelectedFileId"] != null)
             {
                 int selectedFileId = (int)ViewState["SelectedFileId"];
-                ddlFiles.SelectedValue = selectedFileId.ToString();
+
+                // Check if the selected file is in the DropDownList items
+                if (ddlFiles.Items.FindByValue(selectedFileId.ToString()) != null)
+                {
+                    ddlFiles.SelectedValue = selectedFileId.ToString();
+                }
+                else
+                {
+                    
+                    ddlFiles.SelectedIndex = 0;
+                }
             }
         }
 
 
 
+
+        // Adjust the SelectedIndexChanged event for ddlFiles
         protected void ddlFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int selectedFileId = int.Parse(ddlFiles.SelectedValue);
-            ViewState["SelectedFileId"] = selectedFileId;
+            // Initialize a variable to store the selectedFileId
+            int selectedFileId;
 
-            DownloadErrorLabel.Text = "Selected File ID: " + selectedFileId;
-
-            byte[] selectedFileData = FetchFileDataFromDatabase(selectedFileId);
-            if (selectedFileData != null)
+            // Check if the selected value is a valid integer
+            if (int.TryParse(ddlFiles.SelectedValue, out selectedFileId))
             {
-                DownloadErrorLabel.Text = "";
+                // Successfully parsed, update ViewState
+                ViewState["SelectedFileId"] = selectedFileId;
+                DownloadErrorLabel.Text = "Selected File ID: " + selectedFileId;
+
+                // Fetch and display the selected file data (if needed)
+                byte[] selectedFileData = FetchFileDataFromDatabase(selectedFileId);
+                if (selectedFileData != null)
+                {
+                    DownloadErrorLabel.Text = "";
+                }
+                else
+                {
+                    DownloadErrorLabel.Text = "Selected file data not found.";
+                }
             }
             else
             {
-                DownloadErrorLabel.Text = "Selected file data not found.";
+                // Handle the case where the selected value is not a valid integer
+                DownloadErrorLabel.Text = "Invalid selection. Please select a valid file.";
             }
         }
     }
