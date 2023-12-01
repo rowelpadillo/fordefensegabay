@@ -18,13 +18,18 @@ namespace Gabay_Final_V2.Views.Modules.Department_Info
         {
             int studentSessionID = Convert.ToInt32(Session["user_ID"]);
             LoadData(studentSessionID);
-            BindFilesToDropDownList(studentSessionID);
+            if (!IsPostBack)
+            {
+                // Bind dropdown only on initial load
+                BindFilesToDropDownList(studentSessionID);
+            }
+
         }
         public void LoadData(int studentSessionID)
         {
             using (SqlConnection conn = new SqlConnection(connection))
             {
-            
+
                 string query = @"SELECT D.dept_name, D.dept_head, D.dept_description, D.contactNumber, D.email, D.courses, D.office_hour
                                  FROM department D
                                  INNER JOIN student S ON D.ID_dept = S.department_ID
@@ -242,8 +247,12 @@ namespace Gabay_Final_V2.Views.Modules.Department_Info
                 }
                 else
                 {
-                    DownloadErrorLabel.Text = "Selected file data not found.";
+                    // Handle the case where the selected value is not a valid integer
+                    DownloadErrorLabel.Text = "Invalid selection. Please select a valid file.";
                 }
+                // Add debugging statements here
+
+                Selected.Text = "<- To view this File click this Button";
             }
             else
             {
@@ -256,4 +265,3 @@ namespace Gabay_Final_V2.Views.Modules.Department_Info
 
     }
 }
-
