@@ -339,4 +339,39 @@
             document.getElementById('<%= HiddenFieldAppointment.ClientID %>').value = id;
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            // Function to set color based on status
+            function setColorBasedOnStatus(status, element) {
+                switch (status.toLowerCase()) {
+                    case "pending":
+                        element.css("color", "orange");
+                        break;
+                    case "served":
+                        element.css("color", "blue");
+                        break;
+                    case "reschedule":
+                        element.css("color", "blue");
+                        break;
+                    case "reject":
+                        element.css("color", "red");
+                        break;
+                    case "approved":
+                        element.css("color", "green");
+                        break;
+                    default:
+                        // Default color or additional cases can be added here
+                        break;
+                }
+            }
+
+            // Iterate through each row in the GridView
+            $('#<%= AppointmentView.ClientID %> tbody tr').each(function () {
+            var statusCell = $(this).find('td:eq(5)'); // Assuming status is in the 6th column (index 5)
+            var statusText = statusCell.text().trim();
+            setColorBasedOnStatus(statusText, statusCell);
+        });
+    });
+    </script>
+
 </asp:Content>

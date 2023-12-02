@@ -14,6 +14,7 @@ namespace Gabay_Final_V2.Prototype
 {
     public partial class WebForm20 : System.Web.UI.Page
     {
+        private static string connectionString = ConfigurationManager.ConnectionStrings["Gabaydb"].ConnectionString;
         Chatbot_model conn = new Chatbot_model();
         string greetingMessage1 = @"Hello! to assist you better, 
                    please choose an option in the menu or if you can't find what are you looking for,
@@ -122,7 +123,7 @@ namespace Gabay_Final_V2.Prototype
                 }
                 else
                 {
-                    string scriptColumn = conn.FindMatchingScript(userInput, ref countUnAnswered);
+                    string scriptColumn = FindMatchingScript(userInput, ref countUnAnswered);
                     scriptColumn = scriptColumn.Replace("\n", "<br>");
                     AddBotMessage(scriptColumn);
 
@@ -130,9 +131,107 @@ namespace Gabay_Final_V2.Prototype
                     ViewState["countUnAnswered"] = conn.CountUnAnswered;
                    
                 }
-                Label1.Text = countUnAnswered.ToString();
+              
                 txtUserInput.Text = string.Empty;
             }
         }
+        public string FindMatchingScript(string userInput, ref int countUnAnswered)
+        {
+            Dictionary<string, int> keywordCount = new Dictionary<string, int>();
+
+            // Tokenize the user input
+            string[] userTokens = userInput.ToLower().Split(' ');
+            string bestScript = "";
+            int maxCount = 0;
+            string unAnswered = @"I'm sorry, I didn't understand your question. Could you please rephrase it?";
+            string referToAppointment = @"I apologize, I am unable to answer your question, 
+                                  please use the appointment within gabay to book an
+                                  appointment so that a representative can answer your question.";
+
+            if (!conn.IsEnglish(userInput))
+            {
+                bestScript = "I apologize, I am unable to understand any language. Please ask your question in English.";
+            }
+            else
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string selectQuery = "SELECT response, keywords FROM Chat_Response";
+                    using (SqlCommand command = new SqlCommand(selectQuery, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string script = reader.GetString(0);
+                                string keywords = reader.GetString(1);
+                                int count = 0;
+
+                                foreach (string keyword in keywords.Split(','))
+                                {
+                                    if (userTokens.Contains(keyword.Trim(), StringComparer.OrdinalIgnoreCase))
+                                    {
+                                        count++;
+                                    }
+                                }
+
+                                if (!keywordCount.ContainsKey(script))
+                                {
+                                    keywordCount.Add(script, count);
+                                }
+                                else
+                                {
+                                    keywordCount[script] += count;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Find the script with the highest keyword count
+
+
+                foreach (var pair in keywordCount)
+                {
+                    if (pair.Value > maxCount)
+                    {
+                        maxCount = pair.Value;
+                        bestScript = pair.Key;
+                    }
+                }
+
+                if (maxCount == 0)
+                {
+                    countUnAnswered++;
+                    
+                    // if the ViewState counts is more than 3 it sets bestScript to referToAppointment otherwise bestScript is set to unAnswered
+                    if (countUnAnswered >= 3)
+                    {
+                        bestScript = referToAppointment;
+                        countUnAnswered = 0;
+                        //AddBotMessage(buttonsSelectionDialog);
+                        //AddBotMessageMenu(greetingMessage);
+                    }
+                    else
+                    {
+                        bestScript = unAnswered;
+                    }
+                    // Update the ViewState count
+                    conn.CountUnAnswered = countUnAnswered;
+                }
+                else
+                {
+                    bestScript = bestScript.Replace("\n", "<br>");
+                    countUnAnswered = 0;
+                    conn.CountUnAnswered = countUnAnswered;
+                }
+            }
+
+
+            return bestScript;
+        }
+
     }
 }
