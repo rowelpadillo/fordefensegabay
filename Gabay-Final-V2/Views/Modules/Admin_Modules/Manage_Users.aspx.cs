@@ -142,7 +142,7 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
                 // Hide the modal after delete
                 ScriptManager.RegisterStartupScript(this, GetType(), "hideModal", "$('#confirmDeleteModal').modal('hide');", true);
 
-                string successMessage = "Announcement Added successfully.";
+                string successMessage = "User Deleted successfully.";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
                     $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
             }
@@ -155,8 +155,9 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
             
         }
 
-        //EDIT PASSWORD
 
+
+        //EDIT PASSWORD
         protected void btnConfirmEditPassword_Click(object sender, EventArgs e)
         {
             try
