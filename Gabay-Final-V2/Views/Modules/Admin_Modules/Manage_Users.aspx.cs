@@ -28,11 +28,23 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
             }
         }
 
+        //para close sa modal
         protected void ddlFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetGridViewVisibility();
             BindGridView(ddlFilter.SelectedValue);
         }
+
+        protected void EditModalClose_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showDetailedModal", "$('#editPasswordModal').modal('hide');", true);
+        }
+
+        protected void DeleteModalClose_Click(object sender, EventArgs e)
+        {
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "showDeleteModal", "$('#confirmDeleteModal').modal('hide');", true);
+        }
+
 
         private void BindGridView(string filter)
         {

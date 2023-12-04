@@ -50,31 +50,41 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
 
         protected void ChangePassword_Click(object sender, EventArgs e)
         {
-            // Retrieve the current, new, and confirm passwords from the input fields in the modal
-            string currentPassword = currentPasswordTextBox.Text;
-            string newPassword = newPasswordTextBox.Text;
-            string confirmPassword = confirmPasswordTextBox.Text;
-
-            // Add logic to check if the current password is correct and if the new and confirm passwords match
-            if (CheckCurrentPassword(currentPassword) && newPassword == confirmPassword)
+            try
             {
-                // Update the password in the database
-                int userId = Convert.ToInt32(Session["user_ID"]);
-                UpdatePasswordInDatabase(userId, newPassword);
+                // Retrieve the current, new, and confirm passwords from the input fields in the modal
+                string currentPassword = currentPasswordTextBox.Text;
+                string newPassword = newPasswordTextBox.Text;
+                string confirmPassword = confirmPasswordTextBox.Text;
 
-                // Clear the textboxes
-                currentPasswordTextBox.Text = string.Empty;
-                newPasswordTextBox.Text = string.Empty;
-                confirmPasswordTextBox.Text = string.Empty;
+                // Add logic to check if the current password is correct and if the new and confirm passwords match
+                if (CheckCurrentPassword(currentPassword) && newPassword == confirmPassword)
+                {
+                    // Update the password in the database
+                    int userId = Convert.ToInt32(Session["user_ID"]);
+                    UpdatePasswordInDatabase(userId, newPassword);
 
-                // Optionally, you can show a success message or redirect the user
-                ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessModal", "$('#successModal').modal('show');", true);
+                    // Clear the textboxes
+                    currentPasswordTextBox.Text = string.Empty;
+                    newPasswordTextBox.Text = string.Empty;
+                    confirmPasswordTextBox.Text = string.Empty;
+
+                    // Optionally, you can show a success message or redirect the user
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessModal", "$('#successModal').modal('show');", true);
+                }
+                else
+                {
+                    // Optionally, show an error message or handle the case where passwords don't match or the current password is incorrect
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show');", true);
+                }
             }
-            else 
+            catch (Exception ex)
             {
-                // Optionally, show an error message or handle the case where passwords don't match or the current password is incorrect
-                ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show');", true);
+                string message = ex.Message;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "setErrorMessageScript", $"document.querySelector('.modal-body').innerHTML = '{message}';", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "openErrorModalScript", "openErrorrModal();", true);
             }
+            
         }
 
         private void UpdatePasswordInDatabase(int userId, string newPassword)
@@ -83,6 +93,13 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
             {
                 con.Open();
                 using (SqlCommand cmd = new SqlCommand("UPDATE student SET stud_pass = @NewPassword WHERE user_ID = @UserID", con))
+                {
+                    cmd.Parameters.AddWithValue("@NewPassword", newPassword);
+                    cmd.Parameters.AddWithValue("@UserID", userId);
+                    cmd.ExecuteNonQuery();
+                }
+
+                using (SqlCommand cmd = new SqlCommand("UPDATE users_table SET password = @NewPassword WHERE user_ID = @UserID", con))
                 {
                     cmd.Parameters.AddWithValue("@NewPassword", newPassword);
                     cmd.Parameters.AddWithValue("@UserID", userId);
@@ -124,29 +141,38 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
 
         protected void UpdateEmail_Click(object sender, EventArgs e)
         {
-            // Retrieve the current and new email from the input fields in the modal
-            string currentEmail = currentEmailTextBox.Text;
-            string newEmail = newEmailTextBox.Text;
-
-            // Add logic to check if the current email is correct and update the email in the database
-            if (CheckCurrentEmail(currentEmail))
+            try
             {
-                // Update the email in the database
-                int userId = Convert.ToInt32(Session["user_ID"]);
-                UpdateEmailInDatabase(userId, newEmail);
+                // Retrieve the current and new email from the input fields in the modal
+                string currentEmail = currentEmailTextBox.Text;
+                string newEmail = newEmailTextBox.Text;
 
-                // Clear the textboxes
-                currentEmailTextBox.Text = string.Empty;
-                newEmailTextBox.Text = string.Empty;
+                // Add logic to check if the current email is correct and update the email in the database
+                if (CheckCurrentEmail(currentEmail))
+                {
+                    // Update the email in the database
+                    int userId = Convert.ToInt32(Session["user_ID"]);
+                    UpdateEmailInDatabase(userId, newEmail);
 
-                // Optionally, you can show a success message or redirect the user
-                ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessModal", "$('#successModal').modal('show');", true);
-            }
-            else
+                    // Clear the textboxes
+                    currentEmailTextBox.Text = string.Empty;
+                    newEmailTextBox.Text = string.Empty;
+
+                    // Optionally, you can show a success message or redirect the user
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessModal", "$('#successModal').modal('show');", true);
+                }
+                else
+                {
+                    // Optionally, show an error message or handle the case where the current email is incorrect
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show');", true);
+                }
+            } catch (Exception ex)
             {
-                // Optionally, show an error message or handle the case where the current email is incorrect
-                ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show');", true);
+                string message = ex.Message;
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "setErrorMessageScript", $"document.querySelector('.modal-body').innerHTML = '{message}';", true);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "openErrorModalScript", "openErrorrModal();", true);
             }
+            
         }
 
         private bool CheckCurrentEmail(string currentEmail)

@@ -56,20 +56,18 @@
     </div>
     <asp:HiddenField ID="hfSelectedRowIndex" runat="server" />
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <asp:Button ID="Button2" runat="server" CssClass="close" Text="&times;" OnClick="DeleteModalClose_Click" />
                 </div>
                 <div class="modal-body">
                     Are you sure you want to delete this user?
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnConfirmDelete" runat="server" Text="Yes" OnClick="btnConfirmDelete_Click" CssClass="btn btn-danger" />
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                     <asp:Button ID="Button1" runat="server" Text="Close" class="btn btn-secondary" OnClick="DeleteModalClose_Click" />
                 </div>
             </div>
         </div>
@@ -81,9 +79,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editPasswordModalLabel">Change Password</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                     <asp:Button ID="btnDeleteModalClose" runat="server" CssClass="close" Text="&times;" OnClick="EditModalClose_Click" />
                 </div>
                 <div class="modal-body">
                     <!-- Password change form -->
@@ -94,7 +90,7 @@
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnConfirmEditPassword" runat="server" Text="Yes" OnClick="btnConfirmEditPassword_Click" CssClass="btn btn-primary" />
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <asp:Button ID="dtldModalClose" runat="server" Text="Close" class="btn btn-secondary" OnClick="EditModalClose_Click" />
                 </div>
             </div>
         </div>

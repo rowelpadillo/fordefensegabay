@@ -4,6 +4,7 @@
     <link href="../../../Resources/CustomStyleSheet/DeptInfo/DeptInfo.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <h1 style="text-align: center; padding: 9px; border: 2px solid #333; background-color: #f4f4f4; color: #333; border-radius: 10px;">Department Information</h1>
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -27,9 +28,6 @@
                         </li>
                         <li>
                             <div class="departmentInfoContainer row">
-                                <div class="col-4">
-                                    <h3>Department information</h3>
-                                </div>
                                 <div class="col-8">
                                     <ul>
                                         <li>
