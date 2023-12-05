@@ -76,7 +76,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             // Check if an appointment with the given email already exists
             if (IsAppointmentExists(email))
             {
-                SubmitStatusNotSubmitted.Text = "Appointment with this email already exists. (Appointment was Not Sended)";
+                SubmitStatusNotSubmitted.Text = "Appointment with this email already exists. (Appointment was not submitted)";
                 SubmitStatusNotSubmitted.CssClass = "status-not-submitted";
             }
             else
@@ -106,6 +106,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                     // Display a success message
                     SubmissionStatusSubmitted.Text = "Appointment submitted successfully.";
                     SubmissionStatusSubmitted.CssClass = "status-submitted";
+                    SubmitStatusNotSubmitted.CssClass = "status-not-submitted";
 
                     // Clear form fields
                     FullName.Text = "";

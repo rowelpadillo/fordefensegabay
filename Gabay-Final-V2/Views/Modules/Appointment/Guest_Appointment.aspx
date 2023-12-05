@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/DashBoard/Guest_Homepage/Guest_Master.Master" AutoEventWireup="true" CodeBehind="Guest_Appointment.aspx.cs" Inherits="Gabay_Final_V2.Views.Modules.Appointment.Guest_Appointment" ViewStateMode="Enabled" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <%--<script src="../../../Resources/CustomJS/Chatbot/AppointmentJS.js"></script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
@@ -88,37 +89,56 @@
                 <asp:Label ID="SubmissionStatusSubmitted" runat="server" Text="" CssClass="submission-status-Submitted" />
                 <asp:Label ID="SubmitStatusNotSubmitted" runat="server" Text="" CssClass="submit-status-NotSubmitted" />
                 <div class="form-group">
+                    <label for="FullName" class="form-label">Full Name</label>
+                    <asp:TextBox ID="FullName" runat="server" CssClass="FullName form-control text-input" placeholder="Full Name"></asp:TextBox>
+                    <div class="nameError text-danger d-none" id="nameError">
+                        <span><i class="bi bi-info-circle"></i></span>
+                        <span>Please Provide a Valid Input (Ex. Juan Dela Cruz A.)</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Email" class="form-label">Email Address</label>
+                    <asp:TextBox ID="Email" runat="server" CssClass="Email form-control text-input" placeholder="Email Address" type="email"></asp:TextBox>
+                    <div class="emailError text-danger d-none" id="emailError">
+                        <span><i class="bi bi-info-circle"></i></span>
+                        <span>Please enter a valid email</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ContactN" class="form-label">Contact Number</label>
+                    <asp:TextBox ID="ContactN" runat="server" CssClass="ContactN form-control text-input" placeholder="Contact Number" type="tel"></asp:TextBox>
+                    <div class="contactError text-danger d-none" id="contactError">
+                        <span><i class="bi bi-info-circle"></i></span>
+                        <span>Please Provide Valid Contact Number</span>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="DepartmentDropDown" class="form-label">Department</label>
-                    <asp:DropDownList ID="departmentChoices" CssClass="form-control text-input" runat="server" aria-label="Departments" AutoPostBack="True" OnSelectedIndexChanged="departmentChoices_SelectedIndexChanged">
+                    <asp:DropDownList ID="departmentChoices" CssClass="departmentChoices form-control text-input" runat="server" aria-label="Departments" AutoPostBack="True" OnSelectedIndexChanged="departmentChoices_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="">
                             Choose a Department...
                         </asp:ListItem>
                     </asp:DropDownList>
-
-                </div>
-                <div class="form-group">
-                    <label for="FullName" class="form-label">Full Name</label>
-                    <asp:TextBox ID="FullName" runat="server" CssClass="form-control text-input" placeholder="Full Name"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label for="Email" class="form-label">Email Address</label>
-                    <asp:TextBox ID="Email" runat="server" CssClass="form-control text-input" placeholder="Email Address" type="email"></asp:TextBox>
-                </div>
-                <div class="form-group">
-                    <label for="ContactN" class="form-label">Contact Number</label>
-                    <asp:TextBox ID="ContactN" runat="server" CssClass="form-control text-input" placeholder="Contact Number" type="tel"></asp:TextBox>
+                    <div class="departmentError text-danger d-none" id="departmentError">
+                        <span><i class="bi bi-info-circle"></i></span>
+                        <span>Please select a department</span>
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="row">		
                         <div class="col">
                             <label for="selectedDate" class="form-label">Date</label>
-                            <asp:TextBox ID="date" runat="server" TextMode="Date" CssClass="form-control text-input" OnTextChanged="date_TextChanged" AutoPostBack="True" Enabled="False"></asp:TextBox>
+                            <asp:TextBox ID="date" runat="server" TextMode="Date" CssClass="date form-control text-input" OnTextChanged="date_TextChanged" AutoPostBack="True" Enabled="False"></asp:TextBox>
                             <asp:HiddenField ID="SelectedDate" runat="server" />
+                            <div class="dateError text-danger d-none" id="dateError">
+                                <span><i class="bi bi-info-circle"></i></span>
+                                <span>Please select a Date</span>
+                            </div>
                         </div>
                         <asp:HiddenField ID="deptID" runat="server" />
                         <div class="col">   
                             <label for="time" class="form-label">Time</label>
-                            <asp:DropDownList ID="time" runat="server" CssClass="form-control text-input" Enabled="False">
+                            <asp:DropDownList ID="time" runat="server" CssClass="time form-control text-input" Enabled="False">
                                 <asp:ListItem Value="" Selected="True">Select Available Time</asp:ListItem>
                                 <asp:ListItem Value="8:00 AM">8:00 AM</asp:ListItem>
                                 <asp:ListItem Value="9:00 AM">9:00 AM</asp:ListItem>
@@ -129,13 +149,21 @@
                                 <asp:ListItem Value="3:00 PM">3:00 PM</asp:ListItem>
                                 <asp:ListItem Value="4:00 PM">4:00 PM</asp:ListItem>
                             </asp:DropDownList>
+                            <div class="timeError text-danger d-none" id="timeError">
+                                <span><i class="bi bi-info-circle"></i></span>
+                                <span>Please select a time</span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="Message" class="form-label">Concern</label>
-                    <asp:TextBox ID="Message" runat="server" TextMode="MultiLine" Rows="6" Columns="30" CssClass="form-control text-input" placeholder="Your Concern"></asp:TextBox>
+                    <asp:TextBox ID="Message" runat="server" TextMode="MultiLine" Rows="6" Columns="30" CssClass="Message form-control text-input" placeholder="Your Concern"></asp:TextBox>
+                    <div class="concernError text-danger d-none" id="concernError">
+                        <span><i class="bi bi-info-circle"></i></span>
+                        <span>Please state your concern</span>
+                    </div>
                 </div>
                 <br>
                 <button type="button" class="btn btn-primary btn-submit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -190,7 +218,7 @@
                     <div class="input-group">
                         <asp:TextBox ID="searchInput" runat="server" CssClass="form-control text-input" placeholder="Search by Appointment ID" />
                         <span class="input-group-btn">
-                            <asp:Button ID="searchButton" runat="server" Text="Search" CssClass="btn btn-search sky-blue-button" OnClick="SearchButton_Click" />
+                            <asp:Button ID="searchButton" runat="server" Text="Search" CssClass="btn btn-search sky-blue-button" OnClick="SearchButton_Click" UseSubmitBehavior="false" />
                         </span>
                     </div>
                 </div>
@@ -284,7 +312,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <asp:Button ID="SubmitButton" runat="server" Text="Submit Appointment" OnClick="SubmitButton_Click" ValidationGroup="FormValidation" CssClass="btn btn-primary" />
+                    <asp:Button ID="SubmitButton" runat="server" Text="Submit Appointment" OnClick="SubmitButton_Click" ValidationGroup="FormValidation" CssClass="btn btn-primary" UseSubmitBehavior="false" />
                 </div>
             </div>
         </div>

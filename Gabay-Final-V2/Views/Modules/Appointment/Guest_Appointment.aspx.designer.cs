@@ -33,15 +33,6 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         protected global::System.Web.UI.WebControls.Label SubmitStatusNotSubmitted;
 
         /// <summary>
-        /// departmentChoices control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList departmentChoices;
-
-        /// <summary>
         /// FullName control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,15 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox ContactN;
+
+        /// <summary>
+        /// departmentChoices control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList departmentChoices;
 
         /// <summary>
         /// date control.
