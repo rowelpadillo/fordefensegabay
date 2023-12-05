@@ -154,17 +154,16 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
                 // Hide the modal after delete
                 ScriptManager.RegisterStartupScript(this, GetType(), "hideModal", "$('#confirmDeleteModal').modal('hide');", true);
 
+                // Optionally, show a success message or perform other actions after delete
                 string successMessage = "User Deleted successfully.";
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
-                    $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+                ShowSuccessModal(successMessage);
             }
-            catch  (Exception ex)
+            catch (Exception ex)
             {
-                string errorMessage = "An error occurred while deleting the announcement: " + ex.Message;
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
-                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+                string errorMessage = "An error occurred while deleting the user: " + ex.Message;
+                ShowErrorModal(errorMessage);
             }
-            
+
         }
 
 
@@ -240,20 +239,32 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
 
                 // Hide the modal after password change
                 ScriptManager.RegisterStartupScript(this, GetType(), "hideEditPasswordModal", "$('#editPasswordModal').modal('hide');", true);
-                
+
+                // Optionally, show a success message or perform other actions after password change
                 string successMessage = "Password updated successfully.";
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
-                    $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+                ShowSuccessModal(successMessage);
             }
-            catch  (Exception ex)
+            catch (Exception ex)
             {
                 string errorMessage = "An error occurred while updating the password: " + ex.Message;
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
-                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+                ShowErrorModal(errorMessage);
             }
-            
+
         }
 
+        private void ShowSuccessModal(string successMessage)
+        {
+            // Show a success message
+            ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessModal",
+                $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+        }
+
+        private void ShowErrorModal(string errorMessage)
+        {
+            // Show an error message
+            ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal",
+                $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+        }
         //Generate Reports
 
         protected void btnDownloadReports_Click(object sender, EventArgs e)

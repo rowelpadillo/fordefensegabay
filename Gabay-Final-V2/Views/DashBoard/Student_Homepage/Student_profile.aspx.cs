@@ -58,7 +58,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
                 string confirmPassword = confirmPasswordTextBox.Text;
 
                 // Add logic to check if the current password is correct and if the new and confirm passwords match
-                if (CheckCurrentPassword(currentPassword) && newPassword == confirmPassword)
+                if (CheckCurrentPassword(currentPassword) && newPassword != currentPassword && newPassword == confirmPassword)
                 {
                     // Update the password in the database
                     int userId = Convert.ToInt32(Session["user_ID"]);
@@ -69,22 +69,20 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
                     newPasswordTextBox.Text = string.Empty;
                     confirmPasswordTextBox.Text = string.Empty;
 
-                    // Optionally, you can show a success message or redirect the user
+                    // Show a success message
                     ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessModal", "$('#successModal').modal('show');", true);
                 }
                 else
                 {
-                    // Optionally, show an error message or handle the case where passwords don't match or the current password is incorrect
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show');", true);
+                    // Show an error message for mismatched passwords, new password same as current password, or incorrect current password
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show').find('.modal-body').html('<span style=\"color: black;\">Password mismatch, new password should be different from the current password, or incorrect current password.</span>');", true);
                 }
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "setErrorMessageScript", $"document.querySelector('.modal-body').innerHTML = '{message}';", true);
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "openErrorModalScript", "openErrorrModal();", true);
+                // Handle other exceptions
+                ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show').find('.modal-body').html('<span style=\"color: black;\">An error occurred: " + ex.Message + "</span>');", true);
             }
-            
         }
 
         private void UpdatePasswordInDatabase(int userId, string newPassword)
@@ -158,21 +156,20 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
                     currentEmailTextBox.Text = string.Empty;
                     newEmailTextBox.Text = string.Empty;
 
-                    // Optionally, you can show a success message or redirect the user
+                    // Show a success message
                     ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessModal", "$('#successModal').modal('show');", true);
                 }
                 else
                 {
-                    // Optionally, show an error message or handle the case where the current email is incorrect
-                    ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show');", true);
+                    // Show an error message for incorrect current email
+                    ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show').find('.modal-body').html('<span style=\"color: black;\">Incorrect current email.</span>');", true);
                 }
-            } catch (Exception ex)
-            {
-                string message = ex.Message;
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "setErrorMessageScript", $"document.querySelector('.modal-body').innerHTML = '{message}';", true);
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "openErrorModalScript", "openErrorrModal();", true);
             }
-            
+            catch (Exception ex)
+            {
+                // Handle other exceptions
+                ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show').find('.modal-body').html('<span style=\"color: black;\">An error occurred: " + ex.Message + "</span>');", true);
+            }
         }
 
         private bool CheckCurrentEmail(string currentEmail)
@@ -199,7 +196,7 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
                 }
             }
 
-            // Return false if the user is not found or there is an issue with the database
+
             return false;
         }
 
@@ -216,7 +213,5 @@ namespace Gabay_Final_V2.Views.DashBoard.Student_Homepage
                 }
             }
         }
-
-
     }
 }
