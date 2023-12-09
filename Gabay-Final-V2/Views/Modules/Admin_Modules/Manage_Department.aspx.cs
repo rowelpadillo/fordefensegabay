@@ -42,7 +42,9 @@ namespace Gabay_Final_V2.Views.Modules.Admin_Modules
             {
                 DbUtility conn = new DbUtility();
 
-                conn.addDept(deptName, deptLogin, deptPass, dept_Head, dept_Desc, dept_CN, dept_Email, dept_Hour);
+                bool existUsername = false;
+
+                conn.addDept(deptName, deptLogin, deptPass, dept_Head, dept_Desc, dept_CN, dept_Email, dept_Hour, existUsername);
 
                 string message = "Department added successfully.";
                 string script = $@"<script>document.querySelector('.modal-body').innerHTML = '{message}';</script>";

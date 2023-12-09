@@ -126,6 +126,27 @@
 			</div>
 		</div>
 	</div>
+	
+	 <%-- success modal --%>
+	<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body bg-success text-center text-light">
+					<i class="bi bi-info-circle-fill"></i>
+					<span>Successfully Updated</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<%-- error modal --%>
+	<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-body bg-danger-subtle text-center text-light">
+				</div>
+			</div>
+		</div>
+	</div>
 	<%--<asp:HiddenField ID="FormSubmittedHiddenField" runat="server" Value="false" />--%>
 	<%--<script>
 		function preventNumbers(event) {

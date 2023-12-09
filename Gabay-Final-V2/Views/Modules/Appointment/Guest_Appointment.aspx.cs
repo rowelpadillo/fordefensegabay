@@ -70,56 +70,96 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            // Get the values from the form fields
-            string email = Email.Text;
-
-            // Check if an appointment with the given email already exists
-            if (IsAppointmentExists(email))
+            try
             {
-                SubmitStatusNotSubmitted.Text = "Appointment with this email already exists. (Appointment was not submitted)";
-                SubmitStatusNotSubmitted.CssClass = "status-not-submitted";
-            }
-            else
-            {
-                // The appointment doesn't exist; proceed with insertion
-                string fullName = FullName.Text;
-                string contactNumber = ContactN.Text;
-                string selectedTime = time.SelectedValue;
-                string selectedDate = date.Text;
-                string deptName = departmentChoices.SelectedItem.Text; // Get the selected department name
-                string concern = Message.Text; // Get the concern/message
-
-                // Additional data
-                string status = "pending";
-                string studentID = "guest";
-                string notificationStatus = "UNREAD";
-                string courseYear = "4";
-
-                // Insert data into the "appointment" table
-                int appointmentID = InsertAppointmentRecord(fullName, email, studentID, courseYear, contactNumber, selectedDate, selectedTime, deptName, concern, status, notificationStatus);
-
-                if (appointmentID > 0)
+                // Validate that all fields are filled
+                if (ValidateForm())
                 {
-                    // Send an email
-                    SendAppointmentConfirmationEmail(fullName, email, selectedDate, selectedTime, deptName, concern, appointmentID);
+                    string email = Email.Text;
 
-                    // Display a success message
-                    SubmissionStatusSubmitted.Text = "Appointment submitted successfully.";
-                    SubmissionStatusSubmitted.CssClass = "status-submitted";
-                    SubmitStatusNotSubmitted.CssClass = "status-not-submitted";
+                    if (IsAppointmentExists(email))
+                    {
+                        // Show an error message for empty fields
+                        ShowErrorModal("Appointment with this email already exists. (Appointment was Not Sent)");
+                    }
+                    else
+                    {
+                        string fullName = FullName.Text;
+                        string contactNumber = ContactN.Text;
+                        string selectedTime = time.SelectedValue;
+                        string selectedDate = date.Text;
+                        string deptName = departmentChoices.SelectedItem.Text;
+                        string concern = Message.Text;
+                        string status = "pending";
+                        string studentID = "guest";
+                        string notificationStatus = "UNREAD";
+                        string courseYear = "4";
 
-                    // Clear form fields
-                    FullName.Text = "";
-                    Email.Text = "";
-                    ContactN.Text = "";
-                    time.SelectedIndex = 0; // Reset the dropdown selection
-                    date.Text = "";
-                    departmentChoices.SelectedIndex = 0; // Reset the dropdown selection
-                    Message.Text = "";
+                        int appointmentID = InsertAppointmentRecord(fullName, email, studentID, courseYear, contactNumber, selectedDate, selectedTime, deptName, concern, status, notificationStatus);
+
+                        if (appointmentID > 0)
+                        {
+                            SendAppointmentConfirmationEmail(fullName, email, selectedDate, selectedTime, deptName, concern, appointmentID);
+
+
+                            // Clear form fields directly
+                            FullName.Text = "";
+                            Email.Text = "";
+                            ContactN.Text = "";
+                            time.SelectedIndex = 0;
+                            date.Text = "";
+                            departmentChoices.SelectedIndex = 0;
+                            Message.Text = "";
+
+                            // Disable time and date
+                            DisabledTimeAndDate();
+
+
+                            // Show a success message
+                            string submitEmailDialog = @"Appointment booked successfully!";
+                            ShowSuccessModal(submitEmailDialog);
+                        }
+                    }
                 }
-                DisabledTimeAndDate();
+            }
+            catch (Exception ex)
+            {
+                // Show error modal
+                ShowErrorModal(ex.Message);
             }
         }
+
+
+        private void ShowSuccessModal(string submitEmailDialog)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "showSuccessModal", "$('#successModal').modal('show').find('.modal-body').html('<span style=\"color: white;\">"+submitEmailDialog+"</span>');", true);
+        }
+
+        private void ShowErrorModal(string errorMessage)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", $"$('#errorModal').modal('show').find('.modal-body').html('<span style=\"color: white;\">{errorMessage}</span>');", true);
+        }
+
+
+        private bool ValidateForm()
+        {
+            if (string.IsNullOrEmpty(FullName.Text) ||
+                string.IsNullOrEmpty(Email.Text) ||
+                string.IsNullOrEmpty(ContactN.Text) ||
+                string.IsNullOrEmpty(date.Text) ||
+                string.IsNullOrEmpty(time.SelectedValue) ||
+                string.IsNullOrEmpty(departmentChoices.SelectedValue) ||
+                string.IsNullOrEmpty(Message.Text))
+            {
+                // Show an error message for empty fields
+                ScriptManager.RegisterStartupScript(this, GetType(), "showErrorModal", "$('#errorModal').modal('show').find('.modal-body').html('<span style=\"color: black;\">Please fill in all fields.</span>');", true);
+
+                return false;
+            }
+
+            return true;
+        }
+
 
         private int InsertAppointmentRecord(string fullName, string email, string studentID, string courseYear, string contactNumber, string selectedDate, string selectedTime, string deptName, string concern, string status, string notificationStatus)
         {
@@ -150,49 +190,73 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
 
         private void SendAppointmentConfirmationEmail(string fullName, string email, string selectedDate, string selectedTime, string deptName, string concern, int appointmentID)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("UC Gabay", "noReply@noReply.com"));
-            message.To.Add(new MailboxAddress("Recipient", email));
-            message.Subject = "Appointment Details";
-
-            var builder = new BodyBuilder();
-
-            builder.HtmlBody = $@"
-        <div style='text-align: center;margin-bottom: 10px;'>
-            <div>
-                <img src='cid:logo-image' style='width: 100px; height: auto; margin-right: 5px; display: block; margin: 0 auto;'>
-            </div>
-            <div style='letter-spacing: 3px; color: #003366; font-weight: 600;'>
-                GABAY
-            </div>
-        </div>";
-
-            // Add additional appointment details
-            builder.HtmlBody += $@"<div style='text-align: center;'><h1>You have successfully booked an appointment</h1></div>
-                        <div style='text-align: center;'>
-                        <p>Our team is currently verifying the availability of the chosen time and date.</p>
-                        <p>Please stay connected with your email for additional updates regarding your appointment schedule.</p>
-                        <p>Hello!<b> {fullName}</b>, your appointment is set. Please see the details below:</p>
-                        <p><b>Appointment ID:</b> {appointmentID}</p>
-                        <p><b>Appointment Date:</b> {selectedDate}</p>
-                        <p><b>Appointment Time:</b> {selectedTime}</p>
-                        <p><b>Department:</b> {deptName}</p>
-                        <p><b>Concern:</b> {concern}</p>
-                        </div>";
-
-            var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
-            logoImage.ContentId = "logo-image";
-            logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
-
-            message.Body = builder.ToMessageBody();
-
-            // Send the email using MailKit
-            using (var client = new SmtpClient())
+            try
             {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate(ConfigurationManager.AppSettings["SystemEmail"], ConfigurationManager.AppSettings["SystemEmailPass"]);
-                client.Send(message);
-                client.Disconnect(true);
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("UC Gabay", "noReply@noReply.com"));
+                message.To.Add(new MailboxAddress("Recipient", email));
+                message.Subject = "Appointment Details";
+
+                var builder = new BodyBuilder();
+
+                builder.HtmlBody = $@"
+    <div style='text-align: center;margin-bottom: 10px;'>
+        <div>
+            <img src='cid:logo-image' style='width: 100px; height: auto; margin-right: 5px; display: block; margin: 0 auto;'>
+        </div>
+        <div style='letter-spacing: 3px; color: #003366; font-weight: 600;'>
+            GABAY
+        </div>
+    </div>";
+
+                // Add additional appointment details
+                builder.HtmlBody += $@"<div style='text-align: center;'><h1>You have successfully booked an appointment</h1></div>
+                    <div style='text-align: center;'>
+                    <p>Our team is currently verifying the availability of the chosen time and date.</p>
+                    <p>Please stay connected with your email for additional updates regarding your appointment schedule.</p>
+                    <p>Hello!<b> {fullName}</b>, your appointment is set. Please see the details below:</p>
+                    <p><b>Appointment ID:</b> {appointmentID}</p>
+                    <p><b>Appointment Date:</b> {selectedDate}</p>
+                    <p><b>Appointment Time:</b> {selectedTime}</p>
+                    <p><b>Department:</b> {deptName}</p>
+                    <p><b>Concern:</b> {concern}</p>
+                    </div>";
+
+                var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+                logoImage.ContentId = "logo-image";
+                logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
+
+                message.Body = builder.ToMessageBody();
+
+                // Send the email using MailKit
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate(ConfigurationManager.AppSettings["SystemEmail"], ConfigurationManager.AppSettings["SystemEmailPass"]);
+                    client.Send(message);
+                    client.Disconnect(true);
+
+                    string submitEmailDialog = @"Appointment booked successfully!";
+                    // Show a success message after sending the email
+                    ShowSuccessModal(submitEmailDialog);
+
+                    // Clear form fields directly
+                    FullName.Text = "";
+                    Email.Text = "";
+                    ContactN.Text = "";
+                    time.SelectedIndex = 0;
+                    date.Text = "";
+                    departmentChoices.SelectedIndex = 0;
+                    Message.Text = "";
+
+                    // Disable time and date
+                    DisabledTimeAndDate();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Show error modal
+                ShowErrorModal(ex.Message);
             }
         }
 

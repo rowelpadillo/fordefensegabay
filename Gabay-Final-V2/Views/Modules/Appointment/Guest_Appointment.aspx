@@ -86,8 +86,8 @@
         <div class="row">
             <div class="col-md-6">
                 <h2 class="form-heading">Appointment Form</h2>
-                <asp:Label ID="SubmissionStatusSubmitted" runat="server" Text="" CssClass="submission-status-Submitted" />
-                <asp:Label ID="SubmitStatusNotSubmitted" runat="server" Text="" CssClass="submit-status-NotSubmitted" />
+                <%--  <asp:Label ID="SubmissionStatusSubmitted" runat="server" Text="" CssClass="submission-status-Submitted" />
+                <asp:Label ID="SubmitStatusNotSubmitted" runat="server" Text="" CssClass="submit-status-NotSubmitted" />--%>
                 <div class="form-group">
                     <label for="FullName" class="form-label">Full Name</label>
                     <asp:TextBox ID="FullName" runat="server" CssClass="FullName form-control text-input" placeholder="Full Name"></asp:TextBox>
@@ -317,8 +317,7 @@
             </div>
         </div>
     </div>
-
-    <%-- Success modal --%>
+     <%-- Success modal --%>
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -329,6 +328,7 @@
             </div>
         </div>
     </div>
+
     <%-- Error modal --%>
     <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -338,9 +338,9 @@
                     <p id="errorMessage"></p>
                 </div>
             </div>
-        </div>
+        </div>ss
     </div>
-    <asp:HiddenField ID="FormSubmittedHiddenField" runat="server" Value="false" />
+    <%--<asp:HiddenField ID="FormSubmittedHiddenField" runat="server" Value="false" />
      <script>
          function getAppointmentID(id) {
              document.getElementById('<%= HiddenField1.ClientID %>').value = id;
@@ -439,5 +439,7 @@
 
         // Call setMaxDate on page load
         window.onload = setMaxDate;
-    </script>
+    </script>--%>
+ 
+
 </asp:Content>
