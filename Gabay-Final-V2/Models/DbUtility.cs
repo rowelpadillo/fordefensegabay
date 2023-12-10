@@ -282,7 +282,7 @@ namespace Gabay_Final_V2.Models
 
 					if (existDept > 0)
 					{
-						existUsername = true;
+						throw new Exception("Department with the same login ID already exists.");
 					}
 				}
 
@@ -293,7 +293,7 @@ namespace Gabay_Final_V2.Models
 
 					if (existUser > 0)
 					{
-						existUsername = true;
+						throw new Exception("User with the same login ID already exists.");
 					}
 				}
 

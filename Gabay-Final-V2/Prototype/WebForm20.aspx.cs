@@ -19,7 +19,11 @@ namespace Gabay_Final_V2.Prototype
         string greetingMessage1 = @"Hello! to assist you better, 
                    please choose an option in the menu or if you can't find what are you looking for,
                    just type your concern in a few words.";
-        string greetingMessage = @"<div class='container-slider'>
+        string greetingMessage = @"<div class='menuWrapper' >
+                                                       <div class='selectDialog'>
+                                                            Please select your choices below:
+                                                       </div>
+                                                       <div class='container-slider'>
                                                        <button id='prevButton' type='button' class='btn buttons d-flex justify-content-center align-items-center'>
                                                            <i class='bi bi-chevron-compact-left'></i>
                                                        </button>
@@ -74,8 +78,9 @@ namespace Gabay_Final_V2.Prototype
                                                        <button id='nextButton' type='button' class='btn buttons d-flex justify-content-center align-items-center'>
                                                            <i class='bi bi-chevron-compact-right'></i>
                                                        </button>
+                                                    </div>
                                                    </div>";
-        string buttonsSelectionDialog = "Please Select your choices below:";
+        //string buttonsSelectionDialog = "Please Select your choices below:";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -83,7 +88,7 @@ namespace Gabay_Final_V2.Prototype
                 ViewState["countUnAnswered"] = 0;
                
                 AddBotMessage(greetingMessage1);
-                AddBotMessage(buttonsSelectionDialog);
+                //AddBotMessage(buttonsSelectionDialog);
                 AddBotMessageMenu(greetingMessage);
 
             }
@@ -212,8 +217,6 @@ namespace Gabay_Final_V2.Prototype
                         bestScript = referToAppointment;
                         countUnAnswered = 0;
                         
-                        AddBotMessage(buttonsSelectionDialog);
-                        AddBotMessageMenu(greetingMessage);
 
                         RegisterScripts();
                     }

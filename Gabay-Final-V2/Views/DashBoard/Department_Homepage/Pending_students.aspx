@@ -15,6 +15,9 @@
     <h1>Manage Student Account</h1>
     <div class="container-fluid mb-1">
         <div class="row">
+            <div class=" position-absolute">
+
+            </div>
             <div class="col-lg-10 col-md-12">
                 <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control float-end mb-3" placeholder="Search student..." OnTextChanged="txtSearch_TextChanged"></asp:TextBox>
             </div>

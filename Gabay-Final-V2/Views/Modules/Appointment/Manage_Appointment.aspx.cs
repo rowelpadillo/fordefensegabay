@@ -1100,7 +1100,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             if (Session["user_ID"] != null)
             {
                 int user_ID = Convert.ToInt32(Session["user_ID"]);
-                DataTable dt = SearchAnnouncement(SearchKeyword, user_ID);
+                DataTable dt = SearchAppointment(SearchKeyword, user_ID);
 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -1118,7 +1118,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             }
         }
 
-        public DataTable SearchAnnouncement(string SearchKeyword, int user_ID)
+        public DataTable SearchAppointment(string SearchKeyword, int user_ID)
         {
 
             DataTable dt = new DataTable();
@@ -1128,14 +1128,19 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                                             FROM appointment a
                                             LEFT JOIN users_table u ON a.student_ID = u.login_ID
                                             LEFT JOIN user_role ur ON u.role_ID = ur.role_id
-                                            WHERE a.ID_appointment LIKE '%' + @SearchKeyword + '%' AND user_ID = @user_ID";
+                                            WHERE (a.deptName = (SELECT dept_name FROM department WHERE user_ID = @departmentUserID)
+                                            OR a.student_ID = 'guest')
+                                            AND (a.student_ID <> 'guest' OR a.deptName = (SELECT dept_name FROM department WHERE user_ID = @departmentUserID))
+                                            AND (a.appointment_status = 'pending' OR a.appointment_status = 'reschedule' OR a.appointment_status = 'approved')
+                                            AND ID_appointment LIKE '%' + @SearchKeyword + '%'
+                                            OR appointment_status LIKE '%' + @SearchKeyword + '%'";
 
                 conn.Open();
 
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@SearchKeyword", SearchKeyword);
-                    cmd.Parameters.AddWithValue("@SearchKeyword", SearchKeyword);
+                    cmd.Parameters.AddWithValue("@departmentUserID", user_ID);
 
                     using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                     {
@@ -1145,5 +1150,25 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             }
             return dt;
         }
+
+        protected void displayPending_Click(object sender, EventArgs e)
+        {
+            string appointmentStatus = "pending";
+            BindDataTable(appointmentStatus);
+        }
+
+        protected void displayActive_Click(object sender, EventArgs e)
+        {
+            string appointmentStatus = "reschedule";
+            BindDataTable(appointmentStatus);
+        }
+
+        protected void displayDeactivated_Click(object sender, EventArgs e)
+        {
+            string appointmentStatus = "approved";
+            BindDataTable(appointmentStatus);
+        }
+
+        
     }
 }
