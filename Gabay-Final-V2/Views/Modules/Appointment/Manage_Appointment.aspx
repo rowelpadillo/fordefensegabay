@@ -1,5 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/DashBoard/Department_Homepage/Department_Master.Master" AutoEventWireup="true" CodeBehind="Manage_Appointment.aspx.cs" Inherits="Gabay_Final_V2.Views.Modules.Appointment.Manage_Appointment" %>
+﻿<%@ Page Title="Manage Appointment" Language="C#" MasterPageFile="~/Views/DashBoard/Department_Homepage/Department_Master.Master" AutoEventWireup="true" CodeBehind="Manage_Appointment.aspx.cs" Inherits="Gabay_Final_V2.Views.Modules.Appointment.Manage_Appointment" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+   <%-- <script src="../../../Resources/CustomJS/Appointment/AppointmentValidation.js"></script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">.
     <script src="../Resources/CustomJS/jquery-3.5.1.slim.min.js"></script>
@@ -70,7 +71,8 @@
                             <asp:ListItem Text="Excel" Value="Excel"></asp:ListItem>
                             <asp:ListItem Text="PDF" Value="PDF"></asp:ListItem>
                         </asp:DropDownList>
-                        <asp:Button ID="btnDownloadReports" runat="server" Text="Generate Reports" OnClick="btnDownloadReports_Click" CssClass="btn btn-success" />
+                        <%--<asp:Button ID="btnDownloadReports" runat="server" Text="Generate Reports" OnClick="btnDownloadReports_Click" CssClass="btn btn-success" />--%>
+                        <asp:LinkButton ID="btnDownloadReports" runat="server"  OnClick="btnDownloadReports_Click" CssClass="btn btn-success">Generate Reports</asp:LinkButton>
                     </div>
                 </div>
             <div class="mt-2"></div>
@@ -85,7 +87,8 @@
                             <asp:BoundField DataField="appointment_status" HeaderText="Status" />
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="ViewConcernModal" runat="server" Text="View Content" CssClass="btn bg-primary text-light" OnClick="ViewConcernModal_Click" OnClientClick='<%# "return getAppointmentID(" + Eval("ID_appointment") + ");" %>' />
+                                   <%-- <asp:Button ID="ViewConcernModal" runat="server" Text="View Content" CssClass="btn bg-primary text-light" OnClick="ViewConcernModal_Click" OnClientClick='<%# "return getAppointmentID(" + Eval("ID_appointment") + ");" %>' />--%>
+                                    <asp:LinkButton ID="ViewConcernModal" runat="server" CssClass="btn bg-primary text-light" OnClick="ViewConcernModal_Click" OnClientClick='<%# "return getAppointmentID(" + Eval("ID_appointment") + ");" %>'>View Content</asp:LinkButton>
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -103,7 +106,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5">Appointment Content</h1>
-                        <asp:Button ID="CloseViewModal" runat="server" CssClass="btn-close" OnClick="CloseViewModal_Click"/>
+                        <%--<asp:Button ID="CloseViewModal" runat="server" CssClass="btn-close" OnClick="CloseViewModal_Click"/>--%>
+                        <asp:LinkButton ID="CloseViewModal" runat="server" OnClick="CloseViewModal_Click"><i class="bi bi-x-lg"></i></asp:LinkButton>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
@@ -237,7 +241,11 @@
                             <div class="row">
                                 <div class="col-12">
                                     <span class="fs-5">Reason for rejecting</span>
-                                    <asp:TextBox ID="rejectReason" CssClass="form-control" runat="server" style="height: 100px" TextMode="MultiLine"></asp:TextBox>
+                                    <asp:TextBox ID="rejectReason" CssClass="rejectReason form-control" runat="server" style="height: 100px" TextMode="MultiLine"></asp:TextBox>
+                                     <div class="ErrorReject text-danger d-none" id="ErrorReject">
+                                        <span><i class="bi bi-info-circle"></i></span>
+                                        <span>Please provide a reason for rejecting the appointment</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

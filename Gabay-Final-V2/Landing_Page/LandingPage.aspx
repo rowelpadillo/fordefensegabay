@@ -285,7 +285,7 @@ Let us always remember that in this journey called life, we are each other's gre
 
           <div class="col-lg-5" data-aos="zoom-in" data-aos-delay="100">
             <div class="member d-flex align-items-start">
-              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/luab.jpg" />  </div>
+              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/luab.jpg" class="img-fluid" />  </div>
               <div class="member-info">
                 <h4>Kerr John Luab</h4>
                 <span>Tester</span>
@@ -301,7 +301,7 @@ Let us always remember that in this journey called life, we are each other's gre
 
           <div class="col-lg-5 mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="200">
             <div class="member d-flex align-items-start">
-              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Jeremiah.jpg" /> </div>
+              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Jeremiah.jpg" class="img-fluid" /> </div>
               <div class="member-info">
                 <h4>Jeremiah James Rodrigez</h4>
                 <span>Hustler</span>
@@ -316,7 +316,7 @@ Let us always remember that in this journey called life, we are each other's gre
 
           <div class="col-lg-5 mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="member d-flex align-items-start">
-              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/rowel.png" /> </div>
+              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/rowel.png"  class="img-fluid" /> </div>
               <div class="member-info">
                 <h4>Rowel Padillo</h4>
                 <span>Project manager</span>
@@ -332,7 +332,7 @@ Let us always remember that in this journey called life, we are each other's gre
 
                    <div class="col-lg-5 mt-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="member d-flex align-items-start">
-              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Kent%20(2).jpg" /> </div>
+              <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Kent%20(2).jpg"  class="img-fluid" /> </div>
               <div class="member-info">
                 <h4>Kent Gerald Quiros</h4>
                 <span>Hustler</span>
@@ -347,7 +347,7 @@ Let us always remember that in this journey called life, we are each other's gre
 
             <div class="col-lg-5 mt-4" data-aos="zoom-in" data-aos-delay="500">
               <div class="member d-flex align-items-start">
-                <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Arnan.jpg" /> </div>
+                <div class="pic"> <img src="../Resources/Images/tempIcons/teamPics/Arnan.jpg"  class="img-fluid" /> </div>
                 <div class="member-info">
                   <h4>Johndel E. Arnan</h4>
                   <span>Hipster</span>

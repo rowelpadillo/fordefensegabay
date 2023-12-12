@@ -571,11 +571,33 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         {
             int AppointmentID = Convert.ToInt32(HiddenFieldAppointment.Value);
             string Rejectreason = rejectReason.Text;
-            rejectAppointment(AppointmentID, Rejectreason);
-            BindingAppointment();
-            string successMessage = "Appointment updated to rejected";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
-                $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+
+            try
+            {
+                if (string.IsNullOrEmpty(Rejectreason))
+                {
+                    // Display an error message for incomplete form
+                    string errorMessage = "Please fill out all fields.";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                        $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+                    return; // Stop further processing if the form is incomplete
+                }
+                else
+                {
+                    rejectAppointment(AppointmentID, Rejectreason);
+                    BindingAppointment();
+                    string successMessage = "Appointment updated to rejected";
+                    Page.ClientScript.RegisterStartupScript(this.GetType(), "showSuccessModal",
+                        $"$('#successMessage').text('{successMessage}'); $('#successModal').modal('show');", true);
+                }
+            }catch (Exception ex)
+            {
+                string errorMessage = ex.Message;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "showErrorModal",
+                    $"$('#errorMessage').text('{errorMessage}'); $('#errorModal').modal('show');", true);
+                return; // Stop further processing if the form is incomplete
+            }
+           
         }
 
         public void rejectAppointment(int AppointmentID, string rejectReason)

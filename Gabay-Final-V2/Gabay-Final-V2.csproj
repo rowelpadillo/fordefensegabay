@@ -157,6 +157,7 @@
     <Content Include="Prototype\ManageStudent.aspx" />
     <Content Include="Prototype\WebForm20.aspx" />
     <Content Include="Prototype\WebForm21.aspx" />
+    <Content Include="Prototype\WebForm22.aspx" />
     <Content Include="Prototype\WebForm4.aspx" />
     <Content Include="Prototype\WebForm5.aspx" />
     <Content Include="Prototype\WebForm6.aspx" />
@@ -164,6 +165,7 @@
     <Content Include="Prototype\WebForm8.aspx" />
     <Content Include="Prototype\WebForm9.aspx" />
     <Content Include="Resources\CustomJS\AcadCalendar\AcadCalendarJS.js" />
+    <Content Include="Resources\CustomJS\Appointment\AppointmentValidation.js" />
     <Content Include="Resources\CustomJS\bootstrap-icons.css" />
     <Content Include="Resources\CustomJS\bootstrap.min.js" />
     <Content Include="Resources\CustomJS\Chatbot\AppointmentJS.js" />
@@ -2506,6 +2508,13 @@
     </Compile>
     <Compile Include="Prototype\WebForm21.aspx.designer.cs">
       <DependentUpon>WebForm21.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Prototype\WebForm22.aspx.cs">
+      <DependentUpon>WebForm22.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Prototype\WebForm22.aspx.designer.cs">
+      <DependentUpon>WebForm22.aspx</DependentUpon>
     </Compile>
     <Compile Include="Prototype\WebForm4.aspx.cs">
       <DependentUpon>WebForm4.aspx</DependentUpon>

@@ -76,7 +76,7 @@
                             <label for="DtlDescBx">Detailed Description</label>
                         </div>
                         <div class="mb-3">
-                            <asp:FileUpload ID="Imgbx" CssClass="form-control" runat="server" />
+                            <asp:FileUpload ID="Imgbx" CssClass="form-control"  runat="server" accept=".jpg, .png, .jpeg" />
                         </div>
                         <div class=" d-grid ">
                             <asp:Button ID="updtAnnouncement" CssClass="btn bg-primary" runat="server" Text="Update Announcement" OnClick="updtAnnouncement_Click" />
@@ -103,7 +103,7 @@
                         <label for="Datebx">Date</label>
                     </div>
                     <div class="mb-3">
-                        <asp:FileUpload ID="addFilebx" CssClass="form-control" runat="server" />
+                        <asp:FileUpload ID="addFilebx" CssClass="form-control" runat="server" accept=".jpg, .png, .jpeg" />
                     </div>
                     <div class="form-floating mb-3">
                         <asp:TextBox ID="addShrtbx" CssClass="form-control" runat="server" placeholder="Short Description"></asp:TextBox>

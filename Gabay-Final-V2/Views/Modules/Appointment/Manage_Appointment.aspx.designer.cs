@@ -66,7 +66,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDownloadReports;
+        protected global::System.Web.UI.WebControls.LinkButton btnDownloadReports;
 
         /// <summary>
         /// AppointmentView control.
@@ -93,7 +93,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CloseViewModal;
+        protected global::System.Web.UI.WebControls.LinkButton CloseViewModal;
 
         /// <summary>
         /// appointmentName control.
