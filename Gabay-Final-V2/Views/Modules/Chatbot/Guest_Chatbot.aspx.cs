@@ -199,6 +199,7 @@ namespace Gabay_Final_V2.Views.Modules.Chatbot
                 {
                     AddBotMessage(botInfo);
                     AddBotMessage(botInfo1);
+                    AddBotMessageMenu(greetingMessage);
 
                 }
                 else

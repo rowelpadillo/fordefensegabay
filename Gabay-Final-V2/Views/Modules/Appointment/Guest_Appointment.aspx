@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/DashBoard/Guest_Homepage/Guest_Master.Master" AutoEventWireup="true" CodeBehind="Guest_Appointment.aspx.cs" Inherits="Gabay_Final_V2.Views.Modules.Appointment.Guest_Appointment" ViewStateMode="Enabled" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <%--<script src="../../../Resources/CustomJS/Chatbot/AppointmentJS.js"></script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <style>
+ <style>
         /* Custom CSS for the form */
         .form-wrapper {
             border-radius: 10px;
@@ -81,38 +82,30 @@
         width: 160px;
     }
     </style>
+   <%--  <script>
+         document.addEventListener("DOMContentLoaded", function () {
+             const fullNameInput = document.getElementById("<%= FullName.ClientID %>");
+            const contactNumberInput = document.getElementById("<%= ContactN.ClientID %>");
 
+            fullNameInput.addEventListener("input", function () {
+                // Allow only letters, spaces, and a dot after a space
+                this.value = this.value.replace(/[^A-Za-z\s.]+/g, '');
+            });
+
+            contactNumberInput.addEventListener("input", function () {
+                // Allow only numbers
+                this.value = this.value.replace(/\D/g, '');
+            });
+        });
+
+     </script>--%>
     <div class="form-wrapper">
         <div class="row">
             <div class="col-md-6">
                 <h2 class="form-heading">Appointment Form</h2>
                 <%--  <asp:Label ID="SubmissionStatusSubmitted" runat="server" Text="" CssClass="submission-status-Submitted" />
                 <asp:Label ID="SubmitStatusNotSubmitted" runat="server" Text="" CssClass="submit-status-NotSubmitted" />--%>
-                <div class="form-group">
-                    <label for="FullName" class="form-label">Full Name</label>
-                    <asp:TextBox ID="FullName" runat="server" CssClass="FullName form-control text-input" placeholder="Full Name"></asp:TextBox>
-                    <div class="nameError text-danger d-none" id="nameError">
-                        <span><i class="bi bi-info-circle"></i></span>
-                        <span>Please Provide a Valid Input (Ex. Juan Dela Cruz A.)</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Email" class="form-label">Email Address</label>
-                    <asp:TextBox ID="Email" runat="server" CssClass="Email form-control text-input" placeholder="Email Address" type="email"></asp:TextBox>
-                    <div class="emailError text-danger d-none" id="emailError">
-                        <span><i class="bi bi-info-circle"></i></span>
-                        <span>Please enter a valid email</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="ContactN" class="form-label">Contact Number</label>
-                    <asp:TextBox ID="ContactN" runat="server" CssClass="ContactN form-control text-input" placeholder="Contact Number" type="tel"></asp:TextBox>
-                    <div class="contactError text-danger d-none" id="contactError">
-                        <span><i class="bi bi-info-circle"></i></span>
-                        <span>Please Provide Valid Contact Number</span>
-                    </div>
-                </div>
-                <div class="form-group">
+                                <div class="form-group">
                     <label for="DepartmentDropDown" class="form-label">Department</label>
                     <asp:DropDownList ID="departmentChoices" CssClass="departmentChoices form-control text-input" runat="server" aria-label="Departments" AutoPostBack="True" OnSelectedIndexChanged="departmentChoices_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="">
@@ -124,7 +117,7 @@
                         <span>Please select a department</span>
                     </div>
                 </div>
-                <div class="form-group">
+                                <div class="form-group">
                     <div class="row">		
                         <div class="col">
                             <label for="selectedDate" class="form-label">Date</label>
@@ -156,6 +149,32 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="FullName" class="form-label">Full Name</label>
+                    <asp:TextBox ID="FullName" runat="server" CssClass="FullName form-control text-input" placeholder="Full Name"></asp:TextBox>
+                    <div class="nameError text-danger d-none" id="nameError">
+                        <span><i class="bi bi-info-circle"></i></span>
+                        <span>Please Provide a Valid Input (Ex. Juan Dela Cruz A.)</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Email" class="form-label">Email Address</label>
+                    <asp:TextBox ID="Email" runat="server" CssClass="Email form-control text-input" placeholder="Email Address" type="email"></asp:TextBox>
+                    <div class="emailError text-danger d-none" id="emailError">
+                        <span><i class="bi bi-info-circle"></i></span>
+                        <span>Please enter a valid email</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ContactN" class="form-label">Contact Number</label>
+                    <asp:TextBox ID="ContactN" runat="server" CssClass="ContactN form-control text-input" placeholder="Contact Number" type="tel"></asp:TextBox>
+                    <div class="contactError text-danger d-none" id="contactError">
+                        <span><i class="bi bi-info-circle"></i></span>
+                        <span>Please Provide Valid Contact Number</span>
+                    </div>
+                </div>
+
+
 
                 <div class="form-group">
                     <label for="Message" class="form-label">Concern</label>
@@ -376,8 +395,8 @@
         for (var i = 0; i < inputFields.length; i++) {
             inputFields[i].addEventListener("input", checkFormFields);
         }
-    </script>
-    <script>
+  </script>--%>
+  <%--  <script>
         function checkField(fieldName, pattern) {
             const input = document.getElementById(fieldName);
             const isValid = pattern.test(input.value);
@@ -391,19 +410,6 @@
             }
         }
 
-        // Function to set the maximum date to 3 days from today
-        function setMaxDate() {
-            const today = new Date();
-            today.setDate(today.getDate() + 3);
-
-            const dd = String(today.getDate()).padStart(2, "0");
-            const mm = String(today.getMonth() + 1).padStart(2, "0");
-            const yyyy = today.getFullYear();
-
-            const maxDate = yyyy + "-" + mm + "-" + dd;
-            document.getElementById("date").setAttribute("max", maxDate);
-        }
-
         // Add event listeners to input fields
         const fullNameInput = document.getElementById("<%= FullName.ClientID %>");
         const emailInput = document.getElementById("<%= Email.ClientID %>");
@@ -413,8 +419,25 @@
         const departmentInput = document.getElementById("<%= departmentChoices.ClientID %>");
         const messageInput = document.getElementById("<%= Message.ClientID %>");
 
-        fullNameInput.addEventListener("input", () => checkField("<%= FullName.ClientID %>", /^[A-Za-z\s]+$/));
-        emailInput.addEventListener("input", () => checkField("<%= Email.ClientID %>", /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/));
+        fullNameInput.addEventListener("input", () => {
+            if (checkField("<%= FullName.ClientID %>", /^[A-Za-z\s]+$/)) {
+                nameError.classList.remove("d-none");
+            } else {
+
+                nameError.classList.add("d-none");
+            }
+
+        });
+
+        emailInput.addEventListener("input", () => {
+            if (checkField("<%= Email.ClientID %>", /^[^ ]+@[^ ]+\.[a-z]{2,3}$/)) {
+                emailError.classList.remove("d-none");
+            } else {
+                emailError.classList.add("d-none");
+            }
+        });
+
+
         contactNumberInput.addEventListener("input", () => checkField("<%= ContactN.ClientID %>", /^\d*$/));
         timeInput.addEventListener("input", () => {
             timeInput.classList.remove("invalid");
@@ -436,10 +459,99 @@
             messageInput.classList.remove("invalid");
             messageInput.classList.add("valid");
         });
-
-        // Call setMaxDate on page load
-        window.onload = setMaxDate;
+         
     </script>--%>
- 
+ <script>
+     document.addEventListener("DOMContentLoaded", function () {
+         const fullNameInput = document.getElementById("<%= FullName.ClientID %>");
+        const emailInput = document.getElementById("<%= Email.ClientID %>");
+        const contactNumberInput = document.getElementById("<%= ContactN.ClientID %>");
+        const timeInput = document.getElementById("<%= time.ClientID %>");
+        const dateInput = document.getElementById("<%= date.ClientID %>");
+        const departmentInput = document.getElementById("<%= departmentChoices.ClientID %>");
+        const messageInput = document.getElementById("<%= Message.ClientID %>");
+
+        const nameError = document.getElementById("nameError");
+        const emailError = document.getElementById("emailError");
+        const contactError = document.getElementById("contactError");
+        const timeError = document.getElementById("timeError");
+        const dateError = document.getElementById("dateError");
+        const departmentError = document.getElementById("departmentError");
+        const messageError = document.getElementById("concernError");
+
+        function checkField(input, error, pattern) {
+            const isValid = pattern.test(input.value);
+
+            if (!isValid) {
+                input.classList.remove("valid");
+                input.classList.add("invalid");
+                error.classList.remove("d-none");
+            } else {
+                input.classList.remove("invalid");
+                input.classList.add("valid");
+                error.classList.add("d-none");
+            }
+        }
+
+        fullNameInput.addEventListener("input", () => {
+            checkField(fullNameInput, nameError, /^[A-Za-z\s.]+$/);
+        });
+
+        emailInput.addEventListener("input", () => {
+            checkField(emailInput, emailError, /^[^ ]+@[^ ]+\.[a-z]{2,3}$/);
+        });
+
+        contactNumberInput.addEventListener("input", () => {
+            checkField(contactNumberInput, contactError, /^\d*$/);
+        });
+
+        timeInput.addEventListener("input", () => {
+            timeInput.classList.remove("invalid");
+            timeInput.classList.add("valid");
+            timeError.classList.add("d-none");
+        });
+
+        dateInput.addEventListener("input", () => {
+            dateInput.classList.remove("invalid");
+            dateInput.classList.add("valid");
+            dateError.classList.add("d-none");
+        });
+
+        departmentInput.addEventListener("change", () => {
+            departmentInput.classList.remove("invalid");
+            departmentInput.classList.add("valid");
+            departmentError.classList.add("d-none");
+        });
+
+        messageInput.addEventListener("input", () => {
+            messageInput.classList.remove("invalid");
+            messageInput.classList.add("valid");
+            messageError.classList.add("d-none");
+        });
+
+        // Additional validation logic if needed...
+
+        // Event listener for the "Proceed" button
+        const proceedButton = document.querySelector(".btn-submit");
+        proceedButton.addEventListener("click", function () {
+            // Check all fields before proceeding
+            if (fullNameInput.classList.contains("valid") &&
+                emailInput.classList.contains("valid") &&
+                contactNumberInput.classList.contains("valid") &&
+                timeInput.classList.contains("valid") &&
+                dateInput.classList.contains("valid") &&
+                departmentInput.classList.contains("valid") &&
+                messageInput.classList.contains("valid")) {
+                // All fields are valid, you can proceed with your logic here
+                // For example, show the modal or submit the form
+                $('#staticBackdrop').modal('show');
+            } else {
+                // Some fields are invalid, you can display an error message or handle it accordingly
+                console.log("Please fill in all required fields correctly.");
+            }
+        });
+    });
+ </script>
+
 
 </asp:Content>

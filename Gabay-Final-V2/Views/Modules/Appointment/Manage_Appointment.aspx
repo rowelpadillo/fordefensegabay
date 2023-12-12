@@ -61,6 +61,12 @@
                             <li>
                                 <asp:LinkButton ID="displayDeactivated" CssClass="dropdown-item" runat="server" OnClick="displayDeactivated_Click">Approved</asp:LinkButton>
                             </li>
+                            <li>
+                                <asp:LinkButton ID="displayServed" CssClass="dropdown-item" runat="server" OnClick="displayDeactivated_Click">Approved</asp:LinkButton>
+                            </li>
+                            <li>
+                                <asp:LinkButton ID="displayReject" CssClass="dropdown-item" runat="server" OnClick="displayDeactivated_Click">Approved</asp:LinkButton>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -214,6 +220,12 @@
                                     <div class="form-floating">
                                         <asp:TextBox ID="newdate" CssClass="form-control" runat="server" TextMode="Date"></asp:TextBox>
                                         <label for="newdate">Available Date</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <asp:TextBox ID="ReschedReason" CssClass="form-control" runat="server" TextMode="MultiLine" style="height:80px;"></asp:TextBox>
+                                        <label for="ReschedReason">Reason for reschedule</label>
                                     </div>
                                 </div>
                                 <div class="col-12 d-grid">

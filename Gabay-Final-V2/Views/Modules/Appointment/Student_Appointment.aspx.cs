@@ -148,6 +148,16 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
             return true;
         }
 
+        protected void ViewHistoryButton_Click(object sender, EventArgs e)
+        {
+            if (Session["user_ID"] != null)
+            {
+                int userID = Convert.ToInt32(Session["user_ID"]);
+                Response.Redirect($"AppointmentHistory.aspx?userID={userID}");
+            }
+        }
+
+
         public void SaveAppointmentDetails(string fullname, string email, string ConNum,
             string StudIdNum, string CourseYear, string DepartmentName, string SchedDate,
             string SchedTime, string Concern)

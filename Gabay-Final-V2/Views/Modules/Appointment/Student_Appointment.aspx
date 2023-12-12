@@ -35,8 +35,22 @@
 	  max-height: 150px; /* Set a maximum height */
 	  overflow-y: auto; /* Add a scrollbar when necessary */
 	}
-  </style>
+	.custom-button {
+			background-color: darkblue; 
+			color: #fff;
+			padding: 10px 20px; 
+			border: none; 
+			border-radius: 5px;
+			cursor: pointer; 
+			margin-top: 20px;
+			float: right;
+		}
 
+		.custom-button:hover {
+			 background-color: #007bff; 
+		}
+  </style>
+	<asp:Button ID="ViewHistoryButton" runat="server" Text="View My History" CssClass="custom-button" OnClick="ViewHistoryButton_Click" />
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-6 mx-auto form-wrapper">
