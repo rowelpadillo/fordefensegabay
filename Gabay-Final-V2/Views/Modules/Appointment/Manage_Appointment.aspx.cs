@@ -327,11 +327,11 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                                                 <a href='https://localhost:44341/Landing_Page/LandingPage.aspx' style='display: inline-block; padding: 10px; background-color: #007BFF; color: #fff; text-decoration: none; margin-top: 20px;'>Go to GABAY</a>
                                                 </div>";
 
-                            var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+                            var logoImage = builder.LinkedResources.Add("C:\\Users\\RJPadz\\source\\repos\\finalsystemGabay\\Gabay_final_v2_prototype\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
                             logoImage.ContentId = "logo-image";
                             logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
 
-                            var qrCodeImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\tempIcons\\reschedule-icon-6.jpg");
+                            var qrCodeImage = builder.LinkedResources.Add("C:\\Users\\RJPadz\\source\\repos\\finalsystemGabay\\Gabay_final_v2_prototype\\Gabay-Final-V2\\Resources\\Images\\tempIcons\\reschedule-icon-6.jpg");
                             qrCodeImage.ContentId = "resched-image";
                             qrCodeImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
 
@@ -498,7 +498,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                                                 <p><b>Destination:</b> {destination}</p>
                                                 </div>";
 
-                            var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+                            var logoImage = builder.LinkedResources.Add("C:\\Users\\RJPadz\\source\\repos\\finalsystemGabay\\Gabay_final_v2_prototype\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
                             logoImage.ContentId = "logo-image";
                             logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
 
@@ -655,11 +655,11 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                                                 <p>Thank you!</p>
                                                 </div>";
 
-                            var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+                            var logoImage = builder.LinkedResources.Add("C:\\Users\\RJPadz\\source\\repos\\finalsystemGabay\\Gabay_final_v2_prototype\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
                             logoImage.ContentId = "logo-image";
                             logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
 
-                            var qrCodeImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\tempIcons\\error.png");
+                            var qrCodeImage = builder.LinkedResources.Add("C:\\Users\\RJPadz\\source\\repos\\finalsystemGabay\\Gabay_final_v2_prototype\\Gabay-Final-V2\\Resources\\Images\\tempIcons\\error.png");
                             qrCodeImage.ContentId = "erro-image";
                             qrCodeImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
 

@@ -458,8 +458,8 @@ namespace Gabay_Final_V2.Models
 			
 
 			var builder = new BodyBuilder();
-			string logoImageBase64 = ConvertImageToBase64("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\tempIcons\\verified.png");
-			string checkImageBase64 = ConvertImageToBase64("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+			string logoImageBase64 = ConvertImageToBase64("C:\\Users\\RJPadz\\source\\repos\\finalsystemGabay\\Gabay_final_v2_prototype\\Gabay-Final-V2\\Resources\\Images\\tempIcons\\verified.png");
+			string checkImageBase64 = ConvertImageToBase64("C:\\Users\\RJPadz\\source\\repos\\finalsystemGabay\\Gabay_final_v2_prototype\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
 			builder.HtmlBody = "<!DOCTYPE html>"+
 				"<html>" +
 				"<head>" +

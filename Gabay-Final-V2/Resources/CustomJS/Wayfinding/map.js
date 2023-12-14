@@ -3696,7 +3696,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 6200);
             setTimeout(function () {
                 hideMaps(), hideRoute()
-                msg.text = "Then turn left to Male Comfort room";
+                msg.text = "Then turn right to Male Comfort room";
                 window.speechSynthesis.speak(msg);
                 map9.style.display = 'block';
                 showRoute(rtmcrmez, oldbtn1, rtte16, oldbtn1);
@@ -3722,7 +3722,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 6200);
             setTimeout(function () {
                 hideMaps(), hideRoute()
-                msg.text = "Then turn left to Female Comfort room";
+                msg.text = "Then turn right to Female Comfort room";
                 window.speechSynthesis.speak(msg);
                 map9.style.display = 'block';
                 showRoute(rtfcrmez, oldbtn1, rtte16, oldbtn1);
@@ -3748,7 +3748,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 6200);
             setTimeout(function () {
                 hideMaps(), hideRoute()
-                msg.text = "Then turn left and go straight.. on your left side is the Student Affairs Office";
+                msg.text = "Then turn right and go straight.. on your left side is the Student Affairs Office";
                 window.speechSynthesis.speak(msg);
                 map9.style.display = 'block';
                 showRoute(rtsao, oldbtn1, rtte16, oldbtn1);
@@ -3930,7 +3930,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 6200);
             setTimeout(function () {
                 hideMaps(), hideRoute()
-                msg.text = "Then turn left and go straight ahead to room m-a-3";
+                msg.text = "Then turn right and go straight ahead to room m-a-3";
                 window.speechSynthesis.speak(msg);
                 map9.style.display = 'block';
                 showRoute(rtma3, oldbtn1, rtte16, oldbtn1);
@@ -3956,7 +3956,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 6200);
             setTimeout(function () {
                 hideMaps(), hideRoute()
-                msg.text = "Then turn left and go straight to room m-a-2";
+                msg.text = "Then turn right and go straight to room m-a-2";
                 window.speechSynthesis.speak(msg);
                 map9.style.display = 'block';
                 showRoute(rtma2, anxbtn2, rtte16, oldbtn1);
@@ -6564,7 +6564,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showRoute(rtg2toc2, anxbtn2, rtsao, oldbtn1);
             setTimeout(function () {
                 hideMaps(), hideRoute()
-                msg.text = "Then turn left to Male Comfort room";
+                msg.text = "Then turn right to Male Comfort room";
                 window.speechSynthesis.speak(msg);
                 map9.style.display = 'block';
                 showRoute(rtmcrmez, oldbtn1, rtte16, oldbtn1);
@@ -6583,7 +6583,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showRoute(rtg2toc2, anxbtn2, rtsao, oldbtn1);
             setTimeout(function () {
                 hideMaps(), hideRoute()
-                msg.text = "Then turn left to Female Comfort room";
+                msg.text = "Then turn right to Female Comfort room";
                 window.speechSynthesis.speak(msg);
                 map9.style.display = 'block';
                 showRoute(rtfcrmez, oldbtn1, rtte16, oldbtn1);
@@ -6601,7 +6601,7 @@ document.addEventListener('DOMContentLoaded', function () {
             showRoute(rtg2toc2, anxbtn2, rtsao, oldbtn1);
             setTimeout(function () {
                 hideMaps(), hideRoute()
-                msg.text = "Then turn left and go straight.. on your left side is the Student Affairs Office";
+                msg.text = "Then turn right and go straight.. on your left side is the Student Affairs Office";
                 window.speechSynthesis.speak(msg);
                 map9.style.display = 'block';
                 showRoute(rtsao, oldbtn1, rtte16, oldbtn1);

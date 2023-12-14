@@ -193,7 +193,7 @@ namespace Gabay_Final_V2.Views.Modules.Appointment
                                                 <p><b>Destination:</b> {destination}</p>
                                                 </div>";
 
-                            var logoImage = builder.LinkedResources.Add("C:\\Users\\quiro\\source\\repos\\Gabay-Final-V2\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
+                            var logoImage = builder.LinkedResources.Add("C:\\Users\\RJPadz\\source\\repos\\finalsystemGabay\\Gabay_final_v2_prototype\\Gabay-Final-V2\\Resources\\Images\\UC-LOGO.png");
                             logoImage.ContentId = "logo-image";
                             logoImage.ContentDisposition = new ContentDisposition(ContentDisposition.Inline);
 
